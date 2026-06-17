@@ -359,28 +359,28 @@ export default function HomePage() {
 
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] sm:min-h-screen flex items-center pt-24 sm:pt-36 md:pt-16 overflow-hidden">
+      <section className="relative min-h-[90vh] sm:min-h-screen flex items-start sm:items-center pt-32 sm:pt-36 md:pt-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-50" />
         <div className="absolute top-10 left-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-blue-100/40 rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-orange-100/30 rounded-full blur-3xl" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-16 sm:py-20 lg:py-28 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:py-20 lg:py-28 w-full">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div className="text-center lg:text-left order-2 lg:order-1">
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 mb-4 sm:mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-slate-200 shadow-sm">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6 sm:mb-8">
+                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white rounded-full border border-slate-200 shadow-sm">
                   <span className="flex h-2 w-2 relative">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                   </span>
                   <span className="text-xs sm:text-sm font-semibold text-slate-700">India&apos;s First <span className="text-blue-600 mx-1">•</span> <span className="text-slate-900 font-bold">5-Min Delivery</span></span>
                 </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full shadow-sm">
+                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-50 border border-blue-100 rounded-full shadow-sm">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  <span className="text-xs sm:text-sm font-bold text-slate-800">100+ Ongoing Train Deliveries</span>
+                  <span className="text-xs sm:text-sm font-bold text-slate-800">100+ Train Deliveries</span>
                 </div>
               </div>
 
