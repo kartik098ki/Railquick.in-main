@@ -14,6 +14,7 @@ import {
   Bath,
   Cookie,
   Zap,
+  Clock,
   CheckCircle2,
   Box,
   Star,
@@ -76,40 +77,35 @@ const steps = [
 
 const products = [
   {
-    title: 'Medicines',
-    description: 'Essential medicines and basic medical supplies.',
-    bg: 'bg-slate-50',
-    icon: <Pill className="w-6 h-6 text-slate-600" />
+    title: '24/7 Dedicated Support',
+    description: 'Need help? Reach out to our dedicated support team anytime for any inquiries as we prepare for launch.',
+    bg: 'bg-blue-50',
+    icon: <Clock className="w-6 h-6 text-blue-600" />,
+    wide: true,
   },
   {
     title: 'Travel Essentials',
     description: 'Blankets, pillows, locks, and travel accessories.',
     bg: 'bg-slate-50',
-    icon: <Package className="w-6 h-6 text-slate-600" />
+    icon: <Package className="w-6 h-6 text-slate-600" />,
   },
   {
     title: 'Electronics',
     description: 'Chargers, power banks, earphones and gadgets.',
     bg: 'bg-slate-50',
-    icon: <Smartphone className="w-6 h-6 text-slate-600" />
+    icon: <Smartphone className="w-6 h-6 text-slate-600" />,
   },
   {
     title: 'City Famous',
     description: 'Specialities and famous items from your current city.',
     bg: 'bg-slate-50',
-    icon: <Building2 className="w-6 h-6 text-slate-600" />
-  },
-  {
-    title: 'Hygiene',
-    description: 'Personal hygiene products and daily essentials.',
-    bg: 'bg-slate-50',
-    icon: <Bath className="w-6 h-6 text-slate-600" />
+    icon: <Building2 className="w-6 h-6 text-slate-600" />,
   },
   {
     title: 'Snacks',
     description: 'Quick munchies and travel-friendly snacks.',
     bg: 'bg-slate-50',
-    icon: <Cookie className="w-6 h-6 text-slate-600" />
+    icon: <Cookie className="w-6 h-6 text-slate-600" />,
   },
 ];
 
@@ -622,24 +618,104 @@ export default function HomePage() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">Curated essentials for every journey</h2>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-            {products.map((product, index) => (
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+            {/* 24/7 Support — spans full width on mobile, full width on desktop too */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="col-span-2 group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-blue-50 border border-blue-100 hover:border-blue-300 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                  <Clock className="w-6 h-6 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">24/7 Dedicated Support</h3>
+                  <p className="text-slate-600 leading-relaxed text-xs sm:text-base">Need help? Reach out to our dedicated support team anytime for any inquiries as we prepare for launch.</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Travel Essentials */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                  <Package className="w-6 h-6 text-slate-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">Travel Essentials</h3>
+                  <p className="text-slate-600 leading-relaxed text-xs sm:text-base">Blankets, pillows, locks, and travel accessories.</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Medicines + Hygiene — combined card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative z-10">
+                {/* Two items stacked inside one card */}
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0">
+                      <Pill className="w-5 h-5 text-slate-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm sm:text-lg font-bold text-slate-900">Medicines</h3>
+                      <p className="text-slate-500 text-xs sm:text-sm">Essential medicines &amp; medical supplies.</p>
+                    </div>
+                  </div>
+                  <div className="w-full h-px bg-slate-200" />
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0">
+                      <Bath className="w-5 h-5 text-slate-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm sm:text-lg font-bold text-slate-900">Hygiene</h3>
+                      <p className="text-slate-500 text-xs sm:text-sm">Personal hygiene &amp; daily essentials.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Remaining products */}
+            {[
+              { title: 'Electronics', desc: 'Chargers, power banks, earphones and gadgets.', icon: <Smartphone className="w-6 h-6 text-slate-600" /> },
+              { title: 'City Famous', desc: 'Specialities and famous items from your current city.', icon: <Building2 className="w-6 h-6 text-slate-600" /> },
+              { title: 'Snacks', desc: 'Quick munchies and travel-friendly snacks.', icon: <Cookie className="w-6 h-6 text-slate-600" /> },
+            ].map((item, i) => (
               <motion.div
-                key={index}
+                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`group p-4 sm:p-8 rounded-2xl sm:rounded-3xl ${product.bg} border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden`}
+                transition={{ duration: 0.5, delay: (i + 2) * 0.1 }}
+                className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                    {product.icon}
+                    {item.icon}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">{product.title}</h3>
-                    <p className="text-slate-600 leading-relaxed text-xs sm:text-base">{product.description}</p>
+                    <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">{item.title}</h3>
+                    <p className="text-slate-600 leading-relaxed text-xs sm:text-base">{item.desc}</p>
                   </div>
                 </div>
               </motion.div>
