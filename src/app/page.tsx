@@ -15,6 +15,7 @@ import {
   Cookie,
   Zap,
   Clock,
+  Sparkles,
   CheckCircle2,
   Box,
   Star,
@@ -659,7 +660,7 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* Medicines + Hygiene — combined card */}
+            {/* Medicines */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -668,28 +669,33 @@ export default function HomePage() {
               className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative z-10">
-                {/* Two items stacked inside one card */}
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0">
-                      <Pill className="w-5 h-5 text-slate-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm sm:text-lg font-bold text-slate-900">Medicines</h3>
-                      <p className="text-slate-500 text-xs sm:text-sm">Essential medicines &amp; medical supplies.</p>
-                    </div>
-                  </div>
-                  <div className="w-full h-px bg-slate-200" />
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0">
-                      <Bath className="w-5 h-5 text-slate-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm sm:text-lg font-bold text-slate-900">Hygiene</h3>
-                      <p className="text-slate-500 text-xs sm:text-sm">Personal hygiene &amp; daily essentials.</p>
-                    </div>
-                  </div>
+              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                  <Pill className="w-6 h-6 text-slate-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">Medicines</h3>
+                  <p className="text-slate-600 leading-relaxed text-xs sm:text-base">Essential medicines and basic medical supplies.</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Hygiene */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                  <Sparkles className="w-6 h-6 text-slate-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">Hygiene</h3>
+                  <p className="text-slate-600 leading-relaxed text-xs sm:text-base">Personal hygiene products and daily essentials.</p>
                 </div>
               </div>
             </motion.div>
