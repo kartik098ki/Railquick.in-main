@@ -361,74 +361,73 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Mobile Hero */}
-        <div className="md:hidden relative min-h-screen flex flex-col">
-          {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-slate-900" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(6,182,212,0.3),transparent_60%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(59,130,246,0.2),transparent_60%)]" />
-          {/* Subtle dot grid */}
-          <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px'}} />
+        <div className="md:hidden relative min-h-screen flex flex-col bg-white">
+          {/* Subtle background blobs */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-80" />
+          <div className="absolute bottom-20 left-0 w-48 h-48 bg-slate-50 rounded-full blur-2xl" />
 
           <div className="relative flex flex-col flex-1 px-5 pt-32 pb-10">
-            {/* Top badge */}
-            <div className="flex items-center gap-2 mb-6">
-              <div className="flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5">
+            {/* Top badges */}
+            <div className="flex items-center gap-2 mb-7 flex-wrap">
+              <div className="flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-3 py-1.5">
                 <span className="flex h-2 w-2 relative">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </span>
-                <span className="text-white/90 text-xs font-semibold">Live · 100+ Deliveries</span>
+                <span className="text-blue-700 text-xs font-bold">India&apos;s First · 5-Min Delivery</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5">
-                <span className="text-white/90 text-xs font-semibold">🇮🇳 India&apos;s First</span>
+              <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-100 rounded-full px-3 py-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-emerald-700 text-xs font-bold">100+ Live Deliveries</span>
               </div>
             </div>
 
             {/* Main headline */}
-            <h1 className="text-5xl font-black text-white leading-[1.05] tracking-tight mb-4">
+            <h1 className="text-[52px] font-black text-slate-900 leading-[1.0] tracking-tight mb-4">
               <span className="block">Train</span>
-              <span className="block bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent">On-Seat</span>
-              <span className="block text-white/95">Delivery</span>
+              <span className="block bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">On-Seat</span>
+              <span className="block">Delivery</span>
             </h1>
 
-            <p className="text-white/70 text-base leading-relaxed mb-8 max-w-xs">
-              Essentials delivered directly to your seat while the train is moving. 5-minute delivery.
+            <p className="text-slate-500 text-base leading-relaxed mb-8">
+              Get essentials delivered right to your seat while the train is moving. Fast, verified, reliable.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col gap-3 mb-8">
               <button
                 onClick={() => setShowModal(true)}
-                className="w-full py-4 bg-white text-blue-700 rounded-2xl text-base font-black tracking-tight shadow-lg shadow-blue-900/30 active:scale-95 transition-transform"
+                className="w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg shadow-slate-900/20 active:scale-95 transition-transform"
               >
-                🚀 Test Now — It&apos;s Free
+                Test Now — It&apos;s Free 🚀
               </button>
               <Link href="/test-phase" className="w-full">
-                <button className="w-full py-4 bg-white/10 backdrop-blur-md border border-white/25 text-white rounded-2xl text-base font-bold active:scale-95 transition-transform">
+                <button className="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 rounded-2xl text-base font-semibold active:scale-95 transition-transform hover:border-slate-400">
                   Learn About Test Phase →
                 </button>
               </Link>
             </div>
 
             {/* Delivery card */}
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 mb-6">
+            <div className="bg-white border border-slate-100 rounded-2xl p-4 mb-5 shadow-sm">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center text-xl shadow-lg">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center text-xl">
                   📦
                 </div>
-                <div>
-                  <p className="text-white font-bold text-sm">Order Ready!</p>
-                  <p className="text-white/60 text-xs">Seat 42, Coach B3 · New Delhi → Mumbai</p>
+                <div className="flex-1">
+                  <p className="text-slate-900 font-bold text-sm">Order Ready!</p>
+                  <p className="text-slate-400 text-xs">Seat 42, Coach B3 · New Delhi → Mumbai</p>
                 </div>
-                <div className="ml-auto flex items-center gap-1 bg-emerald-500/20 border border-emerald-400/30 rounded-full px-2.5 py-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
-                  <span className="text-emerald-300 text-xs font-bold">Live</span>
+                <div className="flex items-center gap-1 bg-emerald-50 border border-emerald-100 rounded-full px-2.5 py-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                  <span className="text-emerald-600 text-xs font-bold">Live</span>
                 </div>
               </div>
               <div className="flex gap-2">
-                {['💊 Medicine', '🔌 Charger', '💧 Water'].map((item, i) => (
-                  <div key={i} className="flex-1 bg-white/10 border border-white/15 rounded-xl py-2 px-1 text-center">
-                    <p className="text-white text-xs font-semibold">{item}</p>
+                {[{e:'💊',l:'Medicine'},{e:'🔌',l:'Charger'},{e:'💧',l:'Water'}].map((item, i) => (
+                  <div key={i} className="flex-1 bg-slate-50 border border-slate-100 rounded-xl py-2.5 px-1 text-center">
+                    <p className="text-base">{item.e}</p>
+                    <p className="text-slate-600 text-xs font-medium mt-0.5">{item.l}</p>
                   </div>
                 ))}
               </div>
@@ -439,16 +438,17 @@ export default function HomePage() {
               {[
                 { value: '5 Min', label: 'Delivery' },
                 { value: '400+', label: 'Testers' },
-                { value: '4 Hubs', label: 'Delhi' },
+                { value: '4 Hubs', label: 'In Delhi' },
               ].map((s, i) => (
-                <div key={i} className="bg-white/8 border border-white/15 rounded-xl p-3 text-center">
-                  <p className="text-white font-black text-lg leading-none">{s.value}</p>
-                  <p className="text-white/50 text-xs mt-1">{s.label}</p>
+                <div key={i} className="bg-slate-50 border border-slate-100 rounded-xl p-3 text-center">
+                  <p className="text-slate-900 font-black text-lg leading-none">{s.value}</p>
+                  <p className="text-slate-400 text-xs mt-1">{s.label}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
+
 
         {/* Desktop Hero */}
         <div className="hidden md:flex relative min-h-screen items-center pt-16 overflow-hidden">
