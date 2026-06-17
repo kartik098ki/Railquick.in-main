@@ -1,0 +1,452 @@
+"use client";
+
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
+import { 
+  Zap, 
+  TrendingUp, 
+  HeartHandshake, 
+  Briefcase, 
+  MapPin, 
+  CheckCircle2, 
+  ChevronRight,
+  Flame,
+  Sparkles
+} from "lucide-react";
+
+const HIRING_API = '/api/hiring';
+
+async function submitToSheetDB(data: Record<string, string>) {
+  const response = await fetch(HIRING_API, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  });
+  return response.ok;
+}
+
+const perks = [
+  {
+    icon: <Zap className="w-6 h-6" />,
+    title: 'High Impact',
+    description: 'Work on problems that solve real daily struggles for millions of Indians.',
+    color: 'bg-blue-50 text-blue-600',
+  },
+  {
+    icon: <TrendingUp className="w-6 h-6" />,
+    title: 'Rapid Growth',
+    description: 'Join at the ground floor of a fast-moving logistics startup.',
+    color: 'bg-green-50 text-green-600',
+  },
+  {
+    icon: <HeartHandshake className="w-6 h-6" />,
+    title: 'Open Culture',
+    description: 'We value ideas over hierarchy. If you have a better way, we listen.',
+    color: 'bg-purple-50 text-purple-600',
+  },
+];
+
+const openRoles = [
+  { title: 'Operations Manager', type: 'Full-time', location: 'Delhi' },
+  { title: 'Developer', type: 'Full-time', location: 'Remote' },
+  { title: 'Social Media', type: 'Full-time', location: 'Remote' },
+  { title: 'Others', type: 'Part-time', location: 'Delhi' },
+];
+
+export default function HiringPage() {
+  const [headerScrolled, setHeaderScrolled] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', role: '', reason: '', linkedin: '', journey: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => setHeaderScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleRoleClick = (roleTitle: string) => {
+    setFormData(prev => ({ ...prev, role: roleTitle }));
+    formRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const success = await submitToSheetDB(formData);
+      if (success) {
+        toast({ title: 'Application Submitted!', description: 'We\'ll review and get back to you soon.' });
+        setFormData({ name: '', email: '', phone: '', role: '', reason: '', linkedin: '', journey: '' });
+      } else {
+        toast({ title: 'Error', description: 'Failed to submit application. Please try again.', variant: 'destructive' });
+      }
+    } catch {
+      toast({ title: 'Error', description: 'Something went wrong.', variant: 'destructive' });
+    }
+    setIsSubmitting(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50/50 font-sans selection:bg-blue-100 selection:text-blue-900">
+      {/* Navigation */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerScrolled ? 'bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16 sm:h-20">
+            <Link href="/" className="flex items-center gap-2 group">
+              <img src="/images/logo-full.png" alt="RailQuick" className="h-10 sm:h-12 w-auto mix-blend-multiply" />
+            </Link>
+
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-1 bg-slate-100/50 backdrop-blur-md p-1 rounded-full border border-slate-200/50">
+              {[
+                { label: 'Home', href: '/' },
+                { label: 'About', href: '/about' },
+                { label: 'Test Phase', href: '/test-phase' },
+                { label: 'Contact', href: '/contact' },
+                { label: "We're Hiring", href: '/hiring' },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${item.href === '/hiring'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-505 hover:text-slate-900 hover:bg-white/50'
+                    }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="hidden md:block">
+              <Link href="/#waitlist">
+                <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
+                  Join Waitlist
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Nav Links - Pill Style (Reverted to Scrollable) */}
+        <div className="flex px-4 pb-4 md:hidden">
+          <div className="w-full bg-slate-100/50 backdrop-blur-md border border-slate-200/50 rounded-full p-1 overflow-x-auto no-scrollbar">
+            <div className="flex items-center gap-1 min-w-max">
+              {[
+                { label: "Home", href: "/" },
+                { label: "About", href: "/about" },
+                { label: "Test Phase", href: "/test-phase" },
+                { label: "Contact", href: "/contact" },
+                { label: "Hiring", href: "/hiring" }
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${item.href === "/hiring"
+                    ? "bg-white text-slate-900 shadow-sm"
+                    : "text-slate-505 hover:text-slate-900"
+                    }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section className="pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-32 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
+          <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-50 to-purple-50 rounded-[100%] blur-3xl opacity-60" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white rounded-full border border-slate-200 shadow-sm mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            <span className="text-sm font-semibold text-slate-700">We are hiring!</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-slate-900 mb-6 sm:mb-8 leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-5 duration-700 delay-100">
+            Work at <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">RailQuick</span>
+          </h1>
+
+          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed animate-in fade-in slide-in-from-bottom-6 duration-700 delay-200">
+            We're building the future of train travel in India. It's meaningful work that impacts millions of daily commuters.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-7 duration-700 delay-300">
+            <Button
+              onClick={() => formRef.current?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full sm:w-auto h-12 px-8 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-medium shadow-lg shadow-slate-900/10 transition-all hover:shadow-xl hover:shadow-slate-900/20 hover:-translate-y-0.5"
+            >
+              View Open Roles
+            </Button>
+            <Link href="/about" className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full h-12 px-8 rounded-full border-slate-200 hover:bg-slate-50 hover:text-slate-900 font-medium">
+                Learn about us
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Perks */}
+      <section className="py-16 sm:py-24 bg-white/50 border-y border-slate-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            {perks.map((perk, index) => (
+              <div key={index} className="group p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className={`w-12 h-12 ${perk.color} rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                  {perk.icon}
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{perk.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{perk.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Open Roles & We Test at 100 km/h Spotlight Section */}
+      <section className="py-20 sm:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-10">
+            <div className="max-w-xl">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight px-4 leading-[1.1]">
+                Join the <span className="text-blue-600">RailQuick</span> Team
+              </h1>
+              <p className="text-lg text-slate-600">Find the role that fits your skills and join our mission.</p>
+            </div>
+            <Link href="mailto:contact.railquick@gmail.com" className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-2 group">
+              Don't see your role? Email us <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          {/* Spotlight Card: We Test at 100 km/h (Styled for light theme) */}
+          <div className="mb-12 bg-gradient-to-br from-indigo-900 via-indigo-950 to-blue-950 rounded-2xl sm:rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden group shadow-xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold border border-white/20">
+                  <Flame className="w-4 h-4 text-orange-400" /> Built & Tested in Motion
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">We Test at 100 km/h</h2>
+                <p className="text-indigo-100 text-base sm:text-lg max-w-xl leading-relaxed">
+                  Our developers and operators don't just sit behind desks. We validate our code and logistics in the real world — directly on running trains. If you love building systems that survive the ultimate pressure test, you belong here.
+                </p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-md border border-white/15 rounded-2xl p-6 max-w-md w-full shadow-inner">
+                <h4 className="text-lg font-semibold text-white flex items-center gap-2 mb-3">
+                  <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" /> What we look for:
+                </h4>
+                <ul className="space-y-2.5 text-sm text-indigo-100">
+                  <li className="flex gap-2"><strong>01</strong> <span><strong>Relentless Execution:</strong> You prefer building and testing in the field.</span></li>
+                  <li className="flex gap-2"><strong>02</strong> <span><strong>Extreme Curiosity:</strong> Ready to solve problems outside your comfort zone.</span></li>
+                  <li className="flex gap-2"><strong>03</strong> <span><strong>Empathy:</strong> You care deeply about helping train passengers.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {openRoles.map((role, index) => (
+              <div
+                key={index}
+                onClick={() => handleRoleClick(role.title)}
+                className="group relative bg-white/60 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.1)] hover:border-blue-500/30 transition-all duration-500 cursor-pointer overflow-hidden"
+              >
+                <div className={`absolute -right-4 -top-4 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700`} />
+                <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="flex items-center gap-1 text-sm font-semibold text-blue-600">
+                    Apply Now <ChevronRight className="w-4 h-4" />
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">{role.title}</h3>
+
+                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-505">
+                  <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-md">
+                    <Briefcase className="w-4 h-4" />
+                    <span>{role.type}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-md">
+                    <MapPin className="w-4 h-4" />
+                    <span>{role.location}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Application Form */}
+      <section ref={formRef} className="py-20 sm:py-32 bg-white relative">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Ready to join?</h2>
+            <p className="text-lg text-slate-650">Tell us a bit about yourself. We read every application.</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-700">Full Name</label>
+                <Input
+                  required
+                  placeholder="John Doe"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-700">Email Address</label>
+                <Input
+                  required
+                  type="email"
+                  placeholder="john@example.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all"
+                />
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-700">Phone Number</label>
+                <Input
+                  required
+                  type="tel"
+                  placeholder="+91 98765 43210"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-700">Role Applying For</label>
+                <Input
+                  required
+                  placeholder="Select a role above"
+                  value={formData.role}
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium text-slate-900"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">LinkedIn Profile / Portfolio</label>
+              <Input
+                required
+                type="url"
+                placeholder="https://linkedin.com/in/johndoe"
+                value={formData.linkedin}
+                onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
+                className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Why RailQuick?</label>
+              <Textarea
+                required
+                placeholder="What excites you about our mission?"
+                value={formData.reason}
+                onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
+                className="min-h-[120px] bg-slate-50 border-slate-200 focus:bg-white transition-all resize-none p-4"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Tell us about your journey</label>
+              <Textarea
+                required
+                placeholder="What have you built or achieved that you're proud of?"
+                value={formData.journey}
+                onChange={(e) => setFormData({ ...formData, journey: e.target.value })}
+                className="min-h-[120px] bg-slate-50 border-slate-200 focus:bg-white transition-all resize-none p-4"
+              />
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full h-14 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold shadow-xl shadow-slate-900/10 transition-all hover:shadow-2xl hover:shadow-slate-900/20 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Submitting Application...
+                </span>
+              ) : (
+                'Submit Application'
+              )}
+            </Button>
+          </form>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-950 pt-12 sm:pt-14 pb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-4 gap-8 mb-10">
+            <div className="md:col-span-2">
+              <Link href="/" className="inline-block mb-3 bg-white p-2 rounded-xl shadow-sm">
+                <img src="/images/logo-full.png" alt="RailQuick" className="h-10 sm:h-12 w-auto" />
+              </Link>
+              <p className="text-sm sm:text-base text-slate-400 mb-5 max-w-sm">Your journey, our priority. Revolutionizing train travel with on-seat essential delivery.</p>
+              <div className="flex gap-2 sm:gap-3">
+                <a href="https://www.linkedin.com/company/railquick/?viewAsMember=true" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 bg-slate-800 rounded-lg sm:rounded-xl flex items-center justify-center text-slate-400 hover:bg-white hover:text-slate-900 transition-all">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                </a>
+                <a href="https://www.youtube.com/@Railquick" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 bg-slate-800 rounded-lg sm:rounded-xl flex items-center justify-center text-slate-400 hover:bg-white hover:text-slate-900 transition-all">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+                <a href="mailto:contact.railquick@gmail.com" className="w-9 h-9 sm:w-10 sm:h-10 bg-slate-800 rounded-lg sm:rounded-xl flex items-center justify-center text-slate-400 hover:bg-white hover:text-slate-900 transition-all">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-white font-semibold mb-3 text-sm sm:text-base">Quick Links</h4>
+              <div className="space-y-2 sm:space-y-3">
+                <Link href="/" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">Home</Link>
+                <Link href="/about" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">About Us</Link>
+                <Link href="/test-phase" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">Test Phase</Link>
+                <Link href="/contact" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">Contact</Link>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-white font-semibold mb-3 text-sm sm:text-base">Contact</h4>
+              <div className="space-y-2 sm:space-y-3 text-slate-400 text-sm sm:text-base">
+                <p>contact.railquick@gmail.com</p>
+                <p>Delhi, India</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 pt-6 text-center">
+            <p className="text-slate-500 text-sm">© 2026 RailQuick. Revolutionizing train travel.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
