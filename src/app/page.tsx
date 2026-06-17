@@ -399,7 +399,7 @@ export default function HomePage() {
                 onClick={() => setShowModal(true)}
                 className="w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg shadow-slate-900/20 active:scale-95 transition-transform"
               >
-                Test Now — It&apos;s Free 🚀
+                Test Now 🚀
               </button>
               <Link href="/test-phase" className="w-full">
                 <button className="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 rounded-2xl text-base font-semibold active:scale-95 transition-transform hover:border-slate-400">
@@ -408,41 +408,17 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Delivery card */}
-            <div className="bg-white border border-slate-100 rounded-2xl p-4 mb-5 shadow-sm">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center text-xl">
-                  📦
-                </div>
-                <div className="flex-1">
-                  <p className="text-slate-900 font-bold text-sm">Order Ready!</p>
-                  <p className="text-slate-400 text-xs">Seat 42, Coach B3 · New Delhi → Mumbai</p>
-                </div>
-                <div className="flex items-center gap-1 bg-emerald-50 border border-emerald-100 rounded-full px-2.5 py-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                  <span className="text-emerald-600 text-xs font-bold">Live</span>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                {[{e:'💊',l:'Medicine'},{e:'🔌',l:'Charger'},{e:'💧',l:'Water'}].map((item, i) => (
-                  <div key={i} className="flex-1 bg-slate-50 border border-slate-100 rounded-xl py-2.5 px-1 text-center">
-                    <p className="text-base">{item.e}</p>
-                    <p className="text-slate-600 text-xs font-medium mt-0.5">{item.l}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Stats row */}
-            <div className="grid grid-cols-3 gap-3">
+            {/* Stats grid - matching main stats section style */}
+            <div className="grid grid-cols-2 gap-3">
               {[
-                { value: '5 Min', label: 'Delivery' },
+                { value: '100+', label: 'Ongoing Train Deliveries' },
                 { value: '400+', label: 'Testers' },
-                { value: '4 Hubs', label: 'In Delhi' },
+                { value: '5', label: 'Routes' },
+                { value: '1000+', label: 'Interactions' },
               ].map((s, i) => (
-                <div key={i} className="bg-slate-50 border border-slate-100 rounded-xl p-3 text-center">
-                  <p className="text-slate-900 font-black text-lg leading-none">{s.value}</p>
-                  <p className="text-slate-400 text-xs mt-1">{s.label}</p>
+                <div key={i} className="bg-slate-50 border border-slate-100 rounded-2xl p-4 text-center">
+                  <p className="text-slate-900 font-black text-2xl leading-none mb-1">{s.value}</p>
+                  <p className="text-slate-500 text-xs font-medium uppercase tracking-wide">{s.label}</p>
                 </div>
               ))}
             </div>
@@ -700,13 +676,17 @@ export default function HomePage() {
       </section>
 
       {/* Stats */}
-      <section className="py-10 sm:py-14 lg:py-16 bg-slate-900">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="text-center mb-10">
+            <p className="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">By the numbers</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Growing every day</h2>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-xs sm:text-sm text-slate-400 uppercase tracking-wider font-medium">{stat.label}</div>
+              <div key={index} className="group bg-slate-50 border border-slate-100 rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 group-hover:text-white mb-2 transition-colors">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-slate-500 group-hover:text-blue-100 uppercase tracking-wider font-semibold transition-colors">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -882,6 +862,7 @@ export default function HomePage() {
                 <Link href="/about" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">About Us</Link>
                 <Link href="/test-phase" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">Test Phase</Link>
                 <Link href="/contact" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">Contact</Link>
+                <Link href="/hiring" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">We&apos;re Hiring 🚀</Link>
               </div>
             </div>
 
