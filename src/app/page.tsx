@@ -359,90 +359,177 @@ export default function HomePage() {
 
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] sm:min-h-screen flex items-start sm:items-center pt-32 sm:pt-36 md:pt-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-50" />
-        <div className="absolute top-10 left-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-blue-100/40 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-orange-100/30 rounded-full blur-3xl" />
+      <section className="relative overflow-hidden">
+        {/* Mobile Hero */}
+        <div className="md:hidden relative min-h-screen flex flex-col">
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-slate-900" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(6,182,212,0.3),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(59,130,246,0.2),transparent_60%)]" />
+          {/* Subtle dot grid */}
+          <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px'}} />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:py-20 lg:py-28 w-full">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <div className="text-center lg:text-left order-2 lg:order-1">
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6 sm:mb-8">
-                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white rounded-full border border-slate-200 shadow-sm">
-                  <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                  </span>
-                  <span className="text-xs sm:text-sm font-semibold text-slate-700">India&apos;s First <span className="text-blue-600 mx-1">•</span> <span className="text-slate-900 font-bold">5-Min Delivery</span></span>
-                </div>
-                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-50 border border-blue-100 rounded-full shadow-sm">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                  <span className="text-xs sm:text-sm font-bold text-slate-800">100+ Train Deliveries</span>
-                </div>
+          <div className="relative flex flex-col flex-1 px-5 pt-32 pb-10">
+            {/* Top badge */}
+            <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5">
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                </span>
+                <span className="text-white/90 text-xs font-semibold">Live · 100+ Deliveries</span>
               </div>
-
-              <h1 className="flex flex-col text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-tight mb-6 sm:mb-8">
-                <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Train On-Seat</span>
-                <span className="mt-2 sm:mt-0">Essential Delivery</span>
-              </h1>
-
-              <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-lg mx-auto lg:mx-0 mb-8 sm:mb-10 leading-relaxed">
-                Essentials Delivered Directly to Your Train Seat
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 relative">
-                <div className="w-full sm:w-auto relative">
-                  <Button
-                    onClick={() => setShowModal(true)}
-                    className="w-full sm:w-auto px-8 py-7 bg-slate-900 text-white hover:bg-slate-800 rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-xl shadow-slate-200"
-                  >
-                    Test Now
-                  </Button>
-                </div>
-                <Link href="/test-phase" className="w-full sm:w-auto">
-                  <Button variant="outline" className="w-full sm:w-auto px-8 py-7 border-2 border-slate-200 hover:border-slate-900 rounded-2xl text-lg font-bold transition-all hover:scale-105">
-                    Test Phase
-                  </Button>
-                </Link>
+              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5">
+                <span className="text-white/90 text-xs font-semibold">🇮🇳 India&apos;s First</span>
               </div>
             </div>
 
-            {/* Hero Visual */}
-            <div className="relative hidden sm:flex justify-center order-1 lg:order-2 lg:scale-110">
-              <div className="relative bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-xl border border-slate-100 max-w-xs sm:max-w-sm w-full">
-                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center text-white text-lg sm:text-xl">
-                    📦
+            {/* Main headline */}
+            <h1 className="text-5xl font-black text-white leading-[1.05] tracking-tight mb-4">
+              <span className="block">Train</span>
+              <span className="block bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent">On-Seat</span>
+              <span className="block text-white/95">Delivery</span>
+            </h1>
+
+            <p className="text-white/70 text-base leading-relaxed mb-8 max-w-xs">
+              Essentials delivered directly to your seat while the train is moving. 5-minute delivery.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col gap-3 mb-8">
+              <button
+                onClick={() => setShowModal(true)}
+                className="w-full py-4 bg-white text-blue-700 rounded-2xl text-base font-black tracking-tight shadow-lg shadow-blue-900/30 active:scale-95 transition-transform"
+              >
+                🚀 Test Now — It&apos;s Free
+              </button>
+              <Link href="/test-phase" className="w-full">
+                <button className="w-full py-4 bg-white/10 backdrop-blur-md border border-white/25 text-white rounded-2xl text-base font-bold active:scale-95 transition-transform">
+                  Learn About Test Phase →
+                </button>
+              </Link>
+            </div>
+
+            {/* Delivery card */}
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 mb-6">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center text-xl shadow-lg">
+                  📦
+                </div>
+                <div>
+                  <p className="text-white font-bold text-sm">Order Ready!</p>
+                  <p className="text-white/60 text-xs">Seat 42, Coach B3 · New Delhi → Mumbai</p>
+                </div>
+                <div className="ml-auto flex items-center gap-1 bg-emerald-500/20 border border-emerald-400/30 rounded-full px-2.5 py-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                  <span className="text-emerald-300 text-xs font-bold">Live</span>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                {['💊 Medicine', '🔌 Charger', '💧 Water'].map((item, i) => (
+                  <div key={i} className="flex-1 bg-white/10 border border-white/15 rounded-xl py-2 px-1 text-center">
+                    <p className="text-white text-xs font-semibold">{item}</p>
                   </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 text-sm sm:text-base">Order Ready</p>
-                    <p className="text-xs sm:text-sm text-slate-500">Seat 42, Coach B3</p>
+                ))}
+              </div>
+            </div>
+
+            {/* Stats row */}
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { value: '5 Min', label: 'Delivery' },
+                { value: '400+', label: 'Testers' },
+                { value: '4 Hubs', label: 'Delhi' },
+              ].map((s, i) => (
+                <div key={i} className="bg-white/8 border border-white/15 rounded-xl p-3 text-center">
+                  <p className="text-white font-black text-lg leading-none">{s.value}</p>
+                  <p className="text-white/50 text-xs mt-1">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Hero */}
+        <div className="hidden md:flex relative min-h-screen items-center pt-16 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-50" />
+          <div className="absolute top-10 left-0 w-[500px] h-[500px] bg-blue-100/40 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-0 w-[400px] h-[400px] bg-orange-100/30 rounded-full blur-3xl" />
+
+          <div className="relative max-w-7xl mx-auto px-6 py-20 lg:py-28 w-full">
+            <div className="grid lg:grid-cols-2 gap-14 items-center">
+              <div className="text-left">
+                <div className="flex items-center gap-2 mb-8">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-slate-200 shadow-sm">
+                    <span className="flex h-2 w-2 relative">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <span className="text-sm font-semibold text-slate-700">India&apos;s First <span className="text-blue-600 mx-1">•</span> <span className="text-slate-900 font-bold">5-Min Delivery</span></span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full shadow-sm">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span className="text-sm font-bold text-slate-800">100+ Ongoing Train Deliveries</span>
                   </div>
                 </div>
 
-                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
-                  {['Medicines', 'Charger', 'Water'].map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-slate-50 rounded-lg sm:rounded-xl">
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-100 rounded-md sm:rounded-lg flex items-center justify-center">
-                        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-slate-700 text-sm sm:text-base">{item}</span>
-                    </div>
-                  ))}
-                </div>
+                <h1 className="flex flex-col text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-tight mb-8">
+                  <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Train On-Seat</span>
+                  <span>Essential Delivery</span>
+                </h1>
 
-                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full w-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full" />
+                <p className="text-xl lg:text-2xl text-slate-600 max-w-lg mb-10 leading-relaxed">
+                  Essentials Delivered Directly to Your Train Seat
+                </p>
+
+                <div className="flex items-center gap-4">
+                  <Button
+                    onClick={() => setShowModal(true)}
+                    className="px-8 py-7 bg-slate-900 text-white hover:bg-slate-800 rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-xl shadow-slate-200"
+                  >
+                    Test Now
+                  </Button>
+                  <Link href="/test-phase">
+                    <Button variant="outline" className="px-8 py-7 border-2 border-slate-200 hover:border-slate-900 rounded-2xl text-lg font-bold transition-all hover:scale-105">
+                      Test Phase
+                    </Button>
+                  </Link>
                 </div>
               </div>
 
-              <div className="absolute -top-3 -right-3 bg-white rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 shadow-md border text-xs sm:text-sm font-semibold text-green-600 animate-float">
-                ✓ Ready to deliver
+              <div className="relative flex justify-center lg:scale-110">
+                <div className="relative bg-white rounded-3xl p-6 shadow-xl border border-slate-100 max-w-sm w-full">
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center text-white text-xl">
+                      📦
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">Order Ready</p>
+                      <p className="text-sm text-slate-500">Seat 42, Coach B3</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3 mb-5">
+                    {['Medicines', 'Charger', 'Water'].map((item, i) => (
+                      <div key={i} className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                        <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                          <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="text-slate-700">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full w-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full" />
+                  </div>
+                </div>
+                <div className="absolute -top-3 -right-3 bg-white rounded-xl px-4 py-2 shadow-md border text-sm font-semibold text-green-600 animate-float">
+                  ✓ Ready to deliver
+                </div>
               </div>
             </div>
           </div>
