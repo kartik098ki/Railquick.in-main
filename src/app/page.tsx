@@ -615,41 +615,39 @@ export default function HomePage() {
       </section>
 
       {/* Products */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-            <p className="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">What We Deliver</p>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">Everything you need,<br className="hidden sm:block" /> right at your seat</h2>
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+            <p className="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3">What We Deliver</p>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">Curated essentials for every journey</h2>
           </div>
 
-          {/* Mobile: scrollable horizontal chips row + vertical cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-6">
-            {[
-              { emoji: '💊', title: 'Medicines', desc: 'Essential medicines & basic medical supplies', color: 'bg-red-50', border: 'border-red-100', iconBg: 'bg-red-100' },
-              { emoji: '🎒', title: 'Travel Essentials', desc: 'Blankets, pillows, locks & travel accessories', color: 'bg-blue-50', border: 'border-blue-100', iconBg: 'bg-blue-100' },
-              { emoji: '📱', title: 'Electronics', desc: 'Chargers, power banks, earphones & gadgets', color: 'bg-purple-50', border: 'border-purple-100', iconBg: 'bg-purple-100' },
-              { emoji: '🏙️', title: 'City Famous', desc: 'Famous local specialities from your city', color: 'bg-amber-50', border: 'border-amber-100', iconBg: 'bg-amber-100' },
-              { emoji: '🧴', title: 'Hygiene', desc: 'Personal hygiene products & daily essentials', color: 'bg-green-50', border: 'border-green-100', iconBg: 'bg-green-100' },
-              { emoji: '🍿', title: 'Snacks', desc: 'Quick munchies & travel-friendly snacks', color: 'bg-orange-50', border: 'border-orange-100', iconBg: 'bg-orange-100' },
-            ].map((item, i) => (
+          <div className="grid grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+            {products.map((product, index) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.07 }}
-                className={`group ${item.color} border ${item.border} rounded-2xl sm:rounded-3xl p-4 sm:p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default`}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`group p-4 sm:p-8 rounded-2xl sm:rounded-3xl ${product.bg} border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden`}
               >
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 ${item.iconBg} rounded-xl sm:rounded-2xl flex items-center justify-center text-xl sm:text-2xl mb-3 sm:mb-4`}>
-                  {item.emoji}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                    {product.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">{product.title}</h3>
+                    <p className="text-slate-600 leading-relaxed text-xs sm:text-base">{product.description}</p>
+                  </div>
                 </div>
-                <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-1">{item.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Stats */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
