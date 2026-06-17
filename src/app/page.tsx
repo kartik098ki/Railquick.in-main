@@ -100,7 +100,7 @@ const products = [
     icon: <Building2 className="w-6 h-6 text-slate-600" />
   },
   {
-    title: 'Toiletries',
+    title: 'Hygiene',
     description: 'Personal hygiene products and daily essentials.',
     bg: 'bg-slate-50',
     icon: <Bath className="w-6 h-6 text-slate-600" />
@@ -307,6 +307,7 @@ export default function HomePage() {
                 { label: 'About', href: '/about' },
                 { label: 'Test Phase', href: '/test-phase' },
                 { label: 'Contact', href: '/contact' },
+                { label: "We're Hiring", href: '/hiring' },
               ].map((item) => (
                 <Link
                   key={item.label}
@@ -337,7 +338,8 @@ export default function HomePage() {
                 { label: "Home", href: "/" },
                 { label: "About", href: "/about" },
                 { label: "Test Phase", href: "/test-phase" },
-                { label: "Contact", href: "/contact" }
+                { label: "Contact", href: "/contact" },
+                { label: "We're Hiring", href: "/hiring" }
               ].map((item) => (
                 <Link
                   key={item.label}
@@ -357,7 +359,7 @@ export default function HomePage() {
 
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-32 sm:pt-36 md:pt-16 overflow-hidden">
+      <section className="relative min-h-[90vh] sm:min-h-screen flex items-center pt-24 sm:pt-36 md:pt-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-50" />
         <div className="absolute top-10 left-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-blue-100/40 rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-orange-100/30 rounded-full blur-3xl" />
@@ -486,14 +488,14 @@ export default function HomePage() {
       </section>
 
       {/* Instagram Reels Section */}
-      <section ref={reelsSectionRef} className="py-20 lg:py-32 bg-white relative overflow-hidden">
+      <section ref={reelsSectionRef} className="pt-12 pb-20 sm:pt-20 lg:pt-32 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-blue-100/40 rounded-full blur-[100px]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 relative z-10 text-center">
           <span className="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3 inline-block">
             RailQuick in Action
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 mt-2 mb-3">
-            Watch Our Story 🚆
+            Watch Our Story
           </h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
             See how we are transforming train travel across India. Follow us on Instagram{' '}
