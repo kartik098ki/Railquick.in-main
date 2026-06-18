@@ -41,25 +41,20 @@ export async function POST(request: NextRequest) {
     // 2. Send automatic email via Resend (failsafe)
     try {
       const emailBody = `Hi,
+Thank you for registering with RailQuick.
+We have successfully received your registration.
+At RailQuick, we are building a faster and more convenient way for train passengers to access essential products directly at their seat. We are currently conducting pilot operations and refining the experience before our official launch.
+Your registration has been recorded, and you will be among the first to receive important updates as we progress.
+We appreciate your trust in RailQuick and look forward to serving you soon.
 
-I'm Kartik Guleria, Founder & CEO of RailQuick.
-
-Thank you for joining the RailQuick waitlist.
-
-We're building India's first on-seat essentials delivery platform for train passengers. We are currently conducting pilot testing and preparing for launch.
-
-As an early supporter, you'll be among the first to receive product updates, early access opportunities, and launch announcements.
-
-Thank you for being part of our journey.
-
-Regards,
+Warm Regards,
 Kartik Guleria
 Founder & CEO
 RailQuick`;
 
       await sendEmail({
         to: email,
-        subject: "You're on the RailQuick Waitlist 🚆",
+        subject: "RailQuick Registration Confirmation",
         body: emailBody,
       });
     } catch (emailError) {
@@ -68,7 +63,7 @@ RailQuick`;
 
     return NextResponse.json({
       success: true,
-      message: "🎉 Welcome aboard! You've been added to our waitlist.",
+      message: "Welcome to RailQuick.",
     });
 
   } catch (error) {
