@@ -396,7 +396,7 @@ export default function HomePage() {
                 onClick={() => setShowModal(true)}
                 className="w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg shadow-slate-900/20 active:scale-95 transition-transform"
               >
-                Test Now 🚀
+                Test Now 
               </button>
               <Link href="/test-phase" className="w-full">
                 <button className="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 rounded-2xl text-base font-semibold active:scale-95 transition-transform hover:border-slate-400">
@@ -918,7 +918,7 @@ export default function HomePage() {
                 <Link href="/about" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">About Us</Link>
                 <Link href="/test-phase" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">Test Phase</Link>
                 <Link href="/contact" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">Contact</Link>
-                <Link href="/hiring" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">We&apos;re Hiring 🚀</Link>
+                <Link href="/hiring" className="block text-slate-400 hover:text-white transition-colors text-sm sm:text-base">We&apos;re Hiring </Link>
               </div>
             </div>
 
@@ -977,7 +977,7 @@ export default function HomePage() {
 
               <div className="p-8 pt-4">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
-                  <Star className="w-3 h-3 fill-amber-500 text-amber-500" /> VIP Status
+                  <Star className="w-3 h-3 fill-amber-500 text-amber-500" /> 
                 </div>
                 
                 <h2 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">You&apos;re On Board!</h2>
