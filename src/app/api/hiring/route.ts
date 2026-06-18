@@ -46,25 +46,18 @@ export async function POST(request: NextRequest) {
     // 2. Send automatic email via Resend (failsafe)
     try {
       const emailBody = `Hi,
-
-I'm Kartik Guleria, Founder & CEO of RailQuick.
-
-Thank you for your interest in joining RailQuick.
-
-We have successfully received your application and our team will carefully review your profile.
-
-If your experience aligns with our current requirements, we will contact you regarding the next steps.
-
-We appreciate your interest in building the future of train travel with us.
+This email confirms that we have successfully received your application.
+Your application has been recorded and will be reviewed by our team.
+If additional information is required or if your application is selected for the next stage, we will contact you using the details provided.
+No further action is required at this time.
+Thank you.
 
 Regards,
-Kartik Guleria
-Founder & CEO
-RailQuick`;
+RailQuick Team`;
 
       await sendEmail({
         to: email,
-        subject: 'Application Received - RailQuick',
+        subject: 'Your Application Has Been Received',
         body: emailBody,
       });
     } catch (emailError) {
