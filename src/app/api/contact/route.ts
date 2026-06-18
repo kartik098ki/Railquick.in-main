@@ -43,12 +43,10 @@ export async function POST(request: NextRequest) {
     // 2. Send automatic email via Resend (failsafe)
     try {
       const emailBody = `Hi,
-
-I'm Kartik Guleria, Founder & CEO of RailQuick.
-
-Thank you for reaching out to us.
-
-Our team has received your message and will review it shortly. We will get back to you as soon as possible.
+This email confirms that we have successfully received your message.
+Our team will review your inquiry and respond as soon as possible.
+No further action is required from your side at this time.
+Thank you.
 
 Regards,
 Kartik Guleria
@@ -57,7 +55,7 @@ RailQuick`;
 
       await sendEmail({
         to: email,
-        subject: "We've Received Your Message",
+        subject: "Message Received – RailQuick",
         body: emailBody,
       });
     } catch (emailError) {
