@@ -196,6 +196,10 @@ export default function HomePage() {
   const [modalEmail, setModalEmail] = useState('');
   const [modalSubmitting, setModalSubmitting] = useState(false);
 
+  const handleTestNow = () => {
+    window.location.href = 'https://www.railquickapp.com';
+  };
+
   useEffect(() => {
     const handleScroll = () => setHeaderScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
@@ -246,7 +250,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Modal */}
+      {/* Email Modal (for Join Waitlist) */}
       {showModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowModal(false)} />
@@ -259,15 +263,13 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-
             <div className="text-center mb-6">
               <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white text-2xl">
                 
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Access Test App</h3>
-              <p className="text-sm sm:text-base text-slate-600 px-2">Enter your email to test the app.</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Join Waitlist</h3>
+              <p className="text-sm sm:text-base text-slate-600 px-2">Enter your email to join the waitlist.</p>
             </div>
-
             <form onSubmit={handleModalSubmit} className="space-y-3 sm:space-y-4">
               <Input
                 type="email"
@@ -282,12 +284,14 @@ export default function HomePage() {
                 disabled={modalSubmitting}
                 className="w-full h-12 sm:h-14 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold text-base"
               >
-                {modalSubmitting ? 'Submitting...' : 'Go to App'}
+                {modalSubmitting ? 'Submitting...' : 'Join Waitlist'}
               </Button>
             </form>
           </div>
         </div>
       )}
+
+
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerScrolled ? 'bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
@@ -320,7 +324,7 @@ export default function HomePage() {
             </div>
 
             <div className="hidden md:block">
-              <Button onClick={() => setShowModal(true)} className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
+              <Button onClick={handleTestNow} className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
                 Join Waitlist
               </Button>
             </div>
@@ -393,7 +397,7 @@ export default function HomePage() {
             {/* CTA Buttons */}
             <div className="flex flex-col gap-3 mb-8">
               <button
-                onClick={() => setShowModal(true)}
+                onClick={handleTestNow}
                 className="w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg shadow-slate-900/20 active:scale-95 transition-transform"
               >
                 Test Now 
@@ -447,7 +451,7 @@ export default function HomePage() {
 
                 <div className="flex items-center gap-4">
                   <Button
-                    onClick={() => setShowModal(true)}
+                    onClick={handleTestNow}
                     className="px-8 py-7 bg-slate-900 text-white hover:bg-slate-800 rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-xl shadow-slate-200"
                   >
                     Test Now
