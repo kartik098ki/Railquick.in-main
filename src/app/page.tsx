@@ -357,35 +357,39 @@ export default function HomePage() {
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.95, y: 15, opacity: 0 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl overflow-hidden text-slate-900"
+              className="relative bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-100/80 overflow-hidden text-slate-900"
             >
+              {/* Premium top accent border */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400" />
+              
               {!testSuccess ? (
                 <>
                   <button
                     onClick={() => setShowTestModal(false)}
                     disabled={testSubmitting}
-                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-all"
+                    className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-50 rounded-full transition-all"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
 
-                  <div className="text-center mb-6 mt-2">
-                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white shadow-md shadow-blue-500/10">
-                      <Train className="w-6 h-6" />
+                  <div className="text-center mb-7 mt-3">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white shadow-lg shadow-blue-500/20 relative">
+                      <div className="absolute inset-0 rounded-2xl bg-white/10 animate-ping opacity-25" />
+                      <Train className="w-7 h-7 relative z-10" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
+                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-2">
                       Access RailQuick App
                     </h3>
-                    <p className="text-sm text-slate-500 max-w-xs mx-auto">
-                      Enter your details to instantly access the live order platform.
+                    <p className="text-sm text-slate-500 max-w-xs mx-auto leading-relaxed">
+                      Enter your details to instantly launch the live on-seat ordering platform.
                     </p>
                   </div>
 
-                  <form onSubmit={handleTestSubmit} className="space-y-4 relative z-10">
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">Email Address</label>
+                  <form onSubmit={handleTestSubmit} className="space-y-5 relative z-10">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 block pl-1">Email Address</label>
                       <div className="relative">
                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
@@ -395,52 +399,51 @@ export default function HomePage() {
                           value={testEmail}
                           onChange={(e) => setTestEmail(e.target.value)}
                           disabled={testSubmitting}
-                          className="w-full h-12 sm:h-13 pl-12 pr-4 bg-white border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all text-slate-900 placeholder-slate-400 outline-none text-base"
+                          className="w-full h-13 pl-12 pr-4 bg-slate-50/50 border border-slate-200/80 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 placeholder-slate-400 outline-none text-base font-medium shadow-sm"
                         />
                       </div>
                     </div>
 
-                    <div className="space-y-1">
-                      <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">Current Station / City</label>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 block pl-1">Current City / Station</label>
                       <div className="relative">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
                           type="text"
                           required
-                          placeholder="e.g. New Delhi, Hazrat Nizamuddin"
+                          placeholder="e.g. New Delhi"
                           value={testCity}
                           onChange={(e) => setTestCity(e.target.value)}
                           disabled={testSubmitting}
-                          className="w-full h-12 sm:h-13 pl-12 pr-4 bg-white border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all text-slate-900 placeholder-slate-400 outline-none text-base"
+                          className="w-full h-13 pl-12 pr-4 bg-slate-50/50 border border-slate-200/80 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 placeholder-slate-400 outline-none text-base font-medium shadow-sm"
                         />
                       </div>
                       
-                      {/* Suggestion badges */}
-                      <div className="flex flex-wrap gap-1.5 pt-1.5">
-                        {['Hazrat Nizamuddin', 'New Delhi', 'Delhi Junction', 'Anand Vihar'].map((station) => (
-                          <button
-                            key={station}
-                            type="button"
-                            onClick={() => setTestCity(station)}
-                            className="text-2xs sm:text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 border border-slate-200/50 rounded-lg text-slate-600 transition-all font-medium"
-                          >
-                            {station.split(' ')[0]}
-                          </button>
-                        ))}
+                      {/* Suggestion badge - Only New Delhi */}
+                      <div className="pt-2 pl-1 flex items-center gap-2">
+                        <span className="text-xs text-slate-400 font-semibold">Suggested Station:</span>
+                        <button
+                          type="button"
+                          onClick={() => setTestCity('New Delhi')}
+                          className="inline-flex items-center gap-1 text-xs px-3 py-1.5 bg-blue-50 hover:bg-blue-100/80 border border-blue-100 rounded-full text-blue-600 font-bold transition-all hover:scale-105 active:scale-95"
+                        >
+                          <span>📍</span>
+                          <span>New Delhi</span>
+                        </button>
                       </div>
                     </div>
 
                     <Button
                       type="submit"
                       disabled={testSubmitting}
-                      className="w-full h-12 sm:h-13 mt-6 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-base transition-all duration-300 shadow-md shadow-slate-900/10 hover:shadow-lg hover:-translate-y-0.5"
+                      className="w-full h-13 mt-6 bg-slate-950 hover:bg-slate-900 text-white rounded-2xl font-bold text-base transition-all duration-300 shadow-lg shadow-slate-950/15 hover:shadow-xl hover:shadow-slate-950/20 hover:-translate-y-0.5 active:scale-[0.98]"
                     >
                       {testSubmitting ? (
                         <span className="flex items-center gap-2">
-                          <Loader2 className="w-5 h-5 animate-spin" /> Connecting...
+                          <Loader2 className="w-5 h-5 animate-spin text-white" /> Connecting Securely...
                         </span>
                       ) : (
-                        <span className="flex items-center justify-center gap-2">
+                        <span className="flex items-center justify-center gap-2 group">
                           Access Live App <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </span>
                       )}
@@ -448,22 +451,23 @@ export default function HomePage() {
                   </form>
                 </>
               ) : (
-                <div className="py-8 text-center flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 bg-blue-500/10 rounded-full border border-blue-500/20 text-blue-600 flex items-center justify-center mb-6">
-                    <Loader2 className="w-8 h-8 animate-spin" />
+                <div className="py-10 text-center flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 bg-emerald-50 rounded-full border-2 border-emerald-100 text-emerald-500 flex items-center justify-center mb-6 relative">
+                    <div className="absolute inset-0 rounded-full bg-emerald-400/20 animate-ping opacity-30" />
+                    <CheckCircle2 className="w-9 h-9" />
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2">Connecting to App</h3>
-                  <p className="text-sm text-slate-500 max-w-xs mx-auto">
+                  <h3 className="text-2xl font-extrabold text-slate-900 mb-2">Connecting to App</h3>
+                  <p className="text-sm text-slate-500 max-w-xs mx-auto leading-relaxed">
                     Details saved successfully. Redirecting you to the live application now...
                   </p>
                   
                   {/* Progress simulator */}
-                  <div className="w-48 bg-slate-100 h-1.5 rounded-full mt-6 overflow-hidden">
+                  <div className="w-56 bg-slate-100 h-1.5 rounded-full mt-7 overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 1.2, ease: "easeOut" }}
-                      className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full"
+                      className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full"
                     />
                   </div>
                 </div>
