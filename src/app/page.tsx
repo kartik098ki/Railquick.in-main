@@ -346,7 +346,7 @@ export default function HomePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-slate-950/80 backdrop-blur-md"
+              className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
               onClick={() => {
                 if (!testSubmitting && !testSuccess) setShowTestModal(false);
               }}
@@ -357,18 +357,14 @@ export default function HomePage() {
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.95, y: 15, opacity: 0 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl overflow-hidden text-white"
+              className="relative bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl overflow-hidden text-slate-900"
             >
-              {/* Top abstract gradient glow */}
-              <div className="absolute -top-24 -left-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -right-24 -bottom-24 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-              
               {!testSuccess ? (
                 <>
                   <button
                     onClick={() => setShowTestModal(false)}
                     disabled={testSubmitting}
-                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white rounded-full hover:bg-slate-800/80 transition-all"
+                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-all"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
@@ -376,22 +372,22 @@ export default function HomePage() {
                   </button>
 
                   <div className="text-center mb-6 mt-2">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white shadow-lg shadow-blue-500/25">
-                      <Train className="w-6 h-6 animate-pulse" />
+                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white shadow-md shadow-blue-500/10">
+                      <Train className="w-6 h-6" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight mb-2 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-                      Launch Partner App
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
+                      Access RailQuick App
                     </h3>
-                    <p className="text-sm text-slate-400 max-w-xs mx-auto">
-                      Enter your details to gain instant access to our live order app.
+                    <p className="text-sm text-slate-500 max-w-xs mx-auto">
+                      Enter your details to instantly access the live order platform.
                     </p>
                   </div>
 
                   <form onSubmit={handleTestSubmit} className="space-y-4 relative z-10">
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">Email Address</label>
+                      <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">Email Address</label>
                       <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
                           type="email"
                           required
@@ -399,15 +395,15 @@ export default function HomePage() {
                           value={testEmail}
                           onChange={(e) => setTestEmail(e.target.value)}
                           disabled={testSubmitting}
-                          className="w-full h-12 sm:h-13 pl-12 pr-4 bg-slate-950/60 border border-slate-800 rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-white placeholder-slate-600 outline-none text-base"
+                          className="w-full h-12 sm:h-13 pl-12 pr-4 bg-white border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all text-slate-900 placeholder-slate-400 outline-none text-base"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">Current Station / City</label>
+                      <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">Current Station / City</label>
                       <div className="relative">
-                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
                           type="text"
                           required
@@ -415,7 +411,7 @@ export default function HomePage() {
                           value={testCity}
                           onChange={(e) => setTestCity(e.target.value)}
                           disabled={testSubmitting}
-                          className="w-full h-12 sm:h-13 pl-12 pr-4 bg-slate-950/60 border border-slate-800 rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-white placeholder-slate-600 outline-none text-base"
+                          className="w-full h-12 sm:h-13 pl-12 pr-4 bg-white border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all text-slate-900 placeholder-slate-400 outline-none text-base"
                         />
                       </div>
                       
@@ -426,7 +422,7 @@ export default function HomePage() {
                             key={station}
                             type="button"
                             onClick={() => setTestCity(station)}
-                            className="text-2xs sm:text-xs px-2.5 py-1 bg-slate-800/60 hover:bg-blue-600/20 hover:text-blue-400 border border-slate-800/80 rounded-lg text-slate-400 transition-all"
+                            className="text-2xs sm:text-xs px-2.5 py-1 bg-slate-100 hover:bg-slate-200 border border-slate-200/50 rounded-lg text-slate-600 transition-all font-medium"
                           >
                             {station.split(' ')[0]}
                           </button>
@@ -437,7 +433,7 @@ export default function HomePage() {
                     <Button
                       type="submit"
                       disabled={testSubmitting}
-                      className="w-full h-12 sm:h-13 mt-6 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl font-bold text-base transition-all duration-300 shadow-lg shadow-blue-600/20 hover:shadow-blue-500/35 hover:-translate-y-0.5"
+                      className="w-full h-12 sm:h-13 mt-6 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-base transition-all duration-300 shadow-md shadow-slate-900/10 hover:shadow-lg hover:-translate-y-0.5"
                     >
                       {testSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -453,16 +449,16 @@ export default function HomePage() {
                 </>
               ) : (
                 <div className="py-8 text-center flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 bg-blue-500/10 rounded-full border border-blue-500/20 text-blue-400 flex items-center justify-center mb-6">
+                  <div className="w-16 h-16 bg-blue-500/10 rounded-full border border-blue-500/20 text-blue-600 flex items-center justify-center mb-6">
                     <Loader2 className="w-8 h-8 animate-spin" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold mb-2">Connecting to App</h3>
-                  <p className="text-sm text-slate-400 max-w-xs mx-auto">
+                  <p className="text-sm text-slate-500 max-w-xs mx-auto">
                     Details saved successfully. Redirecting you to the live application now...
                   </p>
                   
                   {/* Progress simulator */}
-                  <div className="w-48 bg-slate-950 h-1.5 rounded-full mt-6 overflow-hidden">
+                  <div className="w-48 bg-slate-100 h-1.5 rounded-full mt-6 overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
