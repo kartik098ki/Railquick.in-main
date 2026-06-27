@@ -1,8 +1,8 @@
 // Centralized service configuration for Supabase and Resend
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://viakvivklshahswvpqfk.supabase.co';
-const sbPart1 = 'sb_secret_x6voaDk7oBAQ';
-const sbPart2 = 'p--GP7KFvg_NNu5iVS0';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dfwwgppsjnoubzvldftc.supabase.co';
+const sbPart1 = 'sb_secret_Z_h6SKiGjL7MOtH';
+const sbPart2 = 'idzKJKQ_tHonavfh';
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || (sbPart1 + sbPart2);
 
 const rsPart1 = 're_WKApGGea_3RbaAP';
@@ -30,6 +30,7 @@ export async function insertSubmission(payload: SubmissionPayload) {
     tableName = 'waitlist';
     insertData = {
       email: payload.email,
+      city: payload.city || '',
     };
   } else if (payload.form_type === 'contact') {
     tableName = 'contact_messages';

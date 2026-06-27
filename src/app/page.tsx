@@ -31,6 +31,9 @@ import {
   Pause,
   Instagram,
   ArrowLeft,
+  Mail,
+  MapPin,
+  Loader2,
 } from "lucide-react";
 
 // Submit to backend API routes
@@ -197,8 +200,51 @@ export default function HomePage() {
   const [modalEmail, setModalEmail] = useState('');
   const [modalSubmitting, setModalSubmitting] = useState(false);
 
+  const [showTestModal, setShowTestModal] = useState(false);
+  const [testEmail, setTestEmail] = useState('');
+  const [testCity, setTestCity] = useState('');
+  const [testSubmitting, setTestSubmitting] = useState(false);
+  const [testSuccess, setTestSuccess] = useState(false);
+
   const handleTestNow = () => {
-    window.location.href = 'https://www.railquickapp.com';
+    setShowTestModal(true);
+  };
+
+  const handleTestSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!testEmail || !testCity) {
+      toast({ title: 'Validation Error', description: 'Please fill in all fields.', variant: 'destructive' });
+      return;
+    }
+
+    setTestSubmitting(true);
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: testEmail, city: testCity }),
+      });
+
+      if (response.ok) {
+        setTestSuccess(true);
+        setTimeout(() => {
+          setShowTestModal(false);
+          setTestSuccess(false);
+          setTestEmail('');
+          setTestCity('');
+          window.location.href = 'https://www.railquickapp.com';
+        }, 1500);
+      } else {
+        const errorData = await response.json();
+        toast({ title: 'Error', description: errorData.message || 'Failed to submit details.', variant: 'destructive' });
+      }
+    } catch {
+      toast({ title: 'Connection Error', description: 'Failed to reach servers. Please try again.', variant: 'destructive' });
+    } finally {
+      setTestSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -291,6 +337,145 @@ export default function HomePage() {
           </div>
         </div>
       )}
+
+      {/* Test App Modal */}
+      <AnimatePresence>
+        {showTestModal && (
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-slate-950/80 backdrop-blur-md"
+              onClick={() => {
+                if (!testSubmitting && !testSuccess) setShowTestModal(false);
+              }}
+            />
+            
+            <motion.div
+              initial={{ scale: 0.95, y: 15, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.95, y: 15, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl overflow-hidden text-white"
+            >
+              {/* Top abstract gradient glow */}
+              <div className="absolute -top-24 -left-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -right-24 -bottom-24 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+              
+              {!testSuccess ? (
+                <>
+                  <button
+                    onClick={() => setShowTestModal(false)}
+                    disabled={testSubmitting}
+                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white rounded-full hover:bg-slate-800/80 transition-all"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+
+                  <div className="text-center mb-6 mt-2">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white shadow-lg shadow-blue-500/25">
+                      <Train className="w-6 h-6 animate-pulse" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight mb-2 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+                      Launch Partner App
+                    </h3>
+                    <p className="text-sm text-slate-400 max-w-xs mx-auto">
+                      Enter your details to gain instant access to our live order app.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleTestSubmit} className="space-y-4 relative z-10">
+                    <div className="space-y-1">
+                      <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">Email Address</label>
+                      <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <input
+                          type="email"
+                          required
+                          placeholder="name@example.com"
+                          value={testEmail}
+                          onChange={(e) => setTestEmail(e.target.value)}
+                          disabled={testSubmitting}
+                          className="w-full h-12 sm:h-13 pl-12 pr-4 bg-slate-950/60 border border-slate-800 rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-white placeholder-slate-600 outline-none text-base"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">Current Station / City</label>
+                      <div className="relative">
+                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. New Delhi, Hazrat Nizamuddin"
+                          value={testCity}
+                          onChange={(e) => setTestCity(e.target.value)}
+                          disabled={testSubmitting}
+                          className="w-full h-12 sm:h-13 pl-12 pr-4 bg-slate-950/60 border border-slate-800 rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-white placeholder-slate-600 outline-none text-base"
+                        />
+                      </div>
+                      
+                      {/* Suggestion badges */}
+                      <div className="flex flex-wrap gap-1.5 pt-1.5">
+                        {['Hazrat Nizamuddin', 'New Delhi', 'Delhi Junction', 'Anand Vihar'].map((station) => (
+                          <button
+                            key={station}
+                            type="button"
+                            onClick={() => setTestCity(station)}
+                            className="text-2xs sm:text-xs px-2.5 py-1 bg-slate-800/60 hover:bg-blue-600/20 hover:text-blue-400 border border-slate-800/80 rounded-lg text-slate-400 transition-all"
+                          >
+                            {station.split(' ')[0]}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={testSubmitting}
+                      className="w-full h-12 sm:h-13 mt-6 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl font-bold text-base transition-all duration-300 shadow-lg shadow-blue-600/20 hover:shadow-blue-500/35 hover:-translate-y-0.5"
+                    >
+                      {testSubmitting ? (
+                        <span className="flex items-center gap-2">
+                          <Loader2 className="w-5 h-5 animate-spin" /> Connecting...
+                        </span>
+                      ) : (
+                        <span className="flex items-center justify-center gap-2">
+                          Access Live App <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      )}
+                    </Button>
+                  </form>
+                </>
+              ) : (
+                <div className="py-8 text-center flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 bg-blue-500/10 rounded-full border border-blue-500/20 text-blue-400 flex items-center justify-center mb-6">
+                    <Loader2 className="w-8 h-8 animate-spin" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2">Connecting to App</h3>
+                  <p className="text-sm text-slate-400 max-w-xs mx-auto">
+                    Details saved successfully. Redirecting you to the live application now...
+                  </p>
+                  
+                  {/* Progress simulator */}
+                  <div className="w-48 bg-slate-950 h-1.5 rounded-full mt-6 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 1.2, ease: "easeOut" }}
+                      className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full"
+                    />
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
 
 

@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
         form_type: 'waitlist',
         name: name || '',
         email: email,
+        city: body.city || '',
       });
     } catch (dbError: any) {
       if (dbError.message.includes('23505') || dbError.message.includes('duplicate key')) {
