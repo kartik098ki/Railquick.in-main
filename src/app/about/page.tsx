@@ -146,23 +146,23 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Mobile Nav Links - Pill Style (Reverted to Scrollable) */}
-          <div className="flex px-4 pb-4 md:hidden">
-            <div className="w-full bg-slate-100/50 backdrop-blur-md border border-slate-200/50 rounded-full p-1 overflow-x-auto no-scrollbar">
-              <div className="flex items-center gap-1 min-w-max">
+          {/* Mobile Nav Links - Pill Style (Fixed Distribution) */}
+          <div className="flex px-4 pb-4 md:hidden w-full">
+            <div className="w-full bg-slate-100/50 backdrop-blur-md border border-slate-200/50 rounded-full p-1">
+              <div className="flex items-center justify-between gap-0.5 w-full">
                 {[
                   { label: "Home", href: "/" },
                   { label: "About", href: "/about" },
-                  { label: "Test Phase", href: "/test-phase" },
+                  { label: "Test", href: "/test-phase" },
                   { label: "Contact", href: "/contact" },
                   { label: "Hiring", href: "/hiring" }
                 ].map((item) => (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${item.href === '/about'
+                    className={`flex-1 text-center py-2 px-1 rounded-full text-[10px] sm:text-xs font-bold transition-all duration-300 ${item.href === '/about'
                       ? 'bg-white text-slate-900 shadow-sm'
-                      : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'
+                      : 'text-slate-500 hover:text-slate-900'
                       }`}
                   >
                     {item.label}
@@ -316,57 +316,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Journey Timeline */}
-      <section className="py-20 lg:py-32 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-3">Our Milestones</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">The Journey So Far</h2>
-            <p className="text-sm sm:text-base text-slate-500 max-w-md mx-auto leading-relaxed mt-1.5">
-              How we went from a personal struggle on a moving train to a working testing platform.
-            </p>
-          </div>
-
-          <div className="relative max-w-4xl mx-auto">
-            {/* Center line (hidden on mobile) */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-slate-200 hidden md:block" />
-
-            <div className="space-y-10 md:space-y-16">
-              {milestones.map((milestone, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className={`flex flex-col md:flex-row items-center justify-between relative ${
-                      isEven ? 'md:flex-row-reverse' : ''
-                    }`}
-                  >
-                    {/* Empty block for spacing on desktop */}
-                    <div className="w-full md:w-[45%] hidden md:block" />
-
-                    {/* Timeline dot */}
-                    <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-md hidden md:block z-10" />
-
-                    {/* Content Card */}
-                    <div className="w-full md:w-[45%] bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:p-8 hover:bg-white hover:shadow-xl transition-all duration-300">
-                      <span className="inline-block text-xs font-bold text-blue-600 bg-blue-50 border border-blue-100 rounded-full px-3 py-1 mb-4">
-                        {milestone.year}
-                      </span>
-                      <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2">{milestone.title}</h3>
-                      <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{milestone.description}</p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Team Section */}
       <section className="py-20 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -376,7 +325,7 @@ export default function AboutPage() {
             <p className="text-lg text-slate-600">The passionate team driving the revolution in train travel.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+          <div className="grid md:grid-cols-3 gap-12">
             {team.map((member, index) => (
               <motion.div
                 key={index}

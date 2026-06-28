@@ -31,8 +31,8 @@ const contactMethods = [
       </svg>
     ),
     title: 'General Support',
-    value: 'contact.railquick@gmail.com',
-    href: 'mailto:contact.railquick@gmail.com',
+    value: 'contact@railquick.in',
+    href: 'mailto:contact@railquick.in',
     color: 'text-blue-600',
     bg: 'bg-blue-50',
   },
@@ -145,23 +145,23 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Mobile Nav Links - Pill Style (Reverted to Scrollable) */}
-        <div className="flex px-4 pb-4 md:hidden">
-          <div className="w-full bg-slate-100/50 backdrop-blur-md border border-slate-200/50 rounded-full p-1 overflow-x-auto no-scrollbar">
-            <div className="flex items-center gap-1 min-w-max">
+        {/* Mobile Nav Links - Pill Style (Fixed Distribution) */}
+        <div className="flex px-4 pb-4 md:hidden w-full">
+          <div className="w-full bg-slate-100/50 backdrop-blur-md border border-slate-200/50 rounded-full p-1">
+            <div className="flex items-center justify-between gap-0.5 w-full">
               {[
                 { label: "Home", href: "/" },
                 { label: "About", href: "/about" },
-                { label: "Test Phase", href: "/test-phase" },
+                { label: "Test", href: "/test-phase" },
                 { label: "Contact", href: "/contact" },
                 { label: "Hiring", href: "/hiring" }
               ].map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${item.label === "Contact"
-                    ? "bg-white text-slate-900 shadow-sm"
-                    : "text-slate-500 hover:text-slate-900"
+                  className={`flex-1 text-center py-2 px-1 rounded-full text-[10px] sm:text-xs font-bold transition-all duration-300 ${item.href === '/contact'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-900'
                     }`}
                 >
                   {item.label}

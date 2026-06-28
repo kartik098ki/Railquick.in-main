@@ -56,7 +56,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="mailto:contact.railquick@gmail.com"
+                href="mailto:contact@railquick.in"
                 className="w-9 h-9 sm:w-10 sm:h-10 bg-slate-800 rounded-lg sm:rounded-xl flex items-center justify-center text-slate-400 hover:bg-white hover:text-slate-900 transition-all"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,7 +89,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-3 text-sm sm:text-base">Contact</h4>
             <div className="space-y-2 sm:space-y-3 text-slate-400 text-sm sm:text-base">
-              <p>contact.railquick@gmail.com</p>
+              <p>contact@railquick.in</p>
               <p>Delhi, India</p>
             </div>
           </div>
