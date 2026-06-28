@@ -205,6 +205,7 @@ export default function HomePage() {
   const [testCity, setTestCity] = useState('');
   const [testSubmitting, setTestSubmitting] = useState(false);
   const [testSuccess, setTestSuccess] = useState(false);
+  const [testProgress, setTestProgress] = useState(0);
 
   const handleTestNow = () => {
     setShowTestModal(true);
@@ -229,13 +230,23 @@ export default function HomePage() {
 
       if (response.ok) {
         setTestSuccess(true);
-        setTimeout(() => {
-          setShowTestModal(false);
-          setTestSuccess(false);
-          setTestEmail('');
-          setTestCity('');
-          window.location.href = 'https://www.railquickapp.com';
-        }, 1500);
+        setTestProgress(0);
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 5;
+          setTestProgress(progress);
+          if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              setShowTestModal(false);
+              setTestSuccess(false);
+              setTestEmail('');
+              setTestCity('');
+              setTestProgress(0);
+              window.location.href = 'https://www.railquickapp.com';
+            }, 300);
+          }
+        }, 80);
       } else {
         const errorData = await response.json();
         toast({ title: 'Error', description: errorData.message || 'Failed to submit details.', variant: 'destructive' });
@@ -346,7 +357,7 @@ export default function HomePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-slate-950/30 backdrop-blur-md"
               onClick={() => {
                 if (!testSubmitting && !testSuccess) setShowTestModal(false);
               }}
@@ -357,11 +368,8 @@ export default function HomePage() {
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.95, y: 15, opacity: 0 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-100/80 overflow-hidden text-slate-900"
+              className="relative bg-white rounded-[32px] p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden text-slate-900"
             >
-              {/* Premium top accent border */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400" />
-              
               {!testSuccess ? (
                 <>
                   <button
@@ -374,22 +382,22 @@ export default function HomePage() {
                     </svg>
                   </button>
 
-                  <div className="text-center mb-7 mt-3">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white shadow-lg shadow-blue-500/20 relative">
-                      <div className="absolute inset-0 rounded-2xl bg-white/10 animate-ping opacity-25" />
-                      <Train className="w-7 h-7 relative z-10" />
+                  <div className="text-center mb-6 mt-2">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50/80 border border-blue-100 rounded-full text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">
+                      <span>⚡</span>
+                      <span>Live App Beta</span>
                     </div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-2">
+                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">
                       Access RailQuick App
                     </h3>
-                    <p className="text-sm text-slate-500 max-w-xs mx-auto leading-relaxed">
-                      Enter your details to instantly launch the live on-seat ordering platform.
+                    <p className="text-sm text-slate-500 max-w-xs mx-auto leading-relaxed mt-1.5">
+                      Enter your details to launch the live platform.
                     </p>
                   </div>
 
-                  <form onSubmit={handleTestSubmit} className="space-y-5 relative z-10">
+                  <form onSubmit={handleTestSubmit} className="space-y-4 relative z-10">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 block pl-1">Email Address</label>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Email Address</label>
                       <div className="relative">
                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
@@ -399,13 +407,13 @@ export default function HomePage() {
                           value={testEmail}
                           onChange={(e) => setTestEmail(e.target.value)}
                           disabled={testSubmitting}
-                          className="w-full h-13 pl-12 pr-4 bg-slate-50/50 border border-slate-200/80 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 placeholder-slate-400 outline-none text-base font-medium shadow-sm"
+                          className="w-full h-13 pl-12 pr-4 bg-slate-50/50 border border-slate-200/80 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 placeholder-slate-400 outline-none text-base font-semibold shadow-sm"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold uppercase tracking-wider text-slate-400 block pl-1">Current City / Station</label>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Current City / Station</label>
                       <div className="relative">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
@@ -415,28 +423,15 @@ export default function HomePage() {
                           value={testCity}
                           onChange={(e) => setTestCity(e.target.value)}
                           disabled={testSubmitting}
-                          className="w-full h-13 pl-12 pr-4 bg-slate-50/50 border border-slate-200/80 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 placeholder-slate-400 outline-none text-base font-medium shadow-sm"
+                          className="w-full h-13 pl-12 pr-4 bg-slate-50/50 border border-slate-200/80 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 placeholder-slate-400 outline-none text-base font-semibold shadow-sm"
                         />
-                      </div>
-                      
-                      {/* Suggestion badge - Only New Delhi */}
-                      <div className="pt-2 pl-1 flex items-center gap-2">
-                        <span className="text-xs text-slate-400 font-semibold">Suggested Station:</span>
-                        <button
-                          type="button"
-                          onClick={() => setTestCity('New Delhi')}
-                          className="inline-flex items-center gap-1 text-xs px-3 py-1.5 bg-blue-50 hover:bg-blue-100/80 border border-blue-100 rounded-full text-blue-600 font-bold transition-all hover:scale-105 active:scale-95"
-                        >
-                          <span>📍</span>
-                          <span>New Delhi</span>
-                        </button>
                       </div>
                     </div>
 
                     <Button
                       type="submit"
                       disabled={testSubmitting}
-                      className="w-full h-13 mt-6 bg-slate-950 hover:bg-slate-900 text-white rounded-2xl font-bold text-base transition-all duration-300 shadow-lg shadow-slate-950/15 hover:shadow-xl hover:shadow-slate-950/20 hover:-translate-y-0.5 active:scale-[0.98]"
+                      className="w-full h-13 mt-6 bg-slate-950 hover:bg-slate-900 text-white rounded-2xl font-bold text-base transition-all duration-300 shadow-lg shadow-slate-950/15 hover:shadow-xl hover:shadow-slate-950/20 active:scale-[0.98]"
                     >
                       {testSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -451,24 +446,32 @@ export default function HomePage() {
                   </form>
                 </>
               ) : (
-                <div className="py-10 text-center flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 bg-emerald-50 rounded-full border-2 border-emerald-100 text-emerald-500 flex items-center justify-center mb-6 relative">
-                    <div className="absolute inset-0 rounded-full bg-emerald-400/20 animate-ping opacity-30" />
-                    <CheckCircle2 className="w-9 h-9" />
+                <div className="py-8 text-center flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 bg-blue-50 rounded-full border border-blue-100 text-blue-600 flex items-center justify-center mb-6 relative">
+                    <div className="absolute inset-0 rounded-full bg-blue-400/20 animate-ping opacity-35" />
+                    <Loader2 className="w-8 h-8 animate-spin" />
                   </div>
-                  <h3 className="text-2xl font-extrabold text-slate-900 mb-2">Connecting to App</h3>
-                  <p className="text-sm text-slate-500 max-w-xs mx-auto leading-relaxed">
-                    Details saved successfully. Redirecting you to the live application now...
-                  </p>
+                  <h3 className="text-2xl font-black text-slate-900 mb-2">Connecting to App</h3>
                   
                   {/* Progress simulator */}
-                  <div className="w-56 bg-slate-100 h-1.5 rounded-full mt-7 overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 1.2, ease: "easeOut" }}
-                      className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full"
-                    />
+                  <div className="flex flex-col items-center mt-5">
+                    <div className="flex justify-between text-xs text-slate-400 font-bold w-56 mb-1.5">
+                      <span>
+                        {testProgress < 30
+                          ? "Saving profile..."
+                          : testProgress >= 30 && testProgress < 75
+                          ? "Securing connection..."
+                          : "Opening App..."}
+                      </span>
+                      <span className="text-blue-600 font-black">{testProgress}%</span>
+                    </div>
+                    <div className="w-56 bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/50">
+                      <motion.div
+                        animate={{ width: `${testProgress}%` }}
+                        transition={{ duration: 0.1 }}
+                        className="bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400 h-full rounded-full"
+                      />
+                    </div>
                   </div>
                 </div>
               )}
