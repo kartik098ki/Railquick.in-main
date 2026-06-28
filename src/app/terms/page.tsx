@@ -53,9 +53,9 @@ export default function TermsPage() {
             </div>
           </div>
 
-          {/* Mobile Nav Links - Pill Style (Fixed Distribution) */}
+          {/* Mobile Nav Links - Pill Style (Premium App Control) */}
           <div className="flex px-4 pb-4 md:hidden w-full">
-            <div className="w-full bg-slate-100/50 backdrop-blur-md border border-slate-200/50 rounded-full p-1">
+            <div className="w-full bg-slate-100/80 backdrop-blur-md border border-slate-200/30 rounded-full p-1 shadow-sm">
               <div className="flex items-center justify-between gap-0.5 w-full">
                 {[
                   { label: "Home", href: "/" },
@@ -67,7 +67,10 @@ export default function TermsPage() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className="flex-1 text-center py-2 px-1 rounded-full text-[10px] sm:text-xs font-bold transition-all duration-300 text-slate-500 hover:text-slate-900"
+                    className={`flex-1 text-center py-2.5 px-1 rounded-full text-[11px] font-extrabold tracking-tight transition-all duration-300 ${item.href === '/terms'
+                      ? 'bg-white text-blue-600 shadow-[0_2px_10px_rgba(15,23,42,0.06)] border border-slate-100/50'
+                      : 'text-slate-500 hover:text-slate-900'
+                      }`}
                   >
                     {item.label}
                   </Link>
