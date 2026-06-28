@@ -206,6 +206,7 @@ export default function HomePage() {
   const [testSubmitting, setTestSubmitting] = useState(false);
   const [testSuccess, setTestSuccess] = useState(false);
   const [testProgress, setTestProgress] = useState(0);
+  const [selectedReel, setSelectedReel] = useState<string | null>(null);
 
   const handleTestNow = () => {
     setShowTestModal(true);
@@ -772,31 +773,44 @@ export default function HomePage() {
           <div 
             ref={containerRef}
             onScroll={handleContainerScroll}
-            className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory py-4 sm:py-6 px-4 no-scrollbar scroll-smooth"
+            className="grid grid-cols-2 gap-3 max-w-sm mx-auto md:max-w-none md:flex md:gap-6 overflow-x-visible md:overflow-x-auto md:snap-x md:snap-mandatory py-2 md:py-6 px-2 md:px-4 no-scrollbar scroll-smooth"
           >
             {reels.map((reel, index) => {
               const isActive = index === activeReelIndex;
               return (
                 <div
                   key={reel.id}
-                  className={`flex-shrink-0 w-[200px] sm:w-[240px] aspect-[9/16] snap-center rounded-2xl sm:rounded-3xl overflow-hidden relative shadow-lg transition-all duration-500 border-2 ${
+                  onClick={() => setSelectedReel(reel.shortcode)}
+                  className={`w-full md:w-[240px] md:flex-shrink-0 aspect-[9/16] md:snap-center rounded-3xl overflow-hidden relative shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100/80 cursor-pointer group/card ${
                     isActive
-                      ? 'scale-100 border-pink-500 ring-4 ring-pink-500/20 z-30 shadow-pink-500/20'
-                      : 'scale-95 border-transparent opacity-60 filter blur-[0.5px] hover:opacity-80 hover:blur-none'
+                      ? 'md:scale-100 md:border-blue-500 md:ring-4 md:ring-blue-500/20 md:z-30 md:shadow-blue-500/20'
+                      : 'md:scale-95 md:border-transparent md:opacity-60 md:filter md:blur-[0.5px] hover:md:opacity-90 hover:md:blur-none'
                   }`}
                 >
-                  <iframe
-                    src={`https://www.instagram.com/p/${reel.shortcode}/embed/?autoplay=${isActive && isReelsInView ? '1' : '0'}`}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    scrolling="no"
-                    allowTransparency={true}
-                    className="absolute inset-0 w-full h-full bg-slate-900"
-                  ></iframe>
+                  {/* Dynamic Instagram Cover Image */}
+                  <img
+                    src={`https://www.instagram.com/p/${reel.shortcode}/media/?size=l`}
+                    alt="RailQuick Reel Cover"
+                    className="absolute inset-0 w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500 bg-slate-900"
+                    loading="lazy"
+                  />
                   
-                  {/* Overlay to disable iframe interaction when not active, allowing for smooth swipe/scroll */}
-                  {!isActive && <div className="absolute inset-0 z-10" />}
+                  {/* Dark vignette overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/15" />
+                  
+                  {/* Play icon overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className={`w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white transition-all duration-300 ${
+                      isActive ? 'scale-110 bg-blue-500/80 border-blue-400/50 shadow-lg shadow-blue-500/30' : 'scale-90 group-hover/card:scale-100'
+                    }`}>
+                      <Play className="w-5 h-5 fill-white ml-0.5" />
+                    </div>
+                  </div>
+
+                  {/* Brand Tag */}
+                  <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 text-[10px] text-white font-bold border border-white/10">
+                    <Instagram className="w-3.5 h-3.5 text-pink-500" /> Instagram
+                  </div>
                 </div>
               );
             })}
@@ -1136,6 +1150,46 @@ export default function HomePage() {
               </div>
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Lightbox / Video Modal */}
+      <AnimatePresence>
+        {selectedReel && (
+          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-slate-950/80 backdrop-blur-md"
+              onClick={() => setSelectedReel(null)}
+            />
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="relative w-full max-w-[340px] aspect-[9/16] rounded-[32px] bg-slate-950 shadow-2xl overflow-hidden border border-white/10"
+            >
+              <button
+                onClick={() => setSelectedReel(null)}
+                className="absolute top-4 right-4 z-50 w-9 h-9 flex items-center justify-center bg-black/60 hover:bg-black/80 border border-white/10 text-white rounded-full transition-all"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              
+              <iframe
+                src={`https://www.instagram.com/p/${selectedReel}/embed/`}
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                allowTransparency={true}
+                className="absolute inset-0 w-full h-full"
+              ></iframe>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>
