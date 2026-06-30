@@ -84,31 +84,31 @@ export default function Footer() {
           </div>
 
           {/* Links grid: side-by-side on mobile, 3 columns on desktop */}
-          <div className="flex flex-row justify-between items-start gap-4 flex-wrap md:grid md:grid-cols-3 md:col-span-3">
-            <div className="min-w-[80px] flex-1">
+          <div className="grid grid-cols-3 gap-2 sm:gap-6 md:col-span-3">
+            <div className="col-span-1">
               <h4 className="text-white font-semibold mb-3 text-xs sm:text-sm uppercase tracking-wider">Links</h4>
               <div className="space-y-2 sm:space-y-3">
-                <Link href="/" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Home</Link>
-                <Link href="/about" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">About Us</Link>
-                <Link href="/test-phase" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Test Phase</Link>
-                <Link href="/contact" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Contact</Link>
-                <Link href="/hiring" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Hiring</Link>
+                <Link href="/" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Home</Link>
+                <Link href="/about" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">About Us</Link>
+                <Link href="/test-phase" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Test Phase</Link>
+                <Link href="/contact" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Contact</Link>
+                <Link href="/hiring" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Hiring</Link>
               </div>
             </div>
 
-            <div className="min-w-[80px] flex-1">
+            <div className="col-span-1">
               <h4 className="text-white font-semibold mb-3 text-xs sm:text-sm uppercase tracking-wider">Legal</h4>
               <div className="space-y-2 sm:space-y-3">
-                <Link href="/terms" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Terms</Link>
-                <Link href="/privacy" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Privacy</Link>
-                <Link href="/disclaimer" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Disclaimer</Link>
+                <Link href="/terms" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Terms</Link>
+                <Link href="/privacy" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Privacy</Link>
+                <Link href="/disclaimer" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Disclaimer</Link>
               </div>
             </div>
 
-            <div className="min-w-[150px] flex-1 sm:flex-initial">
+            <div className="col-span-1">
               <h4 className="text-white font-semibold mb-3 text-xs sm:text-sm uppercase tracking-wider">Contact</h4>
-              <div className="space-y-2 sm:space-y-3 text-slate-400 text-[11px] sm:text-sm">
-                <p className="whitespace-nowrap">contact@railquick.in</p>
+              <div className="space-y-2 sm:space-y-3 text-slate-400 text-[10px] sm:text-sm">
+                <p className="whitespace-nowrap overflow-visible">contact@railquick.in</p>
                 <p>Delhi, India</p>
               </div>
             </div>

@@ -963,15 +963,12 @@ export default function HomePage() {
             {stats.map((stat, index) => (
               <div 
                 key={index} 
-                className="group bg-slate-50/50 border border-slate-100/70 rounded-[2rem] p-6 sm:p-8 text-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 flex flex-col items-center justify-center min-h-[140px] sm:min-h-[180px]"
+                className="group bg-slate-50/50 border border-slate-100/70 rounded-[2rem] p-6 sm:p-8 text-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 flex flex-col items-center justify-center min-h-[130px] sm:min-h-[160px]"
               >
-                {/* Visual accent dot */}
-                <span className="w-1.5 h-1.5 bg-blue-500 group-hover:bg-blue-200 rounded-full mb-3.5 inline-block transition-colors duration-300" />
-                
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 group-hover:text-white mb-2 transition-colors duration-300">
                   {stat.value}
                 </div>
-                <div className="text-xs sm:text-sm text-slate-500 group-hover:text-blue-100 uppercase tracking-wider font-bold transition-colors duration-300 max-w-[150px] mx-auto leading-snug">
+                <div className="text-xs sm:text-sm text-slate-500 group-hover:text-blue-100 uppercase tracking-wider font-extrabold transition-colors duration-300 max-w-[150px] mx-auto leading-snug">
                   {stat.label}
                 </div>
               </div>
