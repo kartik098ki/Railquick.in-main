@@ -147,8 +147,8 @@ export default function ContactPage() {
             {/* Mobile Action Button */}
             <div className="md:hidden">
               <Link href="/#waitlist">
-                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all">
-                  ⚡ Test Now
+                <Button className="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/50 rounded-full px-3.5 h-8 text-[11px] font-bold shadow-sm active:scale-95 transition-all">
+                  Test Now
                 </Button>
               </Link>
             </div>
@@ -384,27 +384,25 @@ export default function ContactPage() {
             className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
           >
             <motion.div
-              initial={{ scale: 0.95, y: 20 }}
+              initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              className="bg-white rounded-[2.5rem] p-8 sm:p-12 max-w-md w-full text-center relative overflow-hidden border border-slate-100 shadow-2xl"
+              exit={{ scale: 0.95, y: 15 }}
+              className="bg-white rounded-3xl p-8 sm:p-10 max-w-sm w-full text-center relative overflow-hidden border border-slate-100 shadow-2xl"
             >
-              <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-500" />
-
-              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-blue-100">
-                <CheckCircle2 className="w-8 h-8" />
+              <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-emerald-100/60">
+                <CheckCircle2 className="w-7 h-7" strokeWidth={2.5} />
               </div>
 
-              <h2 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">Message Sent</h2>
-              <p className="text-slate-500 text-sm sm:text-base mb-8 leading-relaxed">
-                Thank you for reaching out to RailQuick. We have received your message and will respond as soon as possible.
+              <h2 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">Message Sent</h2>
+              <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+                Thank you for reaching out. We have received your message and will respond as soon as possible.
               </p>
 
               <Button
                 onClick={() => setShowSuccessOverlay(false)}
-                className="w-full h-12 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-full font-bold transition-all shadow-sm hover:shadow-md active:scale-95"
+                className="w-full h-12 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-bold text-sm shadow-sm transition-all active:scale-[0.97]"
               >
-                Awesome!
+                Awesome
               </Button>
             </motion.div>
           </motion.div>

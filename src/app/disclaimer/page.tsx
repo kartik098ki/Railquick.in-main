@@ -55,8 +55,8 @@ export default function DisclaimerPage() {
             {/* Mobile Action Button */}
             <div className="md:hidden">
               <Link href="/#waitlist">
-                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all">
-                  ⚡ Test Now
+                <Button className="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/50 rounded-full px-3.5 h-8 text-[11px] font-bold shadow-sm active:scale-95 transition-all">
+                  Test Now
                 </Button>
               </Link>
             </div>
