@@ -524,7 +524,7 @@ export default function HomePage() {
             <div className="md:hidden">
               <Button 
                 onClick={handleTestNow} 
-                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md active:scale-95 transition-all"
+                className="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/50 rounded-full px-3.5 h-8 text-[11px] font-bold shadow-sm active:scale-95 transition-all"
               >
                 Test Now
               </Button>
@@ -599,7 +599,7 @@ export default function HomePage() {
             <div className="flex flex-col gap-3 mb-8">
               <button
                 onClick={handleTestNow}
-                className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-base font-bold shadow-lg shadow-blue-500/20 active:scale-[0.98] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 group"
+                className="w-full py-4 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-2xl text-base font-bold shadow-md shadow-blue-500/5 active:scale-[0.98] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 group"
               >
                 Test Now <span className="group-hover:translate-x-1 transition-transform">→</span>
               </button>
@@ -653,7 +653,7 @@ export default function HomePage() {
                 <div className="flex items-center gap-4">
                   <Button
                     onClick={handleTestNow}
-                    className="px-8 py-7 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-xl shadow-blue-500/25 flex items-center gap-2 group"
+                    className="px-8 py-7 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-md shadow-blue-500/5 flex items-center gap-2 group"
                   >
                     Test Now <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </Button>
@@ -743,22 +743,14 @@ export default function HomePage() {
       <section ref={reelsSectionRef} className="pt-12 pb-20 sm:pt-20 lg:pt-32 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-blue-100/40 rounded-full blur-[100px]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 relative z-10 text-center">
-          <span className="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3 inline-block">
+          <span className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-3 inline-block">
             RailQuick in Action
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 mt-2 mb-3">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 mt-2 mb-4 leading-tight">
             Watch Our Story
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            See how we are transforming train travel across India. Follow us on Instagram{' '}
-            <a
-              href="https://www.instagram.com/railquick/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 font-bold hover:underline inline-flex items-center gap-1 hover:text-blue-600 transition-colors"
-            >
-              @railquick <ArrowRight className="w-4 h-4" />
-            </a>
+          <p className="text-base sm:text-lg text-slate-550 max-w-xl mx-auto leading-relaxed">
+            See how we are transforming train travel across India.
           </p>
         </div>
 
@@ -960,17 +952,24 @@ export default function HomePage() {
 
 
       {/* Stats */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      <section className="py-16 sm:py-24 bg-slate-50/30 border-t border-b border-slate-100/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <p className="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">By the numbers</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Growing every day</h2>
+          <div className="text-center mb-12 sm:mb-16">
+            <p className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-3">By the numbers</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Growing every day</h2>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="group bg-slate-50 border border-slate-100 rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 group-hover:text-white mb-2 transition-colors">{stat.value}</div>
-                <div className="text-xs sm:text-sm text-slate-500 group-hover:text-blue-100 uppercase tracking-wider font-semibold transition-colors">{stat.label}</div>
+              <div 
+                key={index} 
+                className="group bg-white border border-slate-200/60 rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 text-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1"
+              >
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-blue-600 group-hover:text-white mb-2.5 transition-colors duration-300">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-slate-550 group-hover:text-blue-100 uppercase tracking-wider font-extrabold transition-colors duration-300 leading-snug max-w-[150px] mx-auto">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>

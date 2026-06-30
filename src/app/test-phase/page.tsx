@@ -140,7 +140,7 @@ export default function TestPhasePage() {
             <div className="md:hidden">
               <Button 
                 onClick={() => setShowTestModal(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md active:scale-95 transition-all"
+                className="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/50 rounded-full px-3.5 h-8 text-[11px] font-bold shadow-sm active:scale-95 transition-all"
               >
                 Test Now
               </Button>
@@ -217,28 +217,34 @@ export default function TestPhasePage() {
             
             <div className="flex flex-col lg:flex-row gap-12 relative z-10">
               <div className="flex-1 space-y-6">
-                <div className="inline-flex items-center gap-2 text-blue-600 font-bold bg-blue-50 px-4 py-2 rounded-xl text-sm">
-                  <MapPin className="w-4 h-4" /> Delhi Railway Station
+                <div className="inline-flex items-center gap-1.5 text-blue-600 font-bold bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider">
+                  <MapPin className="w-3.5 h-3.5" /> Delhi Railway Station
                 </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
                   Test Phase 1 <br/> <span className="text-slate-500 text-2xl sm:text-3xl font-semibold">Ground Testing</span>
                 </h2>
-                <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
+                <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
                   In our first testing phase, we started at Delhi Railway Station, focusing on validating the core concept of RailQuick. We tested basic order placement through our app, vendor coordination at the station, and manual delivery mapping to passengers.
                 </p>
-                <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-6">
-                  <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2"><MapPin className="w-5 h-5 text-blue-600"/> Real-World Challenges Discovered:</h4>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3 text-slate-700">
-                      <Zap className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" /> Vendor confusion in locating exact seats.
-                    </li>
-                    <li className="flex items-start gap-3 text-slate-700">
-                      <Zap className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" /> Delays in delivery timing.
-                    </li>
-                    <li className="flex items-start gap-3 text-slate-700">
-                      <Zap className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" /> Lack of real-time coordination.
-                    </li>
-                  </ul>
+                <div className="bg-slate-50 border border-slate-200/60 rounded-3xl p-6 sm:p-8">
+                  <h4 className="font-bold text-slate-900 mb-5 flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-blue-600"/> 
+                    Real-World Challenges Discovered:
+                  </h4>
+                  <div className="grid gap-3.5">
+                    {[
+                      "Vendor confusion in locating exact seats.",
+                      "Delays in delivery timing.",
+                      "Lack of real-time coordination."
+                    ].map((challenge, i) => (
+                      <div key={i} className="flex items-center gap-3.5 bg-white border border-slate-100 rounded-2xl p-4 hover:shadow-md transition-all duration-300">
+                        <div className="w-8 h-8 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
+                          <Zap className="w-4 h-4" />
+                        </div>
+                        <span className="text-sm font-semibold text-slate-700">{challenge}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -338,7 +344,7 @@ export default function TestPhasePage() {
       </section>
 
       {/* Test Phase 3 */}
-      <section className="py-20 lg:py-32 bg-white relative overflow-hidden border-t border-slate-100">
+      <section className="py-20 lg:py-32 bg-slate-50/40 relative overflow-hidden border-t border-slate-100">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.03),transparent_70%)] pointer-events-none" />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
@@ -355,9 +361,9 @@ export default function TestPhasePage() {
             We are bringing on-seat essential delivery to Delhi Railway Station soon. Be the first to try it when we launch!
           </p>
 
-          <div className="relative bg-slate-50 border border-slate-200/60 rounded-3xl p-8 max-w-md mx-auto shadow-lg hover:shadow-xl transition-all flex flex-col items-center justify-center overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl" />
-            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+          <div className="relative bg-white border border-slate-200/60 rounded-[2rem] p-8 max-w-md mx-auto shadow-xl hover:shadow-2xl transition-all flex flex-col items-center justify-center overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
+            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-5 shadow-sm border border-blue-100">
               <Train className="w-7 h-7" />
             </div>
             
@@ -368,7 +374,7 @@ export default function TestPhasePage() {
 
             <Button
               onClick={() => setShowTestModal(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 h-12 font-bold transition-all shadow-md active:scale-95"
+              className="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-full px-8 h-12 font-bold transition-all shadow-sm hover:shadow-md active:scale-95"
             >
               Test Now
             </Button>

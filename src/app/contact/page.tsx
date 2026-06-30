@@ -55,7 +55,7 @@ const founders = [
   {
     name: 'Kartik Guleria',
     image: '/images/kartik.png',
-    email: 'kartikguleria12@gmail.com',
+    email: 'kartik@railquick.in',
     linkedin: 'https://www.linkedin.com/in/kartikguleria1/',
     gradient: 'from-blue-500 to-cyan-400',
   },
@@ -69,6 +69,7 @@ const founders = [
   {
     name: 'Avni Porwal',
     image: '/images/avni_latest.jpg',
+    email: 'avni@railquick.in',
     linkedin: 'https://www.linkedin.com/in/avni-porwal-1974a5379/',
     gradient: 'from-orange-500 to-amber-400',
   },
