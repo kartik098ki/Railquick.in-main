@@ -4,8 +4,10 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { CheckCircle2, Clock, Smartphone, Zap, MapPin, Train, ShieldCheck, Cpu, Package, Users, Rocket, Handshake, Flame } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { CheckCircle2, Clock, Smartphone, Zap, MapPin, Train, ShieldCheck, Cpu, Package, Users, Rocket, Handshake, Flame, Mail, Loader2, ArrowRight } from "lucide-react";
 
 const phases = [
   {
@@ -34,6 +36,59 @@ const phases = [
 
 export default function TestPhasePage() {
   const [headerScrolled, setHeaderScrolled] = useState(false);
+  const [showTestModal, setShowTestModal] = useState(false);
+  const [testEmail, setTestEmail] = useState('');
+  const [testCity, setTestCity] = useState('');
+  const [testSubmitting, setTestSubmitting] = useState(false);
+  const [testSuccess, setTestSuccess] = useState(false);
+  const [testProgress, setTestProgress] = useState(0);
+
+  const handleTestSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!testEmail || !testCity) {
+      toast({ title: 'Validation Error', description: 'Please fill in all fields.', variant: 'destructive' });
+      return;
+    }
+
+    setTestSubmitting(true);
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: testEmail, city: testCity }),
+      });
+
+      if (response.ok) {
+        setTestSuccess(true);
+        setTestProgress(0);
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 5;
+          setTestProgress(progress);
+          if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              setShowTestModal(false);
+              setTestSuccess(false);
+              setTestEmail('');
+              setTestCity('');
+              setTestProgress(0);
+              window.location.href = 'https://www.railquickapp.com';
+            }, 300);
+          }
+        }, 80);
+      } else {
+        const errorData = await response.json();
+        toast({ title: 'Error', description: errorData.message || 'Failed to submit details.', variant: 'destructive' });
+      }
+    } catch {
+      toast({ title: 'Connection Error', description: 'Failed to reach servers. Please try again.', variant: 'destructive' });
+    } finally {
+      setTestSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setHeaderScrolled(window.scrollY > 50);
@@ -73,20 +128,22 @@ export default function TestPhasePage() {
             </div>
 
             <div className="hidden md:block">
-              <Link href="/#waitlist">
-                <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
-                  Join Waitlist
-                </Button>
-              </Link>
+              <Button 
+                onClick={() => setShowTestModal(true)}
+                className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold"
+              >
+                Join Waitlist
+              </Button>
             </div>
 
             {/* Mobile Action Button */}
             <div className="md:hidden">
-              <Link href="/#waitlist">
-                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all">
-                  ⚡ Test Now
-                </Button>
-              </Link>
+              <Button 
+                onClick={() => setShowTestModal(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md active:scale-95 transition-all"
+              >
+                Test Now
+              </Button>
             </div>
           </div>
         </div>
@@ -282,92 +339,39 @@ export default function TestPhasePage() {
 
       {/* Test Phase 3 */}
       <section className="py-20 lg:py-32 bg-white relative overflow-hidden border-t border-slate-100">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.05),transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.03),transparent_70%)] pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-            <div className="inline-flex items-center gap-2 text-blue-600 font-bold bg-blue-50 border border-blue-100 px-5 py-2 rounded-full text-sm mb-6 animate-pulse">
-              <span className="w-2.5 h-2.5 bg-blue-500 rounded-full inline-block animate-ping" />
-              <span>Phase 3: Coming Soon</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
-              Test Phase 3 <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Delhi Junction Expansion</span>
-            </h2>
-            <p className="text-lg sm:text-xl text-slate-650 max-w-2xl mx-auto leading-relaxed">
-              We are expanding operations. Soon, RailQuick will deliver essentials to <span className="font-bold text-slate-900">all trains arriving at or departing from Delhi NCR</span>.
-            </p>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+          <div className="inline-flex items-center gap-2 text-blue-600 font-bold bg-blue-50 border border-blue-100 px-5 py-2 rounded-full text-sm mb-6">
+            <span className="w-2.5 h-2.5 bg-blue-500 rounded-full inline-block animate-pulse" />
+            <span>Phase 3: Coming Soon</span>
           </div>
+          
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+            Delhi Railway Station (Soon)
+          </h2>
+          
+          <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto mb-10 leading-relaxed">
+            We are bringing on-seat essential delivery to Delhi Railway Station soon. Be the first to try it when we launch!
+          </p>
 
-          {/* Interactive UI Mockup */}
-          <div className="bg-slate-950 text-white rounded-[2.5rem] p-6 sm:p-12 shadow-2xl relative overflow-hidden max-w-5xl mx-auto border border-slate-900">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl" />
-            
-            <div className="grid lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className="lg:col-span-5 space-y-6">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full text-xs font-bold uppercase tracking-wider">
-                  <span>🗺️</span> Coverage Expansion
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">Delivering to all Delhi Trains</h3>
-                <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-                  No matter which station your train arrives at in Delhi, our operations team will deliver your order directly inside the compartment in under 5 minutes.
-                </p>
-                <div className="space-y-3 pt-2">
-                  {[
-                    "New Delhi Railway Station (NDLS)",
-                    "Hazrat Nizamuddin Terminal (NZM)",
-                    "Delhi Junction / Old Delhi (DLI)",
-                    "Anand Vihar Terminal (ANVT)"
-                  ].map((station, i) => (
-                    <div key={i} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-3.5 hover:bg-white/10 transition-colors">
-                      <div className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-extrabold shrink-0">
-                        {i + 1}
-                      </div>
-                      <span className="text-sm font-semibold text-slate-200">{station}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Visual live mockup */}
-              <div className="lg:col-span-7 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 relative flex flex-col justify-between min-h-[350px] shadow-inner">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-                  <div className="flex items-center gap-3">
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                    </span>
-                    <span className="font-bold text-sm tracking-wide uppercase text-slate-400">Delhi Operations Hub</span>
-                  </div>
-                  <span className="text-xs bg-blue-500/20 text-blue-300 font-bold px-2.5 py-1 rounded-full border border-blue-500/30">Active Link Simulator</span>
-                </div>
-
-                <div className="py-8 flex flex-col items-center justify-center relative">
-                  {/* Pulse Center */}
-                  <div className="relative w-28 h-28 flex items-center justify-center">
-                    <div className="absolute inset-0 bg-blue-500/20 rounded-full animate-ping opacity-60 duration-1000" />
-                    <div className="absolute inset-4 bg-indigo-500/30 rounded-full animate-pulse duration-700" />
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30 border border-blue-400/20">
-                      <Train className="w-8 h-8 text-white" />
-                    </div>
-                  </div>
-                  <p className="mt-4 text-sm font-black text-white tracking-tight">DELHI JUNCTION HUB</p>
-                  <p className="text-xs text-slate-400 mt-1">Connecting 200+ trains daily</p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 border-t border-slate-800 pt-4 text-center">
-                  <div>
-                    <p className="text-xs text-slate-500 font-bold uppercase">Estimated Launch</p>
-                    <p className="text-base font-extrabold text-white mt-0.5">Coming Soon ⚡</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500 font-bold uppercase">Target Routes</p>
-                    <p className="text-base font-extrabold text-blue-400 mt-0.5">All Delhi Trains</p>
-                  </div>
-                </div>
-              </div>
+          <div className="relative bg-slate-50 border border-slate-200/60 rounded-3xl p-8 max-w-md mx-auto shadow-lg hover:shadow-xl transition-all flex flex-col items-center justify-center overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl" />
+            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+              <Train className="w-7 h-7" />
             </div>
+            
+            <h3 className="text-xl font-bold text-slate-900 mb-2">Delhi Hub Live Soon</h3>
+            <p className="text-sm text-slate-500 mb-6 max-w-xs leading-relaxed">
+              We will deliver to all incoming trains arriving at Delhi Railway Station in under 5 minutes.
+            </p>
+
+            <Button
+              onClick={() => setShowTestModal(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 h-12 font-bold transition-all shadow-md active:scale-95"
+            >
+              Test Now
+            </Button>
           </div>
         </div>
       </section>
@@ -377,15 +381,16 @@ export default function TestPhasePage() {
       <section className="py-20 lg:py-32 bg-white border-t border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-8 tracking-tight">Be part of our journey</h2>
-          <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-650 mb-12 max-w-2xl mx-auto">
             Join our waitlist and be the first to experience on-seat delivery.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/#waitlist">
-              <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-10 h-16 text-lg font-bold shadow-xl shadow-slate-900/20 transition-all hover:shadow-2xl hover:shadow-slate-900/30 hover:-translate-y-1 w-full sm:w-auto">
-                Join Waitlist
-              </Button>
-            </Link>
+            <Button 
+              onClick={() => setShowTestModal(true)}
+              className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-10 h-16 text-lg font-bold shadow-xl shadow-slate-900/20 transition-all hover:shadow-xl hover:shadow-slate-900/30 hover:-translate-y-1 w-full sm:w-auto"
+            >
+              Join Waitlist
+            </Button>
             <Link href="/contact">
               <Button variant="outline" className="h-16 px-10 text-lg font-bold rounded-full border-2 hover:bg-slate-50 w-full sm:w-auto">
                 Partner With Us
@@ -396,6 +401,136 @@ export default function TestPhasePage() {
       </section>
 
       <Footer />
+      {/* Test App Modal */}
+      <AnimatePresence>
+        {showTestModal && (
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-slate-950/30 backdrop-blur-md"
+              onClick={() => {
+                if (!testSubmitting && !testSuccess) setShowTestModal(false);
+              }}
+            />
+            
+            <motion.div
+              initial={{ scale: 0.95, y: 15, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.95, y: 15, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative bg-white rounded-[32px] p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden text-slate-900"
+            >
+              {!testSuccess ? (
+                <>
+                  <button
+                    onClick={() => setShowTestModal(false)}
+                    disabled={testSubmitting}
+                    className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-50 rounded-full transition-all"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+
+                  <div className="text-center mb-6 mt-2">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50/80 border border-blue-100 rounded-full text-xs font-bold text-blue-600 uppercase tracking-widest mb-3">
+                      <span>⚡</span>
+                      <span>Live App Beta</span>
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+                      Access RailQuick App
+                    </h3>
+                    <p className="text-sm text-slate-500 max-w-xs mx-auto leading-relaxed mt-1.5">
+                      Enter your details to launch the live platform.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleTestSubmit} className="space-y-4 relative z-10">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Email Address</label>
+                      <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                        <input
+                          type="email"
+                          required
+                          placeholder="name@example.com"
+                          value={testEmail}
+                          onChange={(e) => setTestEmail(e.target.value)}
+                          disabled={testSubmitting}
+                          className="w-full h-13 pl-12 pr-4 bg-slate-50/50 border border-slate-200/80 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 placeholder-slate-400 outline-none text-base font-semibold shadow-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Current City / Station</label>
+                      <div className="relative">
+                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. New Delhi"
+                          value={testCity}
+                          onChange={(e) => setTestCity(e.target.value)}
+                          disabled={testSubmitting}
+                          className="w-full h-13 pl-12 pr-4 bg-slate-50/50 border border-slate-200/80 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 placeholder-slate-400 outline-none text-base font-semibold shadow-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={testSubmitting}
+                      className="w-full h-13 mt-6 bg-slate-950 hover:bg-slate-900 text-white rounded-2xl font-bold text-base transition-all duration-300 shadow-lg shadow-slate-950/15 hover:shadow-xl hover:shadow-slate-950/20 active:scale-[0.98]"
+                    >
+                      {testSubmitting ? (
+                        <span className="flex items-center gap-2">
+                          <Loader2 className="w-5 h-5 animate-spin text-white" /> Connecting Securely...
+                        </span>
+                      ) : (
+                        <span className="flex items-center justify-center gap-2 group">
+                          Access Live App <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      )}
+                    </Button>
+                  </form>
+                </>
+              ) : (
+                <div className="py-8 text-center flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 bg-blue-50 rounded-full border border-blue-100 text-blue-600 flex items-center justify-center mb-6 relative">
+                    <div className="absolute inset-0 rounded-full bg-blue-400/20 animate-ping opacity-35" />
+                    <Loader2 className="w-8 h-8 animate-spin" />
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-900 mb-2">Connecting to App</h3>
+                  
+                  {/* Progress simulator */}
+                  <div className="flex flex-col items-center mt-5">
+                    <div className="flex justify-between text-xs text-slate-400 font-bold w-56 mb-1.5">
+                      <span>
+                        {testProgress < 30
+                          ? "Saving profile..."
+                          : testProgress >= 30 && testProgress < 75
+                          ? "Securing connection..."
+                          : "Opening App..."}
+                      </span>
+                      <span className="text-blue-600 font-black">{testProgress}%</span>
+                    </div>
+                    <div className="w-56 bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200/50">
+                      <motion.div
+                        animate={{ width: `${testProgress}%` }}
+                        transition={{ duration: 0.1 }}
+                        className="bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400 h-full rounded-full"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

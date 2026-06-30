@@ -524,9 +524,9 @@ export default function HomePage() {
             <div className="md:hidden">
               <Button 
                 onClick={handleTestNow} 
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all"
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md active:scale-95 transition-all"
               >
-                ⚡ Test Now
+                Test Now
               </Button>
             </div>
           </div>
@@ -599,9 +599,9 @@ export default function HomePage() {
             <div className="flex flex-col gap-3 mb-8">
               <button
                 onClick={handleTestNow}
-                className="w-full py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-2xl text-base font-bold shadow-lg shadow-blue-500/20 active:scale-[0.98] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 group"
+                className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-base font-bold shadow-lg shadow-blue-500/20 active:scale-[0.98] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 group"
               >
-                Test Now <span className="group-hover:translate-x-1 transition-transform">⚡</span>
+                Test Now <span className="group-hover:translate-x-1 transition-transform">→</span>
               </button>
               <Link href="/test-phase" className="w-full">
                 <button className="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 rounded-2xl text-base font-semibold active:scale-[0.98] hover:scale-[1.01] transition-all hover:border-slate-400">
@@ -653,9 +653,9 @@ export default function HomePage() {
                 <div className="flex items-center gap-4">
                   <Button
                     onClick={handleTestNow}
-                    className="px-8 py-7 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white hover:from-blue-700 hover:to-indigo-700 rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-xl shadow-blue-500/25 flex items-center gap-2 group"
+                    className="px-8 py-7 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-xl shadow-blue-500/25 flex items-center gap-2 group"
                   >
-                    Test Now <span className="group-hover:translate-x-1 transition-transform">⚡</span>
+                    Test Now <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </Button>
                   <Link href="/test-phase">
                     <Button variant="outline" className="px-8 py-7 border-2 border-slate-200 hover:border-slate-900 rounded-2xl text-lg font-bold transition-all hover:scale-105">
@@ -791,9 +791,9 @@ export default function HomePage() {
               return (
                 <div
                   key={reel.id}
-                  className={`flex-shrink-0 w-[200px] sm:w-[240px] aspect-[9/16] snap-center rounded-2xl sm:rounded-3xl overflow-hidden relative shadow-xl transition-all duration-500 border-2 ${
+                  className={`flex-shrink-0 w-[200px] sm:w-[240px] aspect-[9/16] snap-center rounded-[22px] sm:rounded-[30px] overflow-hidden relative shadow-lg transition-all duration-500 border-4 ${
                     isActive
-                      ? 'scale-100 border-pink-500 ring-4 ring-pink-500/25 z-30 shadow-pink-500/30'
+                      ? 'scale-100 border-slate-900 ring-4 ring-slate-900/5 z-30 shadow-slate-950/15'
                       : 'scale-95 border-slate-200/50 opacity-60 filter blur-[0.5px] hover:opacity-85 hover:blur-none'
                   }`}
                 >
@@ -829,7 +829,7 @@ export default function HomePage() {
                 }}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   idx === activeReelIndex 
-                    ? 'w-6 bg-pink-500 shadow-md shadow-pink-500/20' 
+                    ? 'w-6 bg-blue-600 shadow-md shadow-blue-500/20' 
                     : 'bg-slate-300 hover:bg-slate-400'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
@@ -1011,42 +1011,51 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-slate-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-            <p className="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3">Why Choose Us</p>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">
+      <section className="py-16 sm:py-24 bg-slate-50/50 relative overflow-hidden border-t border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            <p className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-3">Why Choose Us</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
               Experience train travel like never before
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 title: 'Lightning Fast Delivery',
                 description: 'Get your essentials delivered to your seat at the next station stop or directly inside the running train.',
-                gradient: 'from-blue-500 to-cyan-400',
+                border: 'border-t-4 border-blue-500',
+                bg: 'bg-blue-50',
+                color: 'text-blue-600',
                 icon: <Zap className="w-6 h-6" />
               },
               {
                 title: 'Quality Guaranteed',
                 description: 'We source only verified, high-quality products for your peace of mind.',
-                gradient: 'from-green-500 to-emerald-400',
+                border: 'border-t-4 border-emerald-500',
+                bg: 'bg-emerald-50',
+                color: 'text-emerald-600',
                 icon: <CheckCircle2 className="w-6 h-6" />
               },
               {
                 title: 'Wide Selection',
                 description: "From medicines to gadgets, we've got everything you might need.",
-                gradient: 'from-purple-500 to-pink-400',
+                border: 'border-t-4 border-purple-500',
+                bg: 'bg-purple-50',
+                color: 'text-purple-600',
                 icon: <Package className="w-6 h-6" />
               },
             ].map((feature, index) => (
-              <div key={index} className="group relative bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 border border-slate-100 hover:border-transparent hover:shadow-lg transition-all duration-300">
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${feature.gradient} rounded-lg sm:rounded-xl flex items-center justify-center text-white text-lg sm:text-xl mb-4 group-hover:scale-110 transition-transform duration-300`}>
+              <div 
+                key={index} 
+                className={`group relative bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/65 shadow-lg shadow-slate-100/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-305 ${feature.border}`}
+              >
+                <div className={`w-12 h-12 rounded-full ${feature.bg} ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   {feature.icon}
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">{feature.title}</h3>
-                <p className="text-sm sm:text-base text-slate-600">{feature.description}</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+                <p className="text-sm sm:text-base text-slate-500 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -1091,19 +1100,9 @@ export default function HomePage() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
             Be the first to experience RailQuick
           </h2>
-          
-          {/* Card Layout to prevent squeezed text on mobile */}
-          <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 max-w-xl mx-auto mb-10 text-center shadow-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider mb-3">
-              <span>⚡</span> Live seat tracking
-            </div>
-            <p className="text-base sm:text-lg text-slate-100 font-bold mb-1.5">
-              Live Seat Delivery Tracking
-            </p>
-            <p className="text-xs sm:text-sm text-slate-450 leading-relaxed max-w-md mx-auto">
-              Watch your order travel across the station directly to your seat in real-time. Experience seamless updates at every step.
-            </p>
-          </div>
+          <p className="text-sm sm:text-lg text-slate-400 mb-10 max-w-xl mx-auto px-2 leading-relaxed">
+            Live Seat Delivery Tracking: Watch your order travel across the station directly to your seat in real-time.
+          </p>
 
           <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-3.5 max-w-md mx-auto">
             <Input
@@ -1117,7 +1116,7 @@ export default function HomePage() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="h-14 px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+              className="h-14 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
             >
               {isSubmitting ? 'Joining...' : 'Join Waitlist'}
             </Button>

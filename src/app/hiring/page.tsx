@@ -398,7 +398,7 @@ export default function HiringPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-14 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold text-base shadow-lg shadow-blue-500/15 transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                className="w-full h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-base shadow-lg shadow-blue-500/15 transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed mt-4"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
@@ -406,7 +406,7 @@ export default function HiringPage() {
                     Submitting Application...
                   </span>
                 ) : (
-                  'Submit Application ⚡'
+                  'Submit Application'
                 )}
               </Button>
             </form>
