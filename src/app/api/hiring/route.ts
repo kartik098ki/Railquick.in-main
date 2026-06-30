@@ -4,7 +4,7 @@ import { insertSubmission, sendEmail } from '@/lib/services';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, reason, linkedin, journey } = body;
+    const { name, email, phone, role, reason, linkedin, journey } = body;
 
     // Validation
     if (!name || !email || !reason || !linkedin) {
@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
         linkedin: linkedin,
         reason: reason,
         journey: journey || '',
+        inquiry: role || '',
       });
     } catch (dbError: any) {
       if (dbError.message?.includes('23505') || dbError.message?.includes('duplicate key')) {

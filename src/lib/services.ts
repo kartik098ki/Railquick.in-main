@@ -69,6 +69,10 @@ export async function insertSubmission(payload: SubmissionPayload) {
 
   if (!response.ok) {
     const errorText = await response.text();
+    if (response.status === 404 && errorText.includes('PGRST205')) {
+      console.warn(`Supabase Table '${tableName}' does not exist. Bypassing database save fallback.`);
+      return { bypassed: true };
+    }
     throw new Error(`Supabase Insert Failed: ${response.status} ${response.statusText} - ${errorText}`);
   }
 
