@@ -952,54 +952,27 @@ export default function HomePage() {
         </div>
       </section>
 
-
       {/* Stats */}
-      <section className="py-20 lg:py-28 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] bg-slate-50/40 border-t border-b border-slate-100/80 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-br from-blue-500/5 to-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <section className="py-16 sm:py-24 bg-white border-t border-b border-slate-100/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
-            <p className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-3">By the numbers</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Growing every day</h2>
+            <p className="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">By the numbers</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Growing every day</h2>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {(() => {
-              const statDetails = [
-                { icon: <Train className="w-5 h-5" />, color: 'bg-blue-50 text-blue-600 border-blue-100/60' },
-                { icon: <Users className="w-5 h-5" />, color: 'bg-emerald-50 text-emerald-600 border-emerald-100/60' },
-                { icon: <Map className="w-5 h-5" />, color: 'bg-purple-50 text-purple-600 border-purple-100/60' },
-                { icon: <MessageCircle className="w-5 h-5" />, color: 'bg-orange-50 text-orange-600 border-orange-100/60' },
-              ];
-              return stats.map((stat, index) => {
-                const details = statDetails[index];
-                return (
-                  <div 
-                    key={index} 
-                    className="group relative bg-white border border-slate-200/80 rounded-[2rem] p-6 sm:p-8 hover:-translate-y-1.5 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 flex flex-col items-center justify-between"
-                  >
-                    {/* Card Accent Top Bar */}
-                    <div className={`absolute top-0 inset-x-0 h-1 rounded-t-full ${
-                      index === 0 ? 'bg-blue-500' :
-                      index === 1 ? 'bg-emerald-500' :
-                      index === 2 ? 'bg-purple-500' : 'bg-orange-500'
-                    }`} />
-
-                    {/* Icon Badge */}
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center border mb-6 ${details.color}`}>
-                      {details.icon}
-                    </div>
-
-                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 group-hover:text-blue-600 transition-colors duration-300 mb-2">
-                      {stat.value}
-                    </div>
-
-                    <div className="text-[11px] sm:text-xs text-slate-500 uppercase tracking-widest font-extrabold text-center leading-snug max-w-[160px]">
-                      {stat.label}
-                    </div>
-                  </div>
-                );
-              });
-            })()}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {stats.map((stat, index) => (
+              <div 
+                key={index} 
+                className="group bg-slate-50 border border-slate-100 rounded-[2rem] p-6 sm:p-8 text-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1"
+              >
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 group-hover:text-white mb-2.5 transition-colors duration-300">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-slate-550 group-hover:text-blue-100 uppercase tracking-wider font-semibold transition-colors duration-300 max-w-[155px] mx-auto leading-snug">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
