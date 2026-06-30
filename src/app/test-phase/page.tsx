@@ -48,7 +48,7 @@ export default function TestPhasePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Link href="/" className="flex items-center gap-2 group">
-              <img src="/images/logo-full.png" alt="RailQuick" className="h-10 sm:h-12 w-auto mix-blend-multiply" />
+              <img src="/images/logo-full.png" alt="RailQuick" className="h-8 sm:h-12 w-auto mix-blend-multiply transition-all" />
             </Link>
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-1 bg-slate-100/50 backdrop-blur-md p-1 rounded-full border border-slate-200/50">
@@ -76,6 +76,15 @@ export default function TestPhasePage() {
               <Link href="/#waitlist">
                 <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
                   Join Waitlist
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Action Button */}
+            <div className="md:hidden">
+              <Link href="/#waitlist">
+                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all">
+                  ⚡ Test Now
                 </Button>
               </Link>
             </div>
@@ -266,6 +275,98 @@ export default function TestPhasePage() {
                 Unlike Phase 1, this was not a simulation. This was real users, real trains, real deliveries — <span className="text-white font-bold underline decoration-wavy decoration-blue-400 underline-offset-4">in motion</span>.
               </p>
               <p className="text-xl font-bold">We proved that RailQuick is not just an idea, but a working, scalable solution.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Test Phase 3 */}
+      <section className="py-20 lg:py-32 bg-white relative overflow-hidden border-t border-slate-100">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.05),transparent_70%)] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+            <div className="inline-flex items-center gap-2 text-blue-600 font-bold bg-blue-50 border border-blue-100 px-5 py-2 rounded-full text-sm mb-6 animate-pulse">
+              <span className="w-2.5 h-2.5 bg-blue-500 rounded-full inline-block animate-ping" />
+              <span>Phase 3: Coming Soon</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+              Test Phase 3 <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Delhi Junction Expansion</span>
+            </h2>
+            <p className="text-lg sm:text-xl text-slate-650 max-w-2xl mx-auto leading-relaxed">
+              We are expanding operations. Soon, RailQuick will deliver essentials to <span className="font-bold text-slate-900">all trains arriving at or departing from Delhi NCR</span>.
+            </p>
+          </div>
+
+          {/* Interactive UI Mockup */}
+          <div className="bg-slate-950 text-white rounded-[2.5rem] p-6 sm:p-12 shadow-2xl relative overflow-hidden max-w-5xl mx-auto border border-slate-900">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl" />
+            
+            <div className="grid lg:grid-cols-12 gap-8 items-center relative z-10">
+              <div className="lg:col-span-5 space-y-6">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full text-xs font-bold uppercase tracking-wider">
+                  <span>🗺️</span> Coverage Expansion
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">Delivering to all Delhi Trains</h3>
+                <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+                  No matter which station your train arrives at in Delhi, our operations team will deliver your order directly inside the compartment in under 5 minutes.
+                </p>
+                <div className="space-y-3 pt-2">
+                  {[
+                    "New Delhi Railway Station (NDLS)",
+                    "Hazrat Nizamuddin Terminal (NZM)",
+                    "Delhi Junction / Old Delhi (DLI)",
+                    "Anand Vihar Terminal (ANVT)"
+                  ].map((station, i) => (
+                    <div key={i} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-3.5 hover:bg-white/10 transition-colors">
+                      <div className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-extrabold shrink-0">
+                        {i + 1}
+                      </div>
+                      <span className="text-sm font-semibold text-slate-200">{station}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Visual live mockup */}
+              <div className="lg:col-span-7 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 relative flex flex-col justify-between min-h-[350px] shadow-inner">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                    </span>
+                    <span className="font-bold text-sm tracking-wide uppercase text-slate-400">Delhi Operations Hub</span>
+                  </div>
+                  <span className="text-xs bg-blue-500/20 text-blue-300 font-bold px-2.5 py-1 rounded-full border border-blue-500/30">Active Link Simulator</span>
+                </div>
+
+                <div className="py-8 flex flex-col items-center justify-center relative">
+                  {/* Pulse Center */}
+                  <div className="relative w-28 h-28 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-blue-500/20 rounded-full animate-ping opacity-60 duration-1000" />
+                    <div className="absolute inset-4 bg-indigo-500/30 rounded-full animate-pulse duration-700" />
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30 border border-blue-400/20">
+                      <Train className="w-8 h-8 text-white" />
+                    </div>
+                  </div>
+                  <p className="mt-4 text-sm font-black text-white tracking-tight">DELHI JUNCTION HUB</p>
+                  <p className="text-xs text-slate-400 mt-1">Connecting 200+ trains daily</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 border-t border-slate-800 pt-4 text-center">
+                  <div>
+                    <p className="text-xs text-slate-500 font-bold uppercase">Estimated Launch</p>
+                    <p className="text-base font-extrabold text-white mt-0.5">Coming Soon ⚡</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-bold uppercase">Target Routes</p>
+                    <p className="text-base font-extrabold text-blue-400 mt-0.5">All Delhi Trains</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

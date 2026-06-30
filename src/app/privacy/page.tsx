@@ -22,7 +22,7 @@ export default function PrivacyPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Link href="/" className="flex items-center gap-2 group">
-              <img src="/images/logo-full.png" alt="RailQuick" className="h-10 sm:h-12 w-auto mix-blend-multiply" />
+              <img src="/images/logo-full.png" alt="RailQuick" className="h-8 sm:h-12 w-auto mix-blend-multiply transition-all" />
             </Link>
 
             {/* Desktop Nav */}
@@ -48,6 +48,15 @@ export default function PrivacyPage() {
               <Link href="/#waitlist">
                 <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
                   Join Waitlist
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Action Button */}
+            <div className="md:hidden">
+              <Link href="/#waitlist">
+                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all">
+                  ⚡ Test Now
                 </Button>
               </Link>
             </div>
@@ -82,21 +91,21 @@ export default function PrivacyPage() {
       </nav>
 
       {/* Header / Hero */}
-      <section className="pt-32 pb-16 relative overflow-hidden bg-slate-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.15),transparent_50%)] pointer-events-none" />
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="pt-40 pb-16 relative overflow-hidden bg-gradient-to-b from-emerald-50/60 via-slate-50/50 to-white text-slate-900 border-b border-slate-100">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.08),transparent_50%)] pointer-events-none" />
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 relative text-center">
-          <Link href="/" className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors text-sm font-semibold mb-6">
+          <Link href="/" className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors text-sm font-semibold mb-6">
             <ArrowLeft className="w-4 h-4" /> Back to Home
           </Link>
-          <div className="inline-flex items-center justify-center p-3 bg-emerald-500/10 rounded-2xl border border-emerald-500/20 text-emerald-400 mb-6">
+          <div className="inline-flex items-center justify-center p-3 bg-emerald-50 text-emerald-600 rounded-2xl border border-emerald-100 mb-6">
             <ShieldCheck className="w-8 h-8" />
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight text-slate-900 mb-4">
             Privacy Policy
           </h1>
-          <p className="text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
-            Effective Date: <span className="text-white font-semibold">June 24, 2026</span>
+          <p className="text-slate-500 text-sm sm:text-base max-w-lg mx-auto">
+            Effective Date: <span className="text-slate-900 font-semibold">June 24, 2026</span>
           </p>
         </div>
       </section>

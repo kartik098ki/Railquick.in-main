@@ -132,10 +132,14 @@ const stats = [
 const brands = ['IIT KGP', 'IIT Delhi', 'Times of India', 'Aaj Tak', 'ANI', 'Delhi Yuva Festival', 'Delhi Government'];
 
 const reels = [
-  { id: 1, shortcode: "DZKSVyJiORs" },
-  { id: 2, shortcode: "DZHX9mNiPjD" },
-  { id: 3, shortcode: "DSdBNYVjlBc" },
-  { id: 4, shortcode: "DSaYD3yjjcP" },
+  { id: 1, shortcode: "DaI7oi8CGq5" },
+  { id: 2, shortcode: "DZ-p8WzC4I3" },
+  { id: 3, shortcode: "DZ2DnOsiAAQ" },
+  { id: 4, shortcode: "DZsQDrzi_Xq" },
+  { id: 5, shortcode: "DZKSVyJiORs" },
+  { id: 6, shortcode: "DZHX9mNiPjD" },
+  { id: 7, shortcode: "DSdBNYVjlBc" },
+  { id: 8, shortcode: "DSaYD3yjjcP" },
 ];
 
 export default function HomePage() {
@@ -471,23 +475,21 @@ export default function HomePage() {
                         transition={{ duration: 0.1 }}
                         className="bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400 h-full rounded-full"
                       />
-                    </div>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-
-
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerScrolled ? 'bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Link href="/" className="flex items-center gap-2 group">
-              <img src="/images/logo-full.png" alt="RailQuick" className="h-10 sm:h-12 w-auto mix-blend-multiply" />
+              <img src="/images/logo-full.png" alt="RailQuick" className="h-8 sm:h-12 w-auto mix-blend-multiply transition-all" />
             </Link>
 
             {/* Desktop Nav */}
@@ -515,6 +517,16 @@ export default function HomePage() {
             <div className="hidden md:block">
               <Button onClick={handleTestNow} className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
                 Join Waitlist
+              </Button>
+            </div>
+
+            {/* Mobile Action Button */}
+            <div className="md:hidden">
+              <Button 
+                onClick={handleTestNow} 
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all"
+              >
+                ⚡ Test Now
               </Button>
             </div>
           </div>
@@ -587,12 +599,12 @@ export default function HomePage() {
             <div className="flex flex-col gap-3 mb-8">
               <button
                 onClick={handleTestNow}
-                className="w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg shadow-slate-900/20 active:scale-95 transition-transform"
+                className="w-full py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-2xl text-base font-bold shadow-lg shadow-blue-500/20 active:scale-[0.98] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 group"
               >
-                Test Now 
+                Test Now <span className="group-hover:translate-x-1 transition-transform">⚡</span>
               </button>
               <Link href="/test-phase" className="w-full">
-                <button className="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 rounded-2xl text-base font-semibold active:scale-95 transition-transform hover:border-slate-400">
+                <button className="w-full py-4 bg-white border-2 border-slate-200 text-slate-700 rounded-2xl text-base font-semibold active:scale-[0.98] hover:scale-[1.01] transition-all hover:border-slate-400">
                   Learn About Test Phase →
                 </button>
               </Link>
@@ -641,9 +653,9 @@ export default function HomePage() {
                 <div className="flex items-center gap-4">
                   <Button
                     onClick={handleTestNow}
-                    className="px-8 py-7 bg-slate-900 text-white hover:bg-slate-800 rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-xl shadow-slate-200"
+                    className="px-8 py-7 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white hover:from-blue-700 hover:to-indigo-700 rounded-2xl text-lg font-bold transition-all hover:scale-105 shadow-xl shadow-blue-500/25 flex items-center gap-2 group"
                   >
-                    Test Now
+                    Test Now <span className="group-hover:translate-x-1 transition-transform">⚡</span>
                   </Button>
                   <Link href="/test-phase">
                     <Button variant="outline" className="px-8 py-7 border-2 border-slate-200 hover:border-slate-900 rounded-2xl text-lg font-bold transition-all hover:scale-105">
@@ -713,7 +725,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-5 sm:gap-6">
             {steps.map((step, index) => (
               <div key={index} className="relative bg-slate-50 rounded-xl sm:rounded-2xl p-5 sm:p-6 hover:bg-white hover:shadow-lg transition-all duration-300">
-                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 text-4xl sm:text-5xl font-black text-slate-200/60">
+                <div className="absolute top-4 right-4 text-4xl sm:text-5xl font-black bg-gradient-to-br from-blue-600/35 to-cyan-500/25 bg-clip-text text-transparent select-none">
                   {step.number}
                 </div>
                 <div className="relative w-11 h-11 sm:w-14 sm:h-14 bg-white rounded-lg sm:rounded-xl flex items-center justify-center text-slate-900 shadow-sm mb-4">
@@ -755,7 +767,7 @@ export default function HomePage() {
           {/* Left Arrow (Desktop) */}
           <button
             onClick={handlePrevReel}
-            className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-12 h-12 bg-white hover:bg-slate-50 border border-slate-200 rounded-full items-center justify-center text-slate-900 shadow-xl transition-all hover:scale-110"
+            className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-12 h-12 bg-white hover:bg-slate-50 border border-slate-200 rounded-full items-center justify-center text-slate-900 shadow-xl transition-all hover:scale-110 active:scale-95"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -763,7 +775,7 @@ export default function HomePage() {
           {/* Right Arrow (Desktop) */}
           <button
             onClick={handleNextReel}
-            className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-12 h-12 bg-white hover:bg-slate-50 border border-slate-200 rounded-full items-center justify-center text-slate-900 shadow-xl transition-all hover:scale-110"
+            className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-12 h-12 bg-white hover:bg-slate-50 border border-slate-200 rounded-full items-center justify-center text-slate-900 shadow-xl transition-all hover:scale-110 active:scale-95"
           >
             <ArrowRight className="w-5 h-5" />
           </button>
@@ -779,10 +791,10 @@ export default function HomePage() {
               return (
                 <div
                   key={reel.id}
-                  className={`flex-shrink-0 w-[200px] sm:w-[240px] aspect-[9/16] snap-center rounded-2xl sm:rounded-3xl overflow-hidden relative shadow-lg transition-all duration-500 border-2 ${
+                  className={`flex-shrink-0 w-[200px] sm:w-[240px] aspect-[9/16] snap-center rounded-2xl sm:rounded-3xl overflow-hidden relative shadow-xl transition-all duration-500 border-2 ${
                     isActive
-                      ? 'scale-100 border-pink-500 ring-4 ring-pink-500/20 z-30 shadow-pink-500/20'
-                      : 'scale-95 border-transparent opacity-60 filter blur-[0.5px] hover:opacity-80 hover:blur-none'
+                      ? 'scale-100 border-pink-500 ring-4 ring-pink-500/25 z-30 shadow-pink-500/30'
+                      : 'scale-95 border-slate-200/50 opacity-60 filter blur-[0.5px] hover:opacity-85 hover:blur-none'
                   }`}
                 >
                   <iframe
@@ -796,10 +808,33 @@ export default function HomePage() {
                   ></iframe>
                   
                   {/* Overlay to disable iframe interaction when not active, allowing for smooth swipe/scroll */}
-                  {!isActive && <div className="absolute inset-0 z-10" />}
+                  {!isActive && <div className="absolute inset-0 z-10 cursor-pointer" />}
                 </div>
               );
             })}
+          </div>
+
+          {/* Carousel Dot Indicators */}
+          <div className="flex justify-center items-center gap-2 mt-6">
+            {reels.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setActiveReelIndex(idx);
+                  if (containerRef.current) {
+                    const container = containerRef.current;
+                    const itemWidth = container.scrollWidth / reels.length;
+                    container.scrollTo({ left: idx * itemWidth, behavior: 'smooth' });
+                  }
+                }}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  idx === activeReelIndex 
+                    ? 'w-6 bg-pink-500 shadow-md shadow-pink-500/20' 
+                    : 'bg-slate-300 hover:bg-slate-400'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -1047,28 +1082,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="waitlist" className="py-12 sm:py-16 lg:py-20 bg-slate-900 relative overflow-hidden">
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+      <section id="waitlist" className="py-16 sm:py-24 bg-slate-950 relative overflow-hidden">
+        {/* Glow Effects */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative max-w-4xl mx-auto px-5 text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
             Be the first to experience RailQuick
           </h2>
-          <p className="text-sm sm:text-lg text-slate-400 mb-8 max-w-xl mx-auto px-2">
-            Live Seat Delivery Tracking: Watch your order travel across the station directly to your seat in real-time.
-          </p>
+          
+          {/* Card Layout to prevent squeezed text on mobile */}
+          <div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 max-w-xl mx-auto mb-10 text-center shadow-2xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider mb-3">
+              <span>⚡</span> Live seat tracking
+            </div>
+            <p className="text-base sm:text-lg text-slate-100 font-bold mb-1.5">
+              Live Seat Delivery Tracking
+            </p>
+            <p className="text-xs sm:text-sm text-slate-450 leading-relaxed max-w-md mx-auto">
+              Watch your order travel across the station directly to your seat in real-time. Experience seamless updates at every step.
+            </p>
+          </div>
 
-          <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-3.5 max-w-md mx-auto">
             <Input
               type="email"
               placeholder="Enter your email"
               value={waitlistEmail}
               onChange={(e) => setWaitlistEmail(e.target.value)}
               required
-              className="flex-1 h-12 sm:h-14 px-4 sm:px-6 bg-white/10 border-slate-700 text-white placeholder:text-slate-500 rounded-xl text-base"
+              className="flex-1 h-14 px-5 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-2xl text-base"
             />
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="h-12 sm:h-14 px-6 bg-white text-slate-900 hover:bg-slate-100 rounded-xl font-semibold shadow-lg transition-all"
+              className="h-14 px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
             >
               {isSubmitting ? 'Joining...' : 'Join Waitlist'}
             </Button>

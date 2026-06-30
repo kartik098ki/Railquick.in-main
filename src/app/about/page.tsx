@@ -112,7 +112,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Link href="/" className="flex items-center gap-2 group">
-              <img src="/images/logo-full.png" alt="RailQuick" className="h-10 sm:h-12 w-auto mix-blend-multiply" />
+              <img src="/images/logo-full.png" alt="RailQuick" className="h-8 sm:h-12 w-auto mix-blend-multiply transition-all" />
             </Link>
 
             {/* Desktop Nav */}
@@ -141,6 +141,15 @@ export default function AboutPage() {
               <Link href="/#waitlist">
                 <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
                   Join Waitlist
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Action Button */}
+            <div className="md:hidden">
+              <Link href="/#waitlist">
+                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all">
+                  ⚡ Test Now
                 </Button>
               </Link>
             </div>
@@ -317,27 +326,27 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 lg:py-32 bg-white">
+      <section className="py-20 lg:py-32 bg-slate-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-20">
-            <p className="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4">Our Team</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Meet the builders</h2>
-            <p className="text-lg text-slate-600">The passionate team driving the revolution in train travel.</p>
+          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+            <p className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-3">Our Team</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4 tracking-tight">Meet the builders</h2>
+            <p className="text-base sm:text-lg text-slate-655">The passionate team driving the revolution in train travel.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
             {team.map((member, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group text-center"
+                className="group text-center bg-white rounded-3xl p-6 border border-slate-100 shadow-lg shadow-slate-100 hover:shadow-2xl hover:shadow-slate-200/60 hover:-translate-y-2 transition-all duration-500 relative"
               >
-                <div className="relative mb-8 inline-block">
-                  <div className={`w-56 h-56 mx-auto rounded-[2rem] bg-gradient-to-br ${member.gradient} p-1 transform group-hover:scale-105 transition-all duration-500 shadow-xl shadow-slate-100`}>
-                    <div className="w-full h-full bg-white rounded-[1.8rem] flex items-center justify-center overflow-hidden relative">
+                <div className="relative mb-6 inline-block">
+                  <div className={`w-40 h-40 mx-auto rounded-2xl bg-gradient-to-br ${member.gradient} p-0.5 transform group-hover:scale-[1.03] transition-all duration-500 shadow-md`}>
+                    <div className="w-full h-full bg-white rounded-[0.9rem] flex items-center justify-center overflow-hidden relative">
                       <img
                         src={member.image}
                         alt={member.name}
@@ -345,24 +354,25 @@ export default function AboutPage() {
                       />
                     </div>
                   </div>
-                  {/* Subtle Glow Effect */}
-                  <div className={`absolute inset-0 w-56 h-56 mx-auto rounded-[2rem] bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-xl -z-10`} />
+                  {/* Glowing Backlight */}
+                  <div className={`absolute inset-0 w-40 h-40 mx-auto rounded-2xl bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-lg -z-10`} />
                 </div>
 
-                <h3 className="text-2xl font-bold text-slate-900 mb-1">{member.name}</h3>
-                <p className="text-blue-600 font-semibold mb-2">{member.role}</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-1">{member.name}</h3>
+                <p className="text-xs font-bold uppercase tracking-wide text-blue-600 mb-3">{member.role}</p>
+                
                 {member.linkedin && (
                   <a
                     href={member.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-3 py-1 bg-slate-50 border border-slate-100 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-100 transition-all mb-4 text-sm font-medium"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-50 border border-slate-200/60 rounded-full text-slate-500 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-all mb-4 text-xs font-semibold"
                   >
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
                     LinkedIn
                   </a>
                 )}
-                <p className="text-slate-600 max-w-xs mx-auto leading-relaxed">{member.description}</p>
+                <p className="text-sm text-slate-600 leading-relaxed max-w-[220px] mx-auto">{member.description}</p>
               </motion.div>
             ))}
           </div>

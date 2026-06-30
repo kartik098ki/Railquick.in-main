@@ -110,7 +110,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Link href="/" className="flex items-center gap-2 group">
-              <img src="/images/logo-full.png" alt="RailQuick" className="h-10 sm:h-12 w-auto mix-blend-multiply" />
+              <img src="/images/logo-full.png" alt="RailQuick" className="h-8 sm:h-12 w-auto mix-blend-multiply transition-all" />
             </Link>
 
             {/* Desktop Nav */}
@@ -139,6 +139,15 @@ export default function ContactPage() {
               <Link href="/#waitlist">
                 <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
                   Join Waitlist
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Action Button */}
+            <div className="md:hidden">
+              <Link href="/#waitlist">
+                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all">
+                  ⚡ Test Now
                 </Button>
               </Link>
             </div>

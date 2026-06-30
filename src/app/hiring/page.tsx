@@ -102,7 +102,7 @@ export default function HiringPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Link href="/" className="flex items-center gap-2 group">
-              <img src="/images/logo-full.png" alt="RailQuick" className="h-10 sm:h-12 w-auto mix-blend-multiply" />
+              <img src="/images/logo-full.png" alt="RailQuick" className="h-8 sm:h-12 w-auto mix-blend-multiply transition-all" />
             </Link>
 
             {/* Desktop Nav */}
@@ -119,7 +119,7 @@ export default function HiringPage() {
                   href={item.href}
                   className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${item.href === '/hiring'
                     ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-505 hover:text-slate-900 hover:bg-white/50'
+                    : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'
                     }`}
                 >
                   {item.label}
@@ -131,6 +131,15 @@ export default function HiringPage() {
               <Link href="/#waitlist">
                 <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold">
                   Join Waitlist
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Action Button */}
+            <div className="md:hidden">
+              <Link href="/#waitlist">
+                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full px-3.5 h-8 text-[11px] font-bold shadow-md shadow-blue-500/10 active:scale-95 transition-all">
+                  ⚡ Test Now
                 </Button>
               </Link>
             </div>
@@ -294,111 +303,114 @@ export default function HiringPage() {
       </section>
 
       {/* Application Form */}
-      <section ref={formRef} className="py-20 sm:py-32 bg-white relative">
+      <section ref={formRef} className="py-20 sm:py-32 bg-gradient-to-b from-white to-slate-50 relative">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Ready to join?</h2>
-            <p className="text-lg text-slate-650">Tell us a bit about yourself. We read every application.</p>
+          <div className="bg-white/80 border border-slate-200/60 rounded-[2.5rem] p-6 sm:p-10 lg:p-12 shadow-xl shadow-slate-200/40 backdrop-blur-md">
+            <div className="text-center mb-10">
+              <span className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-3 inline-block">Join the Team</span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-3 tracking-tight">Ready to join?</h2>
+              <p className="text-base sm:text-lg text-slate-500 max-w-md mx-auto leading-relaxed">Tell us a bit about yourself. We read every single application.</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-7">
+              <div className="grid sm:grid-cols-2 gap-5">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Full Name</label>
+                  <Input
+                    required
+                    placeholder="John Doe"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="h-13 bg-slate-50/50 border-slate-200/80 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl transition-all shadow-sm"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Email Address</label>
+                  <Input
+                    required
+                    type="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="h-13 bg-slate-50/50 border-slate-200/80 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl transition-all shadow-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-5">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Phone Number</label>
+                  <Input
+                    required
+                    type="tel"
+                    placeholder="+91 98765 43210"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="h-13 bg-slate-50/50 border-slate-200/80 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl transition-all shadow-sm"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Role Applying For</label>
+                  <Input
+                    required
+                    placeholder="Select a role above"
+                    value={formData.role}
+                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                    className="h-13 bg-slate-50/50 border-slate-200/80 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl transition-all shadow-sm font-semibold text-slate-900"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">LinkedIn Profile / Portfolio</label>
+                <Input
+                  required
+                  type="url"
+                  placeholder="https://linkedin.com/in/johndoe"
+                  value={formData.linkedin}
+                  onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
+                  className="h-13 bg-slate-50/50 border-slate-200/80 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl transition-all shadow-sm"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Why RailQuick?</label>
+                <Textarea
+                  required
+                  placeholder="What excites you about our mission?"
+                  value={formData.reason}
+                  onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
+                  className="min-h-[100px] bg-slate-50/50 border-slate-200/80 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl transition-all resize-none p-4 shadow-sm"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-500 block pl-1">Tell us about your journey</label>
+                <Textarea
+                  required
+                  placeholder="What have you built or achieved that you're proud of?"
+                  value={formData.journey}
+                  onChange={(e) => setFormData({ ...formData, journey: e.target.value })}
+                  className="min-h-[100px] bg-slate-50/50 border-slate-200/80 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl transition-all resize-none p-4 shadow-sm"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full h-14 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold text-base shadow-lg shadow-blue-500/15 transition-all hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Submitting Application...
+                  </span>
+                ) : (
+                  'Submit Application ⚡'
+                )}
+              </Button>
+            </form>
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Full Name</label>
-                <Input
-                  required
-                  placeholder="John Doe"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Email Address</label>
-                <Input
-                  required
-                  type="email"
-                  placeholder="john@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all"
-                />
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Phone Number</label>
-                <Input
-                  required
-                  type="tel"
-                  placeholder="+91 98765 43210"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Role Applying For</label>
-                <Input
-                  required
-                  placeholder="Select a role above"
-                  value={formData.role}
-                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all font-medium text-slate-900"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700">LinkedIn Profile / Portfolio</label>
-              <Input
-                required
-                type="url"
-                placeholder="https://linkedin.com/in/johndoe"
-                value={formData.linkedin}
-                onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
-                className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700">Why RailQuick?</label>
-              <Textarea
-                required
-                placeholder="What excites you about our mission?"
-                value={formData.reason}
-                onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
-                className="min-h-[120px] bg-slate-50 border-slate-200 focus:bg-white transition-all resize-none p-4"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700">Tell us about your journey</label>
-              <Textarea
-                required
-                placeholder="What have you built or achieved that you're proud of?"
-                value={formData.journey}
-                onChange={(e) => setFormData({ ...formData, journey: e.target.value })}
-                className="min-h-[120px] bg-slate-50 border-slate-200 focus:bg-white transition-all resize-none p-4"
-              />
-            </div>
-
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full h-14 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold shadow-xl shadow-slate-900/10 transition-all hover:shadow-2xl hover:shadow-slate-900/20 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? (
-                <span className="flex items-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Submitting Application...
-                </span>
-              ) : (
-                'Submit Application'
-              )}
-            </Button>
-          </form>
         </div>
       </section>
 
