@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Zap, 
   TrendingUp, 
@@ -65,6 +65,7 @@ export default function HiringPage() {
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', role: '', reason: '', linkedin: '', journey: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -84,8 +85,8 @@ export default function HiringPage() {
     try {
       const success = await submitToSheetDB(formData);
       if (success) {
-        toast({ title: 'Application Submitted!', description: 'We\'ll review and get back to you soon.' });
         setFormData({ name: '', email: '', phone: '', role: '', reason: '', linkedin: '', journey: '' });
+        setShowSuccessOverlay(true);
       } else {
         toast({ title: 'Error', description: 'Failed to submit application. Please try again.', variant: 'destructive' });
       }
@@ -416,6 +417,43 @@ export default function HiringPage() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Success Overlay Modal */}
+      <AnimatePresence>
+        {showSuccessOverlay && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              className="bg-white rounded-[2.5rem] p-8 sm:p-12 max-w-md w-full text-center relative overflow-hidden border border-slate-100 shadow-2xl"
+            >
+              <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-500" />
+              
+              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-blue-100">
+                <CheckCircle2 className="w-8 h-8" />
+              </div>
+
+              <h2 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">Application Submitted</h2>
+              <p className="text-slate-500 text-sm sm:text-base mb-8 leading-relaxed">
+                Thank you for applying to RailQuick. We have received your application and will review it shortly.
+              </p>
+
+              <Button
+                onClick={() => setShowSuccessOverlay(false)}
+                className="w-full h-12 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-full font-bold transition-all shadow-sm hover:shadow-md active:scale-95"
+              >
+                Awesome!
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

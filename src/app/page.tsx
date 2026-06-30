@@ -821,7 +821,7 @@ export default function HomePage() {
                 }}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   idx === activeReelIndex 
-                    ? 'w-6 bg-blue-600 shadow-md shadow-blue-500/20' 
+                    ? 'bg-blue-600 scale-125 shadow-md shadow-blue-500/20' 
                     : 'bg-slate-300 hover:bg-slate-400'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}

@@ -381,28 +381,28 @@ export default function ContactPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-md"
+            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 20 }}
+              initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="bg-white rounded-3xl p-8 sm:p-12 max-w-lg w-full text-center relative overflow-hidden"
+              exit={{ scale: 0.95, y: 20 }}
+              className="bg-white rounded-[2.5rem] p-8 sm:p-12 max-w-md w-full text-center relative overflow-hidden border border-slate-100 shadow-2xl"
             >
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-cyan-500" />
+              <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-500" />
 
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce-subtle">
-                <CheckCircle2 className="w-10 h-10 text-green-600" />
+              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-blue-100">
+                <CheckCircle2 className="w-8 h-8" />
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4 tracking-tight">Message Sent! 🚀</h2>
-              <p className="text-lg text-slate-600 mb-10 leading-relaxed">
-                Thank you for reaching out to RailQuick. We&apos;ll get back to you as soon as possible!
+              <h2 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">Message Sent</h2>
+              <p className="text-slate-500 text-sm sm:text-base mb-8 leading-relaxed">
+                Thank you for reaching out to RailQuick. We have received your message and will respond as soon as possible.
               </p>
 
               <Button
                 onClick={() => setShowSuccessOverlay(false)}
-                className="w-full h-14 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-bold text-lg shadow-xl shadow-slate-900/20 transition-all hover:-translate-y-1"
+                className="w-full h-12 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-full font-bold transition-all shadow-sm hover:shadow-md active:scale-95"
               >
                 Awesome!
               </Button>

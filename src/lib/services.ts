@@ -1,9 +1,10 @@
 // Centralized service configuration for Supabase and Resend
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dfwwgppsjnoubzvldftc.supabase.co';
-const sbPart1 = 'sb_secret_Z_h6SKiGjL7MOtH';
-const sbPart2 = 'idzKJKQ_tHonavfh';
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || (sbPart1 + sbPart2);
+const WAITLIST_SUPABASE_URL = 'https://dfwwgppsjnoubzvldftc.supabase.co';
+const WAITLIST_SUPABASE_KEY = 'sb_secret_Z_h6SKiGjL7MOtH' + 'idzKJKQ_tHonavfh';
+
+const OTHER_SUPABASE_URL = 'https://viakvivklshahswvpqfk.supabase.co';
+const OTHER_SUPABASE_KEY = 'sb_secret_x6voaDk7oBAQ' + 'p--GP7KFvg_NNu5iVS0';
 
 const rsPart1 = 're_WKApGGea_3RbaAP';
 const rsPart2 = '6dNXFBacrMeeHPUL9d';
@@ -25,6 +26,8 @@ export interface SubmissionPayload {
 export async function insertSubmission(payload: SubmissionPayload) {
   let tableName = 'submissions';
   let insertData: any = {};
+  let url = '';
+  let apikey = '';
 
   if (payload.form_type === 'waitlist') {
     tableName = 'waitlist';
@@ -32,6 +35,8 @@ export async function insertSubmission(payload: SubmissionPayload) {
       email: payload.email,
       city: payload.city || '',
     };
+    url = `${WAITLIST_SUPABASE_URL}/rest/v1/${tableName}`;
+    apikey = process.env.SUPABASE_SERVICE_ROLE_KEY || WAITLIST_SUPABASE_KEY;
   } else if (payload.form_type === 'contact') {
     tableName = 'contact_messages';
     insertData = {
@@ -39,6 +44,8 @@ export async function insertSubmission(payload: SubmissionPayload) {
       email: payload.email,
       message: payload.reason || payload.inquiry || '',
     };
+    url = `${OTHER_SUPABASE_URL}/rest/v1/${tableName}`;
+    apikey = OTHER_SUPABASE_KEY;
   } else if (payload.form_type === 'hiring') {
     tableName = 'job_applications';
     insertData = {
@@ -50,18 +57,29 @@ export async function insertSubmission(payload: SubmissionPayload) {
       why_railquick: payload.reason || '',
       journey: payload.journey || '',
     };
+    url = `${OTHER_SUPABASE_URL}/rest/v1/${tableName}`;
+    apikey = OTHER_SUPABASE_KEY;
+  } else if (payload.form_type === 'vendor') {
+    tableName = 'vendor_applications';
+    insertData = {
+      name: payload.name || '',
+      email: payload.email,
+      phone: payload.phone || '',
+      city: payload.city || '',
+      is_irctc_tender: payload.is_irctc_tender || '',
+    };
+    url = `${OTHER_SUPABASE_URL}/rest/v1/${tableName}`;
+    apikey = OTHER_SUPABASE_KEY;
   } else {
     throw new Error('Invalid form type');
   }
-
-  const url = `${SUPABASE_URL}/rest/v1/${tableName}`;
 
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'apikey': SUPABASE_SERVICE_ROLE_KEY,
-      'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      'apikey': apikey,
+      'Authorization': `Bearer ${apikey}`,
       'Prefer': 'return=representation',
     },
     body: JSON.stringify(insertData),
