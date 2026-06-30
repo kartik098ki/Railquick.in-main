@@ -84,8 +84,8 @@ export default function Footer() {
           </div>
 
           {/* Links grid: side-by-side on mobile, 3 columns on desktop */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:col-span-3">
-            <div className="col-span-1">
+          <div className="flex flex-row justify-between items-start gap-4 flex-wrap md:grid md:grid-cols-3 md:col-span-3">
+            <div className="min-w-[80px] flex-1">
               <h4 className="text-white font-semibold mb-3 text-xs sm:text-sm uppercase tracking-wider">Links</h4>
               <div className="space-y-2 sm:space-y-3">
                 <Link href="/" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Home</Link>
@@ -96,7 +96,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="col-span-1">
+            <div className="min-w-[80px] flex-1">
               <h4 className="text-white font-semibold mb-3 text-xs sm:text-sm uppercase tracking-wider">Legal</h4>
               <div className="space-y-2 sm:space-y-3">
                 <Link href="/terms" className="block text-slate-400 hover:text-white transition-colors text-[11px] sm:text-sm">Terms</Link>
@@ -105,8 +105,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Contact details spans 2 columns on mobile so the email fits in one line */}
-            <div className="col-span-2 sm:col-span-1">
+            <div className="min-w-[150px] flex-1 sm:flex-initial">
               <h4 className="text-white font-semibold mb-3 text-xs sm:text-sm uppercase tracking-wider">Contact</h4>
               <div className="space-y-2 sm:space-y-3 text-slate-400 text-[11px] sm:text-sm">
                 <p className="whitespace-nowrap">contact@railquick.in</p>
