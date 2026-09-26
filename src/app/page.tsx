@@ -135,9 +135,9 @@ const testimonials = [
 
 const stats = [
   { value: '100+', numericValue: 100, suffix: '+', label: 'Ongoing Train Deliveries' },
-  { value: '400+', numericValue: 400, suffix: '+', label: 'Testers' },
-  { value: '2000+', numericValue: 2000, suffix: '+', label: 'Waitlist Users' },
-  { value: '1000+', numericValue: 1000, suffix: '+', label: 'Interactions' },
+  { value: '1000+', numericValue: 400, suffix: '+', label: 'Testers' },
+  { value: '5000+', numericValue: 2000, suffix: '+', label: 'Waitlist Users' },
+  { value: '10000+', numericValue: 1000, suffix: '+', label: 'Interactions' },
 ];
 
 const brands = [
