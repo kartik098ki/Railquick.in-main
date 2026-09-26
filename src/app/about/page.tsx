@@ -275,15 +275,15 @@ export default function AboutPage() {
               <div className="bg-gradient-to-br from-slate-100 to-white rounded-[2.5rem] p-8 lg:p-14 border border-slate-100 shadow-2xl shadow-slate-200/50 lg:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                   <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] lg:hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">200+</div>
+                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">1000+</div>
                     <div className="text-sm lg:text-base font-medium text-slate-500 uppercase tracking-wide">Early Testers</div>
                   </div>
                   <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] lg:hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">2000+</div>
+                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">5000+</div>
                     <div className="text-sm lg:text-base font-medium text-slate-500 uppercase tracking-wide">Waitlist Users</div>
                   </div>
                   <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] lg:hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">500+</div>
+                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">10000+</div>
                     <div className="text-sm lg:text-base font-medium text-slate-500 uppercase tracking-wide">Interactions</div>
                   </div>
                   <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] lg:hover:-translate-y-1 transition-all duration-300">
