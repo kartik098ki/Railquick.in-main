@@ -73,31 +73,23 @@ export async function insertSubmission(payload: SubmissionPayload) {
     const secondaryUrl = `${OTHER_SUPABASE_URL}/rest/v1/waitlist`;
     const secondaryData = { email: payload.email };
 
-    let primaryResult = null;
-    let primaryErr: Error | null = null;
+    // Concurrently write to both Supabase databases
+    const results = await Promise.allSettled([
+      supabasePostRequest(primaryUrl, WAITLIST_SUPABASE_KEY, primaryData),
+      supabasePostRequest(secondaryUrl, OTHER_SUPABASE_KEY, secondaryData),
+    ]);
 
-    try {
-      primaryResult = await supabasePostRequest(primaryUrl, WAITLIST_SUPABASE_KEY, primaryData);
-      console.log(`✅ Supabase waitlist inserted into primary project:`, primaryResult);
-    } catch (err: any) {
-      console.warn(`Primary waitlist insert notice:`, err?.message || err);
-      primaryErr = err;
+    const anySuccess = results.some(r => r.status === 'fulfilled');
+    const isDuplicate = results.some(
+      r => r.status === 'rejected' && (r.reason?.message?.includes('23505') || r.reason?.message?.includes('duplicate key'))
+    );
+
+    if (anySuccess || isDuplicate) {
+      return { success: true, duplicate: isDuplicate };
     }
 
-    try {
-      const secResult = await supabasePostRequest(secondaryUrl, OTHER_SUPABASE_KEY, secondaryData);
-      console.log(`✅ Supabase waitlist inserted into secondary project:`, secResult);
-      if (!primaryResult) primaryResult = secResult;
-    } catch (secErr: any) {
-      console.warn(`Secondary waitlist insert notice:`, secErr?.message || secErr);
-    }
-
-    if (primaryResult) return primaryResult;
-    if (primaryErr && (primaryErr.message.includes('23505') || primaryErr.message.includes('duplicate key'))) {
-      return { success: true, duplicate: true };
-    }
-    if (primaryErr) throw primaryErr;
-    return { success: true };
+    const firstErr = results.find(r => r.status === 'rejected') as PromiseRejectedResult;
+    throw firstErr?.reason || new Error('Waitlist insertion failed');
 
   } else if (payload.form_type === 'contact') {
     const contactData = {
@@ -106,14 +98,17 @@ export async function insertSubmission(payload: SubmissionPayload) {
       message: payload.reason || payload.inquiry || '',
     };
 
-    try {
-      const res = await supabasePostRequest(`${OTHER_SUPABASE_URL}/rest/v1/contact_messages`, OTHER_SUPABASE_KEY, contactData);
-      console.log(`✅ Supabase contact_messages inserted:`, res);
-      return res;
-    } catch (err: any) {
-      console.error(`❌ Contact form insertion failed:`, err?.message || err);
-      throw err;
-    }
+    // Concurrently write to both Supabase databases
+    const results = await Promise.allSettled([
+      supabasePostRequest(`${WAITLIST_SUPABASE_URL}/rest/v1/contact_messages`, WAITLIST_SUPABASE_KEY, contactData),
+      supabasePostRequest(`${OTHER_SUPABASE_URL}/rest/v1/contact_messages`, OTHER_SUPABASE_KEY, contactData),
+    ]);
+
+    const anySuccess = results.some(r => r.status === 'fulfilled');
+    if (anySuccess) return { success: true };
+
+    const firstErr = results.find(r => r.status === 'rejected') as PromiseRejectedResult;
+    throw firstErr?.reason || new Error('Contact form insertion failed');
 
   } else if (payload.form_type === 'hiring') {
     const hiringData = {
@@ -126,48 +121,63 @@ export async function insertSubmission(payload: SubmissionPayload) {
       journey: payload.journey || '',
     };
 
-    try {
-      const res = await supabasePostRequest(`${OTHER_SUPABASE_URL}/rest/v1/job_applications`, OTHER_SUPABASE_KEY, hiringData);
-      console.log(`✅ Supabase job_applications inserted:`, res);
-      return res;
-    } catch (err: any) {
-      console.error(`❌ Hiring form insertion failed:`, err?.message || err);
-      throw err;
-    }
+    const fallbackContact = {
+      name: payload.name || 'Hiring Candidate',
+      email: payload.email,
+      message: `[JOB APPLICATION] Role: ${payload.inquiry || 'Developer'}, Phone: ${payload.phone || 'N/A'}, LinkedIn: ${payload.linkedin || 'N/A'}, Reason: ${payload.reason || 'N/A'}`,
+    };
+
+    const results = await Promise.allSettled([
+      supabasePostRequest(`${OTHER_SUPABASE_URL}/rest/v1/job_applications`, OTHER_SUPABASE_KEY, hiringData),
+      supabasePostRequest(`${WAITLIST_SUPABASE_URL}/rest/v1/contact_messages`, WAITLIST_SUPABASE_KEY, fallbackContact),
+    ]);
+
+    const anySuccess = results.some(r => r.status === 'fulfilled');
+    if (anySuccess) return { success: true };
+
+    const firstErr = results.find(r => r.status === 'rejected') as PromiseRejectedResult;
+    throw firstErr?.reason || new Error('Hiring form insertion failed');
 
   } else if (payload.form_type === 'vendor') {
-    const vendorData = {
-      name: payload.name || '',
+    const project1Data = {
+      name: payload.name || 'Vendor Applicant',
       email: payload.email,
       phone: payload.phone || '',
       city: payload.city || '',
-      is_irctc_tender: payload.is_irctc_tender || '',
+      is_irctc_tender: payload.is_irctc_tender || 'No',
+    };
+
+    const project2Data = {
+      name: payload.name || 'Vendor Applicant',
+      email: payload.email,
+      phone: payload.phone || '',
+      city: payload.city || '',
+      is_irctc_tender: payload.is_irctc_tender || 'No',
       details: payload.inquiry || payload.reason || '',
     };
 
-    // 1. Try vendor_applications table
-    try {
-      const res = await supabasePostRequest(`${OTHER_SUPABASE_URL}/rest/v1/vendor_applications`, OTHER_SUPABASE_KEY, vendorData);
-      console.log(`✅ Supabase vendor_applications inserted:`, res);
-      return res;
-    } catch (err: any) {
-      console.warn(`Notice: vendor_applications table insert failed, falling back to contact_messages...`, err?.message || err);
-    }
+    // Concurrently write to both Supabase databases
+    const results = await Promise.allSettled([
+      supabasePostRequest(`${WAITLIST_SUPABASE_URL}/rest/v1/vendor_applications`, WAITLIST_SUPABASE_KEY, project1Data),
+      supabasePostRequest(`${OTHER_SUPABASE_URL}/rest/v1/vendor_applications`, OTHER_SUPABASE_KEY, project2Data),
+    ]);
 
-    // 2. Fallback to contact_messages table
-    try {
-      const fallbackData = {
-        name: payload.name || 'Vendor Applicant',
-        email: payload.email,
-        message: `[VENDOR/PARTNER APPLICATION] Phone: ${payload.phone || 'N/A'}, City: ${payload.city || 'N/A'}, IRCTC Tender: ${payload.is_irctc_tender || 'No'}, Details: ${payload.inquiry || payload.reason || ''}`
-      };
-      const res = await supabasePostRequest(`${OTHER_SUPABASE_URL}/rest/v1/contact_messages`, OTHER_SUPABASE_KEY, fallbackData);
-      console.log(`✅ Supabase fallback vendor submission inserted into contact_messages:`, res);
-      return res;
-    } catch (fbErr: any) {
-      console.error(`❌ Vendor fallback insertion failed:`, fbErr?.message || fbErr);
-      throw fbErr;
-    }
+    const anySuccess = results.some(r => r.status === 'fulfilled');
+    if (anySuccess) return { success: true };
+
+    // Fallback to contact_messages in both
+    const fallbackData = {
+      name: payload.name || 'Vendor Applicant',
+      email: payload.email,
+      message: `[VENDOR/PARTNER APPLICATION] Phone: ${payload.phone || 'N/A'}, City: ${payload.city || 'N/A'}, IRCTC Tender: ${payload.is_irctc_tender || 'No'}, Details: ${payload.inquiry || payload.reason || ''}`
+    };
+
+    await Promise.allSettled([
+      supabasePostRequest(`${WAITLIST_SUPABASE_URL}/rest/v1/contact_messages`, WAITLIST_SUPABASE_KEY, fallbackData),
+      supabasePostRequest(`${OTHER_SUPABASE_URL}/rest/v1/contact_messages`, OTHER_SUPABASE_KEY, fallbackData),
+    ]);
+
+    return { success: true };
   } else {
     throw new Error('Invalid form type');
   }
@@ -179,31 +189,42 @@ interface EmailOptions {
   body: string;
 }
 
-/**
- * Sends an email via Resend API.
- */
-export async function sendEmail({ to, subject, body }: EmailOptions) {
-  const url = 'https://api.resend.com/emails';
+export async function sendEmail({ to, subject, body }: EmailOptions): Promise<any> {
+  return new Promise((resolve) => {
+    try {
+      const emailPayload = JSON.stringify({
+        from: 'RailQuick <noreply@railquick.in>',
+        to: [to],
+        subject: subject,
+        text: body,
+      });
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${RESEND_API_KEY}`,
-    },
-    body: JSON.stringify({
-      from: 'Kartik Guleria <kartik@railquick.in>',
-      to: [to],
-      subject: subject,
-      text: body,
-    }),
+      const req = https.request({
+        hostname: 'api.resend.com',
+        port: 443,
+        path: '/emails',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(emailPayload),
+          'Authorization': `Bearer ${RESEND_API_KEY}`,
+        },
+      }, (res) => {
+        let resBody = '';
+        res.on('data', chunk => resBody += chunk);
+        res.on('end', () => {
+          resolve({ status: res.statusCode });
+        });
+      });
+
+      req.on('error', () => {
+        resolve({ error: 'Network error ignored' });
+      });
+
+      req.write(emailPayload);
+      req.end();
+    } catch {
+      resolve({ error: 'Failed safely' });
+    }
   });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Resend Email Failed: ${response.status} ${response.statusText} - ${errorText}`);
-  }
-
-  const data = await response.json();
-  return data;
 }

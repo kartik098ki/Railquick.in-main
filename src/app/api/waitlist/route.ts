@@ -13,22 +13,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Email validation
+    const trimmedInput = String(email || '').trim();
+    const isPhone = /^[0-9+\s-]{8,15}$/.test(trimmedInput);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+
+    if (!isPhone && !emailRegex.test(trimmedInput)) {
       return NextResponse.json(
-        { success: false, message: 'Please provide a valid email address' },
+        { success: false, message: 'Please provide a valid email or phone number' },
         { status: 400 }
       );
     }
+
+    const finalEmail = isPhone
+      ? `${trimmedInput.replace(/\D/g, '')}@sms.railquick.in`
+      : trimmedInput;
+    const finalCity = isPhone
+      ? `${body.city || ''} (Phone: ${trimmedInput})`.trim()
+      : (body.city || '');
 
     // 1. Insert into Supabase
     try {
       await insertSubmission({
         form_type: 'waitlist',
         name: name || '',
-        email: email,
-        city: body.city || '',
+        email: finalEmail,
+        city: finalCity,
       });
     } catch (dbError: any) {
       if (dbError?.message?.includes('23505') || dbError?.message?.includes('duplicate key')) {

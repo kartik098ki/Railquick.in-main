@@ -2,13 +2,21 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import Logo from "@/components/Logo";
+import CheckPnrModal from "@/components/CheckPnrModal";
+import Navbar from "@/components/Navbar";
 import RainThunderEffect from "@/components/RainThunderEffect";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import TicketPnrButton from "@/components/TicketPnrButton";
+import { toast } from "@/hooks/use-toast";
+import HowItWorksFlow from "@/components/HowItWorksFlow";
+import WhatWeDeliverSection from "@/components/WhatWeDeliverSection";
+import WatchOurStorySection from "@/components/WatchOurStorySection";
+import RailQuickGuarantees from "@/components/RailQuickGuarantees";
 import {
   Pill,
   Package,
@@ -135,38 +143,34 @@ const testimonials = [
 
 const stats = [
   { value: '100+', numericValue: 100, suffix: '+', label: 'Ongoing Train Deliveries' },
-  { value: '1000+', numericValue: 400, suffix: '+', label: 'Testers' },
-  { value: '5000+', numericValue: 2000, suffix: '+', label: 'Waitlist Users' },
-  { value: '10000+', numericValue: 1000, suffix: '+', label: 'Interactions' },
+  { value: '500+', numericValue: 500, suffix: '+', label: 'Testers' },
+  { value: '7k+', numericValue: 7000, suffix: '+', label: 'Customers Waitlist' },
+  { value: '10000+', numericValue: 10000, suffix: '+', label: 'Interactions' },
 ];
 
-const brands = [
-  { name: 'ANI', logo: '/images/brands/ani.svg' },
-  { name: 'Delhi Yuva Festival', logo: '/images/brands/dyf.svg' },
-  { name: 'Delhi Government', logo: '/images/brands/delhi-govt.svg' },
-  { name: 'IIT KGP', logo: '/images/brands/iit-kgp.svg' },
-  { name: 'IIT Delhi', logo: '/images/brands/iit-delhi.svg' },
-  { name: 'Times of India', logo: '/images/brands/toi.svg' },
-  { name: 'Aaj Tak', logo: '/images/brands/aajtak.svg' },
-  { name: 'Delhi Yuva Festival', logo: '/images/brands/dyf2.svg' },
-];
 
 const reels = [
-  { id: 1, shortcode: "DaI7oi8CGq5" },
-  { id: 2, shortcode: "DZ-p8WzC4I3" },
-  { id: 3, shortcode: "DZ2DnOsiAAQ" },
-  { id: 4, shortcode: "DZsQDrzi_Xq" },
-  { id: 5, shortcode: "DZKSVyJiORs" },
-  { id: 6, shortcode: "DZHX9mNiPjD" },
-  { id: 7, shortcode: "DSdBNYVjlBc" },
-  { id: 8, shortcode: "DSaYD3yjjcP" },
+  { id: 1, shortcode: "DeHgLUGmEgr" },
+  { id: 2, shortcode: "Dd_XK35iJ7p" },
+  { id: 3, shortcode: "Dd4Dk1dCNk8" },
+  { id: 4, shortcode: "Ddf39K9mBeU" },
+  { id: 5, shortcode: "DdBSEesq5u_" },
+  { id: 6, shortcode: "DbQrnvXiHwg" },
+  { id: 7, shortcode: "DbCtWWozgw8" },
+  { id: 8, shortcode: "Da2edDWCq3_" },
+  { id: 9, shortcode: "Das6fpQT5VL" },
+  { id: 10, shortcode: "DaVFShsCSK3" },
 ];
 
 // Stable outside component — prevents infinite re-render in typewriter useEffect
 const TYPING_CATEGORIES = ['Snacks', 'Water', 'Chargers', 'Essentials', 'Medicines', 'Pillows'];
 
 export default function HomePage() {
+  const router = useRouter();
   const [headerScrolled, setHeaderScrolled] = useState(false);
+  const [showCheckPnrModal, setShowCheckPnrModal] = useState(false);
+  const [homePnrInput, setHomePnrInput] = useState("");
+  const [activeWorkStep, setActiveWorkStep] = useState(0);
   const [activeReelIndex, setActiveReelIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const reelsSectionRef = useRef<HTMLDivElement>(null);
@@ -302,6 +306,7 @@ export default function HomePage() {
   const [showModal, setShowModal] = useState(false);
   const [modalEmail, setModalEmail] = useState('');
   const [modalSubmitting, setModalSubmitting] = useState(false);
+  const [activeFeatureTab, setActiveFeatureTab] = useState(0);
 
   const [showTestModal, setShowTestModal] = useState(false);
   const [testEmail, setTestEmail] = useState('');
@@ -370,37 +375,79 @@ export default function HomePage() {
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const cleanInput = waitlistEmail.trim();
+    if (!cleanInput) return;
+
     setIsSubmitting(true);
     try {
-      const success = await submitToWaitlist(waitlistEmail);
-      if (success) {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: cleanInput, city: 'Delhi' }),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok && data.success) {
+        // STORED FIRST IN SUPABASE -> THEN SHOW SUCCESS POPUP!
         setWaitlistEmail('');
         setShowSuccessOverlay(true);
       } else {
-        toast({ title: 'Error', description: 'Failed to join waitlist.', variant: 'destructive' });
+        toast({
+          title: 'Waitlist Notice',
+          description: data.message || 'Could not join waitlist. Please verify your phone or email.',
+          variant: 'destructive',
+        });
       }
     } catch {
-      toast({ title: 'Error', description: 'Something went wrong.', variant: 'destructive' });
+      toast({
+        title: 'Connection Error',
+        description: 'Failed to reach database. Please check your connection and try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   const handleModalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const cleanInput = modalEmail.trim();
+    if (!cleanInput) return;
+
     setModalSubmitting(true);
     try {
-      const success = await submitToWaitlist(modalEmail);
-      if (success) {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: cleanInput, city: 'Delhi' }),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok && data.success) {
+        // STORED FIRST IN SUPABASE -> THEN SHOW SUCCESS POPUP!
         setModalEmail('');
         setShowModal(false);
         setShowSuccessOverlay(true);
       } else {
-        toast({ title: 'Error', description: 'Failed to submit.', variant: 'destructive' });
+        toast({
+          title: 'Notice',
+          description: data.message || 'Could not register details in Supabase.',
+          variant: 'destructive',
+        });
       }
     } catch {
-      toast({ title: 'Error', description: 'Something went wrong.', variant: 'destructive' });
+      toast({
+        title: 'Connection Error',
+        description: 'Failed to reach database. Please check your connection.',
+        variant: 'destructive',
+      });
+    } finally {
+      setModalSubmitting(false);
     }
-    setModalSubmitting(false);
   };
 
   const faqs = [
@@ -413,6 +460,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Check PNR Live Tracking Modal */}
+      <CheckPnrModal isOpen={showCheckPnrModal} onClose={() => setShowCheckPnrModal(false)} />
+
       {/* Email Modal (for Join Waitlist) */}
       {showModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -585,82 +635,8 @@ export default function HomePage() {
         )}
       </AnimatePresence>
 
-      {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white md:bg-transparent shadow-[0_2px_24px_rgba(15,23,42,0.10)] md:shadow-none ${headerScrolled ? 'md:bg-white/95 md:backdrop-blur-xl md:border-b md:border-slate-100 md:shadow-sm' : ''}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            {/* Logo — original colors, top hero dark gradient makes it readable */}
-            <Logo className="h-9 sm:h-12 w-auto" />
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1 bg-slate-100/50 backdrop-blur-md p-1 rounded-full border border-slate-200/50">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'About', href: '/about' },
-                { label: 'Test Phase', href: '/test-phase' },
-                { label: 'Contact', href: '/contact' },
-                { label: "We're Hiring", href: '/hiring' },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${item.href === '/'
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="hidden md:block">
-              <Button 
-                onClick={handleTestNow}
-                className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold"
-              >
-                Open App
-              </Button>
-            </div>
-
-            {/* Mobile Action Button */}
-            <div className="md:hidden">
-              <button 
-                onClick={handleTestNow}
-                className="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 rounded-full px-4 py-1.5 text-xs font-extrabold shadow-sm active:scale-95 transition-all lowercase"
-              >
-                open app
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Nav Links - Floating White Glass Pill Bar */}
-        <div className="flex px-4 pb-3 md:hidden w-full">
-          <div className="w-full bg-white border border-slate-200/80 rounded-full p-1 shadow-[0_4px_20px_rgba(15,23,42,0.10)]">
-            <div className="flex items-center justify-between gap-0.5 w-full">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About", href: "/about" },
-                { label: "Test", href: "/test-phase" },
-                { label: "Contact", href: "/contact" },
-                { label: "Hiring", href: "/hiring" }
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`flex-1 text-center py-2 px-1 rounded-full text-[11px] font-extrabold tracking-tight transition-all duration-300 ${item.label === "Home"
-                    ? "bg-white text-blue-600 shadow-sm border border-slate-100"
-                    : "text-slate-500 hover:text-slate-900"
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Unified Global Navbar */}
+      <Navbar onOpenPnrModal={() => setShowCheckPnrModal(true)} />
 
 
       {/* Hero Section */}
@@ -811,331 +787,245 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Brands Showcase (Featured In & Recognized By) */}
-      <section className="relative z-20 mt-0 md:-mt-16 lg:-mt-20 mb-6 md:mb-16 px-4 sm:px-6">
+      {/* Value Highlights (Laptop: 4 Cards | Mobile: Ultra-Sleek Fast Express Order Widget) */}
+      <section className="relative z-20 -mt-6 sm:-mt-10 lg:-mt-12 mb-10 md:mb-16 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_12px_40px_rgba(15,23,42,0.06)] p-5 sm:p-8 overflow-hidden relative">
-            {/* Left and Right Fade Gradients */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-4 sm:w-24 bg-gradient-to-r from-white via-white/95 to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-4 sm:w-24 bg-gradient-to-l from-white via-white/95 to-transparent z-10" />
-
-            {/* Label — visible on all sizes */}
-            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6 relative z-10">
-              <span className="h-[1px] w-8 bg-slate-200" />
-              <span className="text-[10px] sm:text-[11px] font-black text-slate-400 tracking-widest uppercase">
-                FEATURED IN
-              </span>
-              <span className="h-[1px] w-8 bg-slate-200" />
-            </div>
-
-            <div className="marquee-container relative overflow-hidden z-10 w-full">
-              <div className="flex animate-marquee marquee-content items-center w-max whitespace-nowrap">
-                {[...brands, ...brands, ...brands].map((brand, i) => (
-                  <div key={i} className="flex-shrink-0 px-2 sm:px-4">
-                    <div className="flex items-center gap-2.5 px-4 py-2.5 sm:px-5 sm:py-3 bg-slate-50/80 hover:bg-slate-100/80 border border-slate-200/60 rounded-xl transition-all duration-200 group cursor-default">
-                      <span className="w-2 h-2 rounded-full bg-slate-400 group-hover:bg-blue-600 transition-colors" />
-                      <span className="text-xs sm:text-sm font-bold text-slate-700 group-hover:text-slate-900 transition-colors whitespace-nowrap tracking-tight">
-                        {brand.name}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-10 sm:py-20 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-            <p className="text-xs sm:text-sm font-bold text-blue-500 uppercase tracking-widest mb-3">How It Works</p>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">Get your essentials in 3 simple steps</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-
-            {/* ─── Step 01 ─── */}
-            <div className="bg-slate-50/60 border border-slate-150 rounded-3xl p-6 sm:p-7 flex flex-row items-center justify-between gap-4 relative overflow-hidden transition-all duration-300 hover:bg-slate-50 hover:shadow-md">
-              <div className="flex flex-col justify-between flex-1 min-w-0 z-10">
-                <span className="text-5xl sm:text-6xl font-black leading-none mb-6 select-none" style={{ color: '#b0c7f2' }}>01</span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-black text-slate-900 mb-1.5 leading-snug">Enter PNR &amp; Train Details</h3>
-                  <p className="text-xs text-slate-400 font-medium leading-relaxed">Add your PNR &amp; journey details to explore available products.</p>
-                </div>
-              </div>
-              <div className="flex-shrink-0 w-[140px] sm:w-[150px] relative z-10">
-                <div className="relative bg-white rounded-2xl border border-slate-200/80 shadow-md p-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-blue-100 flex items-center justify-center">
-                      <div className="w-1 h-1 rounded-full bg-blue-500" />
-                    </div>
-                    <div className="w-4 h-4 rounded-full bg-blue-500 flex items-center justify-center text-[8px] text-white font-bold">✓</div>
-                  </div>
-                  <p className="text-[9px] font-bold text-slate-400 mb-1">PNR Number</p>
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 mb-2.5">
-                    <p className="text-[10px] font-bold text-slate-800 tracking-wider">2631527821</p>
-                  </div>
-                  <button className="w-full bg-slate-900 text-white text-[9px] font-extrabold py-2 rounded-lg tracking-wide">
-                    Search Train
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* ─── Step 02 ─── */}
-            <div className="bg-slate-50/60 border border-slate-150 rounded-3xl p-6 sm:p-7 flex flex-row items-center justify-between gap-4 relative overflow-hidden transition-all duration-300 hover:bg-slate-50 hover:shadow-md">
-              <div className="flex flex-col justify-between flex-1 min-w-0 z-10">
-                <span className="text-5xl sm:text-6xl font-black leading-none mb-6 select-none" style={{ color: '#b0c7f2' }}>02</span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-black text-slate-900 mb-1.5 leading-snug">Order Your Essentials</h3>
-                  <p className="text-xs text-slate-400 font-medium leading-relaxed">Choose from 100+ verified essentials and place order.</p>
-                </div>
-              </div>
-              <div className="flex-shrink-0 w-[130px] sm:w-[145px] relative z-10 flex justify-center">
-                <img 
-                  src="/images/order-essentials-real.jpg" 
-                  alt="Order Your Essentials" 
-                  className="w-full h-auto object-contain max-h-[105px] rounded-2xl drop-shadow-sm border border-slate-200/80" 
-                />
-              </div>
-            </div>
-
-            {/* ─── Step 03 ─── */}
-            <div className="bg-slate-50/60 border border-slate-150 rounded-3xl p-6 sm:p-7 flex flex-row items-center justify-between gap-4 relative overflow-hidden transition-all duration-300 hover:bg-slate-50 hover:shadow-md">
-              <div className="flex flex-col justify-between flex-1 min-w-0 z-10">
-                <span className="text-5xl sm:text-6xl font-black leading-none mb-6 select-none" style={{ color: '#b0c7f2' }}>03</span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-black text-slate-900 mb-1.5 leading-snug">Delivered to Your Seat</h3>
-                  <p className="text-xs text-slate-400 font-medium leading-relaxed">We deliver to your seat at the right station. On-seat handoff confirmed.</p>
-                </div>
-              </div>
-              <div className="flex-shrink-0 w-[130px] sm:w-[145px] relative z-10 flex justify-center">
-                <img 
-                  src="/images/delivered-to-seat-real.jpg" 
-                  alt="Delivered to Your Seat" 
-                  className="w-full h-auto object-contain max-h-[105px] rounded-2xl drop-shadow-sm border border-slate-200/80" 
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Instagram Reels Section */}
-
-
-      <section ref={reelsSectionRef} className="pt-12 pb-20 sm:pt-20 lg:pt-32 bg-white relative touch-pan-y">
-        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-emerald-100/30 rounded-full blur-[100px]" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 relative z-10 text-center">
-          <span className="text-xs sm:text-sm font-bold text-emerald-600 uppercase tracking-widest mb-3 inline-block">
-            RailQuick in Action
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 mt-2 mb-4 leading-tight">
-            Watch Our Story
-          </h2>
-          <p className="text-base sm:text-lg text-slate-550 max-w-xl mx-auto leading-relaxed">
-            See how we are transforming train travel across India.
-          </p>
-        </div>
-
-        {/* Reels Carousel */}
-        <div className="relative max-w-6xl mx-auto px-4">
-          {/* Left Arrow (Desktop) */}
-          <button
-            onClick={handlePrevReel}
-            className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-12 h-12 bg-white hover:bg-slate-50 border border-slate-200 rounded-full items-center justify-center text-slate-900 shadow-xl transition-all hover:scale-110 active:scale-95"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-
-          {/* Right Arrow (Desktop) */}
-          <button
-            onClick={handleNextReel}
-            className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex w-12 h-12 bg-white hover:bg-slate-50 border border-slate-200 rounded-full items-center justify-center text-slate-900 shadow-xl transition-all hover:scale-110 active:scale-95"
-          >
-            <ArrowRight className="w-5 h-5" />
-          </button>
-
-          {/* Scrolling Track */}
-          <div 
-            ref={containerRef}
-            onScroll={handleContainerScroll}
-            className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory py-4 sm:py-6 px-4 no-scrollbar scroll-smooth"
-            style={{touchAction: 'pan-x pan-y'}}
-          >
-            {reels.map((reel, index) => {
-              const isActive = index === activeReelIndex;
-              return (
-                <div
-                  key={reel.id}
-                  className={`flex-shrink-0 w-[260px] sm:w-[320px] aspect-[9/16] snap-center rounded-[24px] sm:rounded-[32px] overflow-hidden relative shadow-xl transition-all duration-300 border-2 sm:border-4 ${
-                    isActive
-                      ? 'border-slate-900 ring-4 ring-slate-900/10 z-30 shadow-slate-950/20'
-                      : 'border-slate-200/80 opacity-90 hover:opacity-100'
-                  }`}
-                >
-                  <iframe
-                    src={`https://www.instagram.com/p/${reel.shortcode}/embed/?autoplay=${isActive && isReelsInView ? '1' : '0'}`}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    scrolling="no"
-                    className="absolute inset-0 w-full h-full bg-slate-900 pointer-events-none md:pointer-events-auto"
-                  ></iframe>
-                  
-                  {/* Full transparent touch overlay on card so vertical page scroll is 100% smooth */}
-                  <div className="absolute inset-0 z-20 cursor-pointer" />
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Carousel Dot Indicators */}
-          <div className="flex justify-center items-center gap-2 mt-6">
-            {reels.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => {
-                  setActiveReelIndex(idx);
-                  if (containerRef.current) {
-                    const container = containerRef.current;
-                    const itemWidth = container.scrollWidth / reels.length;
-                    container.scrollTo({ left: idx * itemWidth, behavior: 'smooth' });
-                  }
-                }}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  idx === activeReelIndex 
-                    ? 'bg-blue-600 scale-125 shadow-md shadow-blue-500/20' 
-                    : 'bg-slate-300 hover:bg-slate-400'
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Products */}
-      <section id="products-section" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-slate-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-            <p className="text-xs sm:text-sm font-bold text-emerald-600 uppercase tracking-widest mb-3">What We Deliver</p>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">Curated essentials for every journey</h2>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-            {/* 24/7 Support — spans full width on mobile, full width on desktop too */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="col-span-2 group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-blue-50 border border-blue-100 hover:border-blue-300 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                  <Clock className="w-6 h-6 text-blue-600" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">24/7 Dedicated Support</h3>
-                  <p className="text-slate-600 leading-relaxed text-xs sm:text-base">Need help? Reach out to our dedicated support team anytime for any inquiries as we prepare for launch.</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Travel Essentials */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                  <Package className="w-6 h-6 text-slate-600" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">Travel Essentials</h3>
-                  <p className="text-slate-600 leading-relaxed text-xs sm:text-base">Blankets, pillows, locks, and travel accessories.</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Medicines */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                  <Pill className="w-6 h-6 text-slate-600" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">Medicines</h3>
-                  <p className="text-slate-600 leading-relaxed text-xs sm:text-base">Essential medicines and basic medical supplies.</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Hygiene */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                  <Sparkles className="w-6 h-6 text-slate-600" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">Hygiene</h3>
-                  <p className="text-slate-600 leading-relaxed text-xs sm:text-base">Personal hygiene products and daily essentials.</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Remaining products */}
+          {/* Laptop View: 4 Clean Value Highlight Cards */}
+          <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {[
-              { title: 'Electronics', desc: 'Chargers, power banks, earphones and gadgets.', icon: <Smartphone className="w-6 h-6 text-slate-600" /> },
-              { title: 'City Famous', desc: 'Specialities and famous items from your current city.', icon: <Building2 className="w-6 h-6 text-slate-600" /> },
-              { title: 'Snacks', desc: 'Quick munchies and travel-friendly snacks.', icon: <Cookie className="w-6 h-6 text-slate-600" /> },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (i + 2) * 0.1 }}
-                className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden"
+              {
+                title: "Direct Berth Delivery",
+                subtitle: "Inside running trains",
+                description: "Delivered straight to your coach during scheduled halts.",
+                icon: <Train className="w-5 h-5 text-blue-600" />,
+                iconBg: "bg-blue-50 border-blue-100",
+              },
+              {
+                title: "100% Genuine MRP",
+                subtitle: "Zero overpricing",
+                description: "Standard printed retail price. No arbitrary vendor markups.",
+                icon: <ShieldCheck className="w-5 h-5 text-emerald-600" />,
+                iconBg: "bg-emerald-50 border-emerald-100",
+              },
+              {
+                title: "Swift Coach Handoff",
+                subtitle: "Even in 2-min halts",
+                description: "Runner meets you directly at your coach door. Zero platform rush, luggage stays safe.",
+                icon: <Zap className="w-5 h-5 text-amber-600" />,
+                iconBg: "bg-amber-50 border-amber-100",
+              },
+              {
+                title: "Live GPS Sync",
+                subtitle: "Route tracking",
+                description: "Real-time sync with Indian Railways schedules & platforms.",
+                icon: <MapPin className="w-5 h-5 text-indigo-600" />,
+                iconBg: "bg-indigo-50 border-indigo-100",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[0_8px_30px_rgba(15,23,42,0.06)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 relative z-10">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                <div>
+                  <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl border ${item.iconBg} flex items-center justify-center mb-3 shadow-2xs`}>
                     {item.icon}
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-base sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">{item.title}</h3>
-                    <p className="text-slate-600 leading-relaxed text-xs sm:text-base">{item.desc}</p>
+                  <h3 className="text-sm sm:text-base font-black text-slate-900 leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs font-bold text-blue-600 mb-1">
+                    {item.subtitle}
+                  </p>
+                  <p className="text-[11px] sm:text-xs text-slate-500 font-medium leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile View: High-Tech Interactive Feature Explorer with Tabs & Real Telemetry */}
+          <div className="block md:hidden space-y-4">
+            {/* 1. Horizontal Interactive Feature Pill Selector */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+              {[
+                { id: 0, label: "Berth Delivery", icon: Train, color: "text-blue-600", activeBg: "bg-blue-600 text-white" },
+                { id: 1, label: "Printed MRP", icon: ShieldCheck, color: "text-emerald-600", activeBg: "bg-emerald-600 text-white" },
+                { id: 2, label: "2-Min Handoff", icon: Zap, color: "text-amber-600", activeBg: "bg-amber-600 text-white" },
+                { id: 3, label: "Live GPS", icon: MapPin, color: "text-indigo-600", activeBg: "bg-indigo-600 text-white" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveFeatureTab(tab.id)}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shrink-0 transition-all shadow-2xs ${
+                    activeFeatureTab === tab.id
+                      ? `${tab.activeBg} shadow-md scale-102`
+                      : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
+                  }`}
+                >
+                  <tab.icon className={`w-3.5 h-3.5 ${activeFeatureTab === tab.id ? "text-white" : tab.color}`} />
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* 2. Active Feature Spotlight Card (Dynamic Content per Tab) */}
+            <div className="bg-gradient-to-br from-white via-slate-50/50 to-blue-50/40 p-5 rounded-3xl border border-slate-200/90 shadow-sm relative overflow-hidden transition-all">
+              {activeFeatureTab === 0 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full border border-blue-200">
+                      Inside Running Trains
+                    </span>
+                    <span className="text-xs font-mono font-bold text-slate-400">01 / 04</span>
+                  </div>
+                  <h3 className="text-lg font-black text-slate-900 leading-tight mb-1">
+                    Direct Berth Delivery
+                  </h3>
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
+                    Delivered straight to your coach during scheduled halts. Our verified runner boards your specific coach door with your package.
+                  </p>
+                  {/* Interactive Coach Graphic */}
+                  <div className="bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-mono shadow-2xs">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                      <span className="font-bold text-slate-800">Coach B4 • Seat 42</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      Runner At Door ✓
+                    </span>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              )}
+
+              {activeFeatureTab === 1 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">
+                      Zero Overpricing
+                    </span>
+                    <span className="text-xs font-mono font-bold text-slate-400">02 / 04</span>
+                  </div>
+                  <h3 className="text-lg font-black text-slate-900 leading-tight mb-1">
+                    100% Genuine MRP
+                  </h3>
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
+                    Standard printed retail price. No arbitrary vendor markups, surge prices, or inflated station platform rates.
+                  </p>
+                  {/* Official MRP Seal Graphic */}
+                  <div className="bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-mono shadow-2xs">
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                      <span className="font-bold text-slate-800">Printed Retail Seal</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      ₹0 Extra Charge
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {activeFeatureTab === 2 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full border border-amber-200">
+                      Even in 2-Min Halts
+                    </span>
+                    <span className="text-xs font-mono font-bold text-slate-400">03 / 04</span>
+                  </div>
+                  <h3 className="text-lg font-black text-slate-900 leading-tight mb-1">
+                    Swift Coach Handoff
+                  </h3>
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
+                    Runner meets you directly at your coach door. Zero platform rush, no leaving your seat, luggage stays completely safe.
+                  </p>
+                  {/* Timer graphic */}
+                  <div className="bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-mono shadow-2xs">
+                    <div className="flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-amber-500 animate-bounce" />
+                      <span className="font-bold text-slate-800">Halt Window: 02:00 mins</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                      OTP Verified
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {activeFeatureTab === 3 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono font-bold bg-indigo-100 text-indigo-900 px-2 py-0.5 rounded-full border border-indigo-200">
+                      Route Tracking
+                    </span>
+                    <span className="text-xs font-mono font-bold text-slate-400">04 / 04</span>
+                  </div>
+                  <h3 className="text-lg font-black text-slate-900 leading-tight mb-1">
+                    Live GPS Sync
+                  </h3>
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed mb-4">
+                    Real-time sync with Indian Railways schedules &amp; platform changes. If train is delayed, runner delivery schedule automatically updates.
+                  </p>
+                  {/* GPS Radar Graphic */}
+                  <div className="bg-white p-3 rounded-2xl border border-slate-200 flex items-center justify-between text-xs font-mono shadow-2xs">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-indigo-600" />
+                      <span className="font-bold text-slate-800">Satellite Sync</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+                      Live Delay Adapted
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 3. Mobile PNR & Coach Track Quick Action Card (Hidden on mobile as requested) */}
+            <div className="hidden sm:block bg-gradient-to-br from-amber-50/90 via-white to-orange-50/70 p-4 sm:p-5 rounded-3xl border border-amber-200/90 shadow-sm relative overflow-hidden">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                  <span className="text-[11px] font-mono font-black uppercase tracking-wider text-slate-900">
+                    Live PNR &amp; Berth Radar
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono font-black bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-full border border-amber-300">
+                  IRCTC SYNC
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-600 font-medium mb-3">
+                Check coach number, live train location, and order essentials directly to your seat.
+              </p>
+
+              <button
+                type="button"
+                onClick={() => setShowCheckPnrModal(true)}
+                className="w-full h-12 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-98 transition-all"
+              >
+                <Train className="w-4 h-4 text-amber-400" />
+                <span>Track 10-Digit PNR / Train Status</span>
+                <ArrowRight className="w-4 h-4 text-white" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* How RailQuick Works — Exact Match to Reference Design with S-Curve Dotted Line & Floating UI Cards */}
+      <div id="how-it-works">
+        <HowItWorksFlow />
+      </div>
+
+      {/* What We Deliver — Curated Essentials & Travel Comfort */}
+      <WhatWeDeliverSection />
+
+      {/* Watch Our Story — Interactive Silent Reels */}
+      <WatchOurStorySection />
+
+      {/* The RailQuick Promise — Real 4-Point Passenger Guarantees */}
+      <RailQuickGuarantees />
 
       {/* Stats */}
       <section ref={statsRef} className="py-16 sm:py-24 lg:py-32 bg-white border-t border-b border-slate-100/60">
@@ -1202,78 +1092,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Travelers Choose Us (Redesigned Elevated Blue Box Layout BELOW Testimonials) */}
-      <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50 via-blue-50/40 to-white text-slate-900 relative overflow-hidden border-t border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 border border-blue-200 text-blue-700 text-xs font-black uppercase tracking-widest mb-4 shadow-2xs">
-              THE RAILQUICK ADVANTAGE
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-              Why Travelers Choose Us
-            </h2>
-            <p className="text-base sm:text-lg text-slate-600 mt-3 font-medium">
-              Verified vendors, real-time live train tracking, and guaranteed seat delivery.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                badge: 'Speed & Motion',
-                title: 'Live Train Handshake',
-                description: 'Order while traveling. Handshake delivery executed seamlessly at upcoming station stops or directly inside moving train coaches.',
-                cardBorder: 'border-t-4 border-blue-600',
-                iconBg: 'bg-blue-50 text-blue-600 border-blue-200/60',
-                icon: <Zap className="w-7 h-7" />
-              },
-              {
-                badge: '100% Verified',
-                title: 'Guaranteed Quality',
-                description: 'Say goodbye to fake or overpriced platform products. We partner directly with verified brands and enforce strict quality audits.',
-                cardBorder: 'border-t-4 border-indigo-600',
-                iconBg: 'bg-indigo-50 text-indigo-600 border-indigo-200/60',
-                icon: <ShieldCheck className="w-7 h-7" />
-              },
-              {
-                badge: 'Curated Catalog',
-                title: 'On-Seat Convenience',
-                description: 'From emergency medicines to chargers, hygiene kits, baby care, and hot snacks—everything you need delivered to your exact seat.',
-                cardBorder: 'border-t-4 border-sky-600',
-                iconBg: 'bg-sky-50 text-sky-600 border-sky-200/60',
-                icon: <Package className="w-7 h-7" />
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                className={`group relative bg-white border border-slate-200/80 rounded-2xl sm:rounded-3xl p-5 sm:p-8 hover:shadow-2xl hover:border-blue-400 hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-sm sm:shadow-md shadow-slate-100 ${feature.cardBorder}`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-5 sm:mb-8">
-                    <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl border ${feature.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-2xs`}>
-                      {feature.icon}
-                    </div>
-                    <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
-                      {feature.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="text-lg sm:text-2xl font-black text-slate-900 mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-slate-600 text-xs sm:text-base leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* FAQ */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
@@ -1304,36 +1122,53 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="waitlist" className="py-16 sm:py-24 bg-slate-950 relative overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* India's Train Delivery App Waitlist Section */}
+      <section id="waitlist" className="py-20 sm:py-28 bg-slate-950 relative overflow-hidden border-t border-slate-900">
+        {/* Subtle Luxury Ambient Lighting */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-blue-600/15 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 right-10 w-80 h-80 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="relative max-w-4xl mx-auto px-5 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
-            Be the first to experience RailQuick
+        <div className="relative max-w-4xl mx-auto px-5 text-center z-10">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-400/20 rounded-full text-xs font-black text-blue-400 uppercase tracking-widest mb-4 backdrop-blur-xs">
+            ⚡ ON-SEAT IN-TRAIN PLATFORM
+          </span>
+
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight leading-[1.15]">
+            India&apos;s Train Delivery App
           </h2>
-          <p className="text-sm sm:text-lg text-slate-400 mb-10 max-w-xl mx-auto px-2 leading-relaxed">
-            Live Seat Delivery Tracking: Watch your order travel across the station directly to your seat in real-time.
+
+          <p className="text-sm sm:text-base text-slate-400 mb-8 max-w-lg mx-auto px-2 leading-relaxed font-medium">
+            Delivering verified travel essentials, fast chargers, emergency medicines &amp; sealed snacks directly to your seat while your train is in motion.
           </p>
 
-          <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-3.5 max-w-md mx-auto">
+          <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6">
             <Input
-              type="email"
-              placeholder="Enter your email"
+              type="text"
+              placeholder="Enter mobile or email address"
               value={waitlistEmail}
               onChange={(e) => setWaitlistEmail(e.target.value)}
               required
-              className="flex-1 h-14 px-5 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-2xl text-base"
+              className="flex-1 h-14 px-5 bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-2xl text-sm sm:text-base"
             />
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="h-14 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+              className="h-14 px-8 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white rounded-2xl font-black text-sm shadow-xl shadow-blue-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+              {isSubmitting ? 'Saving to Database...' : 'Get Early Access'}
             </Button>
           </form>
+
+          {/* Quick PNR Trigger in Waitlist */}
+          <div className="flex items-center justify-center gap-4 text-xs text-slate-400 pt-2">
+            <span>Traveling right now?</span>
+            <button
+              onClick={() => setShowCheckPnrModal(true)}
+              className="text-blue-400 hover:text-blue-300 font-bold underline underline-offset-4 flex items-center gap-1 transition-colors"
+            >
+              Track Live PNR Status <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </section>
 

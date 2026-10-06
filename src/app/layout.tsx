@@ -1,17 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -50,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${inter.variable} ${outfit.variable} font-sans antialiased`}
+        className="font-sans antialiased text-slate-900 bg-white"
       >
         {children}
         <Toaster />
@@ -58,3 +47,4 @@ export default function RootLayout({
     </html>
   );
 }
+

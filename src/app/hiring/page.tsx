@@ -22,6 +22,9 @@ import {
 } from "lucide-react";
 
 import OpenAppModal from "@/components/OpenAppModal";
+import CheckPnrModal from "@/components/CheckPnrModal";
+import TicketPnrButton from "@/components/TicketPnrButton";
+import Navbar from "@/components/Navbar";
 
 const HIRING_API = '/api/hiring';
 
@@ -102,85 +105,15 @@ export default function HiringPage() {
     setIsSubmitting(false);
   };
 
+  const [showCheckPnrModal, setShowCheckPnrModal] = useState(false);
+
   return (
     <div className="min-h-screen bg-slate-50/50 font-sans selection:bg-blue-100 selection:text-blue-900">
       <OpenAppModal isOpen={showOpenAppModal} onClose={() => setShowOpenAppModal(false)} />
+      <CheckPnrModal isOpen={showCheckPnrModal} onClose={() => setShowCheckPnrModal(false)} />
 
-      {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerScrolled ? 'bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <Logo className="h-8 sm:h-12 w-auto" />
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1 bg-slate-100/50 backdrop-blur-md p-1 rounded-full border border-slate-200/50">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'About', href: '/about' },
-                { label: 'Test Phase', href: '/test-phase' },
-                { label: 'Contact', href: '/contact' },
-                { label: "We're Hiring", href: '/hiring' },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${item.href === '/hiring'
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="hidden md:block">
-              <Button
-                onClick={() => setShowOpenAppModal(true)}
-                className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold"
-              >
-                Open App
-              </Button>
-            </div>
-
-            {/* Mobile Action Button */}
-            <div className="md:hidden">
-              <Button
-                onClick={() => setShowOpenAppModal(true)}
-                className="bg-blue-50/80 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-full px-3.5 h-8 text-[11px] font-extrabold shadow-2xs shadow-sm active:scale-95 transition-all"
-              >
-                Open App
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Nav Links - Pill Style (Premium App Control) */}
-        <div className="flex px-4 pb-4 md:hidden w-full">
-          <div className="w-full bg-slate-100/80 backdrop-blur-md border border-slate-200/30 rounded-full p-1 shadow-sm">
-            <div className="flex items-center justify-between gap-0.5 w-full">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About", href: "/about" },
-                { label: "Test", href: "/test-phase" },
-                { label: "Contact", href: "/contact" },
-                { label: "Hiring", href: "/hiring" }
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`flex-1 text-center py-2.5 px-1 rounded-full text-[11px] font-extrabold tracking-tight transition-all duration-300 ${item.href === '/hiring'
-                    ? 'bg-white text-blue-600 shadow-[0_2px_10px_rgba(15,23,42,0.06)] border border-slate-100/50'
-                    : 'text-slate-500 hover:text-slate-900'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Unified Navigation */}
+      <Navbar onOpenPnrModal={() => setShowCheckPnrModal(true)} />
 
       {/* Hero */}
       <section className="pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-32 relative overflow-hidden">

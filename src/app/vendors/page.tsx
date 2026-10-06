@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import CheckPnrModal from "@/components/CheckPnrModal";
 import {
   BrainCircuit,
   TrendingUp,
@@ -118,42 +119,13 @@ export default function VendorsPage() {
     setIsSubmitting(false);
   };
 
+  const [showCheckPnrModal, setShowCheckPnrModal] = useState(false);
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50 selection:bg-indigo-500/30">
-      {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${headerScrolled ? 'bg-slate-950/80 backdrop-blur-xl border-slate-800 shadow-sm' : 'bg-transparent border-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <Logo className="h-7 sm:h-9 w-auto" />
+      <CheckPnrModal isOpen={showCheckPnrModal} onClose={() => setShowCheckPnrModal(false)} />
 
-            <div className="hidden md:flex items-center gap-1 bg-slate-900/50 backdrop-blur-md p-1 rounded-full border border-slate-800">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'Vendors', href: '/vendors' },
-                { label: 'Test Phase', href: '/test-phase' },
-                { label: 'Contact', href: '/contact' },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${item.href === '/vendors'
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="hidden md:block">
-              <Button asChild className="bg-white hover:bg-slate-200 text-slate-900 rounded-full px-6 h-11 font-bold">
-                <a href="#onboard">Join as Partner</a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar onOpenPnrModal={() => setShowCheckPnrModal(true)} />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">

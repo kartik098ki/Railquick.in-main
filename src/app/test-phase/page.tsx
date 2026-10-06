@@ -3,11 +3,14 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Logo from "@/components/Logo";
+import Navbar from "@/components/Navbar";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
+import CheckPnrModal from "@/components/CheckPnrModal";
+import TicketPnrButton from "@/components/TicketPnrButton";
 import { CheckCircle2, Clock, Smartphone, Zap, MapPin, Train, ShieldCheck, Cpu, Package, Users, Rocket, Handshake, Flame, Mail, Loader2, ArrowRight } from "lucide-react";
 
 const phases = [
@@ -28,7 +31,7 @@ const phases = [
     status: 'completed',
     description: 'We conducted our Test Phase 2 on 5th and 6th March 2026 on the running Shalimar Malani Express (Train No. 14662 & 14661).',
     achievements: [
-      'Delivered 10+ orders successfully in a running train',
+      'Delivered 100+ orders successfully in a running train',
       'Talked to 300+ train travelers directly',
       'Tested real-time logistics and delivery handoffs',
     ],
@@ -97,82 +100,14 @@ export default function TestPhasePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [showCheckPnrModal, setShowCheckPnrModal] = useState(false);
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans selection:bg-blue-100 selection:text-blue-900">
-      {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerScrolled ? 'bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <Logo className="h-8 sm:h-12 w-auto" />
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1 bg-slate-100/50 backdrop-blur-md p-1 rounded-full border border-slate-200/50">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'About', href: '/about' },
-                { label: 'Test Phase', href: '/test-phase' },
-                { label: 'Contact', href: '/contact' },
-                { label: "We're Hiring", href: '/hiring' },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${item.href === '/test-phase'
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+      <CheckPnrModal isOpen={showCheckPnrModal} onClose={() => setShowCheckPnrModal(false)} />
 
-            <div className="hidden md:block">
-              <Button 
-                onClick={() => setShowTestModal(true)}
-                className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold"
-              >
-                Open App
-              </Button>
-            </div>
-
-            {/* Mobile Action Button */}
-            <div className="md:hidden">
-              <Button 
-                onClick={() => setShowTestModal(true)}
-                className="bg-blue-50/80 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-full px-3.5 h-8 text-[11px] font-extrabold shadow-2xs shadow-sm active:scale-95 transition-all"
-              >
-                Open App
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Nav Links - Pill Style (Premium App Control) */}
-        <div className="flex px-4 pb-4 md:hidden w-full">
-          <div className="w-full bg-slate-100/80 backdrop-blur-md border border-slate-200/30 rounded-full p-1 shadow-sm">
-            <div className="flex items-center justify-between gap-0.5 w-full">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About", href: "/about" },
-                { label: "Test", href: "/test-phase" },
-                { label: "Contact", href: "/contact" },
-                { label: "Hiring", href: "/hiring" }
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`flex-1 text-center py-2.5 px-1 rounded-full text-[11px] font-extrabold tracking-tight transition-all duration-300 ${item.href === '/test-phase'
-                    ? 'bg-white text-blue-600 shadow-[0_2px_10px_rgba(15,23,42,0.06)] border border-slate-100/50'
-                    : 'text-slate-500 hover:text-slate-900'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Unified Navigation */}
+      <Navbar onOpenPnrModal={() => setShowCheckPnrModal(true)} />
 
       {/* Hero */}
       <section className="pt-32 pb-20 lg:pt-52 lg:pb-40 relative overflow-hidden bg-gradient-to-b from-blue-50/40 via-white to-slate-50">
@@ -311,7 +246,7 @@ export default function TestPhasePage() {
           <div className="grid md:grid-cols-3 gap-8 md:gap-10 mb-20 md:mb-32">
             <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10 text-center hover:bg-white/15 md:hover:-translate-y-2 md:hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] transition-all duration-500">
               <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-blue-500/20 text-blue-400 rounded-2xl md:rounded-[1.5rem] flex items-center justify-center mb-6 md:mb-8"><Rocket className="w-8 h-8 md:w-10 md:h-10" /></div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">10+ Successful Orders</h3>
+              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">100+ Successful Orders</h3>
               <p className="text-slate-400 md:text-lg">We successfully delivered on-seat directly through our app in a running train.</p>
             </div>
             <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10 text-center hover:bg-white/15 md:hover:-translate-y-2 md:hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] transition-all duration-500">
@@ -342,40 +277,77 @@ export default function TestPhasePage() {
         </div>
       </section>
 
-      {/* Test Phase 3 */}
-      <section className="py-20 lg:py-40 bg-slate-50/40 relative overflow-hidden border-t border-slate-100">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.03),transparent_70%)] pointer-events-none md:scale-125" />
+      {/* Test Phase 3: Clean, High-Impact Coming Soon */}
+      <section className="py-20 lg:py-32 bg-slate-950 text-white relative overflow-hidden border-t border-slate-800">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)] pointer-events-none" />
         
-        <div className="max-w-4xl md:max-w-6xl mx-auto px-4 sm:px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 text-blue-600 font-bold bg-blue-50 border border-blue-100 px-5 py-2 md:px-6 md:py-2.5 rounded-full text-sm md:text-base mb-6 md:mb-10 shadow-sm">
-            <span className="w-2.5 h-2.5 md:w-3 md:h-3 bg-blue-500 rounded-full inline-block animate-pulse" />
-            <span>Phase 3: Coming Soon</span>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/25 text-blue-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-6">
+            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+            <span>Phase 3 • Coming Soon</span>
           </div>
-          
-          <h2 className="text-3xl sm:text-4xl lg:text-7xl font-black text-slate-900 mb-6 md:mb-10 tracking-tight leading-tight">
-            Delhi Railway Station (Soon)
+
+          {/* Heading */}
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-5 leading-tight">
+            Direct Berth Delivery <br />
+            <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
+              On Running Trains
+            </span>
           </h2>
-          
-          <p className="text-base sm:text-lg md:text-2xl text-slate-600 max-w-xl md:max-w-3xl mx-auto mb-10 md:mb-16 leading-relaxed">
-            We are bringing on-seat essential delivery to Delhi Railway Station soon. Be the first to try it when we launch!
+
+          <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed mb-12 font-normal">
+            The next chapter of RailQuick. Fresh meals, pharmacy essentials, and city sweets delivered right to your seat during scheduled train halts.
           </p>
 
-          <div className="relative bg-white border border-slate-200/60 rounded-[2rem] md:rounded-[3rem] p-8 md:p-14 max-w-md md:max-w-2xl mx-auto shadow-xl md:shadow-[0_20px_60px_rgb(0,0,0,0.06)] hover:shadow-2xl md:hover:shadow-[0_30px_80px_rgb(0,0,0,0.1)] transition-all duration-500 flex flex-col items-center justify-center overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 md:w-40 md:h-40 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
-            <div className="w-14 h-14 md:w-20 md:h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-5 md:mb-8 shadow-sm border border-blue-100">
-              <Train className="w-7 h-7 md:w-10 md:h-10" />
+          {/* 3 Core Highlights (Clean & Concise) */}
+          <div className="grid md:grid-cols-3 gap-6 text-left mb-12">
+            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center mb-4 font-black">
+                ⚡
+              </div>
+              <h3 className="text-lg font-bold text-white mb-1.5">2-Min Coach Handoff</h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Platform runners meet you right at your coach gate. You never have to step off or risk your luggage.
+              </p>
             </div>
-            
-            <h3 className="text-xl md:text-3xl font-bold text-slate-900 mb-2 md:mb-4">Delhi Hub Live Soon</h3>
-            <p className="text-sm md:text-lg text-slate-500 mb-6 md:mb-10 max-w-xs md:max-w-md leading-relaxed">
-              We will deliver to all incoming trains arriving at Delhi Railway Station directly to your seat.
-            </p>
 
+            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center mb-4 font-black">
+                🛡️
+              </div>
+              <h3 className="text-lg font-bold text-white mb-1.5">100% Genuine MRP</h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Zero arbitrary markups. Genuine printed retail pricing on all packaged items, medicines, and snacks.
+              </p>
+            </div>
+
+            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center mb-4 font-black">
+                🔒
+              </div>
+              <h3 className="text-lg font-bold text-white mb-1.5">OTP Sealed Handoff</h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Tamper-evident sealed packaging unlocked exclusively with your 4-digit verification code.
+              </p>
+            </div>
+          </div>
+
+          {/* Clean Action Card */}
+          <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div>
+              <h4 className="text-lg sm:text-xl font-bold text-white mb-1">
+                Be First to Experience Phase 3
+              </h4>
+              <p className="text-xs sm:text-sm text-slate-400">
+                Join our private beta group for priority onboarding and launch notifications.
+              </p>
+            </div>
             <Button
               onClick={() => setShowTestModal(true)}
-              className="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/60 rounded-full px-8 md:px-12 h-12 md:h-16 md:text-xl font-bold transition-all shadow-sm md:shadow-md hover:shadow-lg active:scale-95"
+              className="bg-white hover:bg-slate-200 text-slate-950 rounded-full px-8 h-12 text-sm font-bold shadow-lg transition-transform active:scale-95 shrink-0"
             >
-              Test Now
+              Get Priority Access →
             </Button>
           </div>
         </div>

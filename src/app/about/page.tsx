@@ -3,44 +3,47 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Logo from "@/components/Logo";
+import Navbar from "@/components/Navbar";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import OpenAppModal from "@/components/OpenAppModal";
+import CheckPnrModal from "@/components/CheckPnrModal";
+import TicketPnrButton from "@/components/TicketPnrButton";
 
 const team = [
   {
     name: 'Kartik Guleria',
     role: 'Founder & CEO',
+    tagline: 'Product Architecture & Rail Logistics',
     image: '/images/kartik.png',
-    description: 'Visionary builder dedicated to solving real problems for millions of train travelers. Driving product strategy and rail logistics.',
+    description: 'Visionary builder dedicated to solving real problems for millions of train travelers. Driving product engineering, logistics mesh, and system architecture.',
     linkedin: 'https://www.linkedin.com/in/kartikguleria1/',
-    gradient: 'from-blue-600 to-cyan-500',
   },
   {
     name: 'Harshit Sinha',
     role: 'Founder & Ops Head',
+    tagline: 'Station Operations & Logistics Fleet',
     image: '/images/harshit.png',
-    description: 'Logistics mastermind ensuring every order meets its destination on time. Building efficient station delivery systems at scale.',
+    description: 'Logistics mastermind ensuring every 2-minute halt handoff happens with zero delay. Scaled station runner delivery networks across high-traffic junctions.',
     linkedin: 'https://www.linkedin.com/in/harshit-sinha-3833172a1/',
-    gradient: 'from-indigo-600 to-purple-500',
   },
   {
     name: 'Avni Porwal',
     role: 'Founder & CMO',
+    tagline: 'Customer Experience & Brand Vision',
     image: '/images/avni_latest.jpg',
-    description: 'Creating seamless and delightful user experiences for travelers. Bringing brand vision and empathy to every customer touchpoint.',
+    description: 'Creating seamless, empathetic experiences for train passengers. Championing customer delight, partner trust, and brand growth across India.',
     linkedin: 'https://www.linkedin.com/in/avni-porwal-1974a5379/',
-    gradient: 'from-orange-500 to-amber-400',
   },
   {
     isMoreCard: true,
-    name: '+ 5 Team Members',
-    role: 'OPERATIONS & TECH',
+    name: '+ 5 Core Members',
+    role: 'OPERATIONS & ENGINEERING',
+    tagline: '24/7 Junction Runner Network',
     image: '',
-    description: 'Dedicated station runners, vendor managers, and software engineers working 24/7 to deliver your orders on time.',
+    description: 'Dedicated platform runners, IRCTC vendor coordinators, and full-stack software engineers keeping train handoffs running on time 24/7.',
     linkedin: '',
-    gradient: 'from-slate-900 via-blue-900 to-slate-900',
   }
 ];
 
@@ -101,6 +104,7 @@ const milestones = [
 export default function AboutPage() {
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [showOpenAppModal, setShowOpenAppModal] = useState(false);
+  const [showCheckPnrModal, setShowCheckPnrModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setHeaderScrolled(window.scrollY > 50);
@@ -111,81 +115,10 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-blue-100 selection:text-blue-900">
       <OpenAppModal isOpen={showOpenAppModal} onClose={() => setShowOpenAppModal(false)} />
+      <CheckPnrModal isOpen={showCheckPnrModal} onClose={() => setShowCheckPnrModal(false)} />
 
-      {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerScrolled ? 'bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <Logo className="h-8 sm:h-12 w-auto" />
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1 bg-slate-100/50 backdrop-blur-md p-1 rounded-full border border-slate-200/50">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'About', href: '/about' },
-                { label: 'Test Phase', href: '/test-phase' },
-                { label: 'Contact', href: '/contact' },
-                { label: "We're Hiring", href: '/hiring' },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${item.href === '/about'
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-white/50'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="hidden md:block">
-              <Button
-                onClick={() => setShowOpenAppModal(true)}
-                className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-6 h-11 shadow-lg shadow-slate-900/20 transition-all hover:shadow-xl hover:-translate-y-0.5 font-bold"
-              >
-                Open App
-              </Button>
-            </div>
-            
-            <div className="md:hidden">
-              <Button
-                onClick={() => setShowOpenAppModal(true)}
-                className="bg-blue-50/80 hover:bg-blue-100 text-blue-600 border border-blue-200/60 rounded-full px-3.5 h-8 text-[11px] font-extrabold shadow-2xs active:scale-95 transition-all"
-              >
-                Open App
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Nav Links - Pill Style (Premium App Control) */}
-        <div className="flex px-4 pb-4 md:hidden w-full">
-          <div className="w-full bg-slate-100/80 backdrop-blur-md border border-slate-200/30 rounded-full p-1 shadow-sm">
-            <div className="flex items-center justify-between gap-0.5 w-full">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About", href: "/about" },
-                { label: "Test", href: "/test-phase" },
-                { label: "Contact", href: "/contact" },
-                { label: "Hiring", href: "/hiring" }
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`flex-1 text-center py-2.5 px-1 rounded-full text-[11px] font-extrabold tracking-tight transition-all duration-300 ${item.href === '/about'
-                    ? 'bg-white text-blue-600 shadow-[0_2px_10px_rgba(15,23,42,0.06)] border border-slate-100/50'
-                    : 'text-slate-500 hover:text-slate-900'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Unified Navigation */}
+      <Navbar onOpenPnrModal={() => setShowCheckPnrModal(true)} />
 
 
       {/* Hero */}
@@ -279,7 +212,7 @@ export default function AboutPage() {
                     <div className="text-sm lg:text-base font-medium text-slate-500 uppercase tracking-wide">Early Testers</div>
                   </div>
                   <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] lg:hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">5000+</div>
+                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">7000+</div>
                     <div className="text-sm lg:text-base font-medium text-slate-500 uppercase tracking-wide">Waitlist Users</div>
                   </div>
                   <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] lg:hover:-translate-y-1 transition-all duration-300">
@@ -330,65 +263,102 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section (Redesigned Laptop & Mobile Showcase) */}
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
-            <p className="text-xs sm:text-sm font-black text-blue-600 uppercase tracking-widest mb-3">Our Team</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4 tracking-tight">Meet the Builders</h2>
-            <p className="text-base sm:text-lg text-slate-600 font-medium">The passionate leaders and operational force driving train delivery innovation.</p>
+      {/* Team Section (Clean Minimalist Design - No Loud Colors) */}
+      <section className="py-20 lg:py-32 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider mb-3">
+              <span>Leadership &amp; Execution Team</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 mb-3 tracking-tight">
+              Meet the Builders
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600 font-medium max-w-xl mx-auto leading-relaxed">
+              The engineering and operations team dedicated to solving genuine passenger logistics challenges on moving trains.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {team.map((member, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group text-center bg-slate-50/70 rounded-3xl p-6 lg:p-8 border border-slate-200/70 hover:bg-white hover:shadow-2xl hover:border-blue-300 hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between relative overflow-hidden"
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 hover:border-slate-400 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
               >
                 {member.isMoreCard ? (
-                  <div className="flex flex-col items-center justify-center h-full py-4">
-                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex flex-col items-center justify-center mb-6 shadow-xl shadow-blue-600/20 group-hover:scale-105 transition-transform duration-300 border-2 border-blue-400/30">
-                      <span className="text-3xl font-black">+5</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-blue-100">Team</span>
-                    </div>
-                    <h3 className="text-xl font-black text-slate-900 mb-1">{member.name}</h3>
-                    <p className="text-xs font-black uppercase tracking-wider text-blue-600 mb-3">{member.role}</p>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{member.description}</p>
-                  </div>
-                ) : (
-                  <div>
-                    <div className="relative mb-6 inline-block">
-                      <div className={`w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-2xl bg-gradient-to-br ${member.gradient} p-0.5 transform group-hover:scale-[1.03] transition-all duration-500 shadow-md`}>
-                        <div className="w-full h-full bg-white rounded-[0.9rem] flex items-center justify-center overflow-hidden relative">
-                          <img
-                            src={member.image}
-                            alt={member.name}
-                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                          />
-                        </div>
+                  <div className="flex flex-col items-center justify-between h-full py-4 text-center">
+                    <div className="w-full flex justify-center mb-6">
+                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-slate-900 text-white flex flex-col items-center justify-center border border-slate-800 shadow-md">
+                        <span className="text-3xl font-black text-white">+5</span>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Team</span>
                       </div>
-                      <div className={`absolute inset-0 w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-2xl bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-lg -z-10`} />
                     </div>
 
-                    <h3 className="text-xl font-black text-slate-900 mb-1">{member.name}</h3>
-                    <p className="text-xs font-black uppercase tracking-wider text-blue-600 mb-3">{member.role}</p>
-                    
+                    <div className="space-y-2 w-full">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-200">
+                        {member.role}
+                      </span>
+                      <h3 className="text-xl font-black text-slate-900">{member.name}</h3>
+                      <p className="text-xs text-slate-500 font-medium">
+                        {member.tagline}
+                      </p>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pt-2">
+                        {member.description}
+                      </p>
+                    </div>
+
+                    <div className="w-full pt-6 mt-4 border-t border-slate-100 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Ground Runners &amp; Tech
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center text-center">
+                    {/* Clean Portrait Frame */}
+                    <div className="relative mb-5 inline-block">
+                      <div className="w-32 h-32 sm:w-36 sm:h-36 mx-auto rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-xs">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Role & Name */}
+                    <div className="space-y-1 mb-3 w-full">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-200">
+                        {member.role}
+                      </span>
+                      <h3 className="text-xl font-black text-slate-900 tracking-tight pt-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-xs text-slate-500 font-medium">
+                        {member.tagline}
+                      </p>
+                    </div>
+
+                    {/* Bio Description */}
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal mb-5">
+                      {member.description}
+                    </p>
+
+                    {/* Clean LinkedIn Button */}
                     {member.linkedin && (
                       <a
                         href={member.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-200 rounded-full text-slate-600 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-all mb-4 text-xs font-bold shadow-2xs"
+                        className="w-full py-2 px-4 bg-slate-50 hover:bg-slate-900 text-slate-700 hover:text-white border border-slate-200 hover:border-slate-900 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all mt-auto"
                       >
-                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
-                        LinkedIn
+                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                        <span>LinkedIn</span>
                       </a>
                     )}
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">{member.description}</p>
                   </div>
                 )}
               </motion.div>

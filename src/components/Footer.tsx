@@ -90,10 +90,15 @@ export default function Footer() {
               <div className="space-y-2 sm:space-y-3">
                 <Link href="/" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Home</Link>
                 <Link href="/about" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">About Us</Link>
+                <Link href="/blog" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm font-medium text-blue-400 hover:text-blue-300">Blog</Link>
+                <Link href="/check-train" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm font-medium text-amber-400 hover:text-amber-300">Check Train</Link>
+                <Link href="/pnr-status" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">PNR Status</Link>
                 <Link href="/test-phase" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Test Phase</Link>
                 <Link href="/contact" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Contact</Link>
-                <Link href="/hiring" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Hiring</Link>
-                <Link href="/partner" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Become a Partner</Link>
+                <Link href="/vendor" className="block text-emerald-400 hover:text-emerald-300 font-bold transition-colors text-[10px] sm:text-sm flex items-center gap-1">
+                  <span>Become a Vendor</span>
+                  <span className="bg-emerald-500/20 text-emerald-300 text-[9px] px-1.5 py-0.2 rounded-full uppercase border border-emerald-500/30">New</span>
+                </Link>
               </div>
             </div>
 

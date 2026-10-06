@@ -4,21 +4,33 @@ import { insertSubmission } from '@/lib/services';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, city, isIrctcTender } = body;
+    const {
+      name,
+      owner_name,
+      shop_name,
+      email,
+      phone,
+      mobile_number,
+      whatsapp_number,
+      vendor_type,
+      city,
+      location_details,
+      categories,
+      fssai_gstin,
+      payout_details,
+      language,
+      partner_id,
+      isIrctcTender,
+    } = body;
 
-    // Validation
-    if (!name || !email || !phone) {
-      return NextResponse.json(
-        { success: false, message: 'Name, email, and phone are required' },
-        { status: 400 }
-      );
-    }
+    const contactName = owner_name || name || shop_name || "Vendor Partner";
+    const contactPhone = mobile_number || phone || "";
+    const contactEmail = email || `${contactPhone || "vendor"}@railquick.partner`;
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    // Validation: At least a name/shop and a phone/mobile must be provided
+    if (!contactName || !contactPhone) {
       return NextResponse.json(
-        { success: false, message: 'Please provide a valid email address' },
+        { success: false, message: 'Owner / Shop name and mobile number are required' },
         { status: 400 }
       );
     }
@@ -26,16 +38,18 @@ export async function POST(request: NextRequest) {
     // Insert into Supabase
     await insertSubmission({
       form_type: 'vendor',
-      name: name,
-      email: email,
-      phone: phone || '',
-      city: city || '',
+      name: contactName,
+      email: contactEmail,
+      phone: contactPhone,
+      city: city || location_details || '',
       is_irctc_tender: isIrctcTender ? "Yes" : "No",
+      inquiry: `Shop: ${shop_name || 'N/A'}, Type: ${vendor_type || 'N/A'}, WhatsApp: ${whatsapp_number || 'N/A'}, Categories: ${categories || 'N/A'}, FSSAI: ${fssai_gstin || 'N/A'}, Payout: ${payout_details || 'N/A'}`,
     });
 
     return NextResponse.json({
       success: true,
-      message: 'Application submitted successfully!',
+      partner_id: partner_id || `RQ-VND-${Date.now()}`,
+      message: 'Vendor application registered successfully!',
     });
 
   } catch (error) {
