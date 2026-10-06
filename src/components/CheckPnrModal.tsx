@@ -114,7 +114,7 @@ export default function CheckPnrModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-2.5 sm:p-4">
           {/* Backdrop with frosted glass effect */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -133,97 +133,97 @@ export default function CheckPnrModal({
             className="relative w-full max-w-lg z-10 text-slate-900"
           >
             {/* Ticket Card Frame */}
-            <div className="relative bg-white rounded-[32px] overflow-hidden shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto">
+            <div className="relative bg-white rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto">
               {/* Authentic Ticket Left & Right Notches */}
-              <span className="absolute -left-3 top-28 -translate-y-1/2 w-6 h-6 bg-slate-950/80 rounded-full shadow-inner z-30 pointer-events-none" />
-              <span className="absolute -right-3 top-28 -translate-y-1/2 w-6 h-6 bg-slate-950/80 rounded-full shadow-inner z-30 pointer-events-none" />
+              <span className="absolute -left-2.5 sm:-left-3 top-20 sm:top-28 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 bg-slate-950/80 rounded-full shadow-inner z-30 pointer-events-none" />
+              <span className="absolute -right-2.5 sm:-right-3 top-20 sm:top-28 -translate-y-1/2 w-6 h-6 bg-slate-950/80 rounded-full shadow-inner z-30 pointer-events-none" />
 
               {/* Close Button */}
               <button
                 onClick={onClose}
                 aria-label="Close modal"
-                className="absolute top-4 right-4 z-40 w-8 h-8 rounded-full bg-white/90 hover:bg-slate-100 text-slate-600 hover:text-slate-900 flex items-center justify-center shadow-xs border border-slate-200 transition-all"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-40 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 hover:bg-slate-100 text-slate-600 hover:text-slate-900 flex items-center justify-center shadow-xs border border-slate-200 transition-all"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
 
               {/* Header: Warm Ticket Stub Theme */}
-              <div className="bg-gradient-to-r from-amber-50 via-orange-50/70 to-amber-100/80 px-6 pt-7 pb-5 border-b border-dashed border-amber-300 relative text-left">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-900 text-[10px] font-black uppercase tracking-wider">
+              <div className="bg-gradient-to-r from-amber-50 via-orange-50/70 to-amber-100/80 px-4 pt-4 pb-3.5 sm:px-6 sm:pt-7 sm:pb-5 border-b border-dashed border-amber-300 relative text-left">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                  <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-900 text-[9px] sm:text-[10px] font-black uppercase tracking-wider">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-600 animate-pulse" />
                     Coming Soon • Phase 3
                   </span>
-                  <span className="text-[10px] font-black tracking-wider text-slate-600 bg-white/70 px-2 py-0.5 rounded-full border border-slate-200">
+                  <span className="text-[9px] sm:text-[10px] font-black tracking-wider text-slate-600 bg-white/70 px-1.5 sm:px-2 py-0.5 rounded-full border border-slate-200">
                     7 OCT • 8:00 PM IST
                   </span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                  <Train className="w-6 h-6 text-amber-600" /> Live PNR &amp; Train Radar
+                <h3 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-1.5 sm:gap-2">
+                  <Train className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600 shrink-0" /> Live PNR &amp; Train Radar
                 </h3>
-                <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed max-w-sm">
+                <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5 sm:mt-1 font-medium leading-relaxed max-w-sm">
                   Direct satellite coach telemetry, live platform runner tracking &amp; seat delivery unlock on 7th October at 8:00 PM IST.
                 </p>
               </div>
 
               {/* Body */}
-              <div className="p-6 sm:p-7 space-y-6">
+              <div className="p-3.5 sm:p-7 space-y-3.5 sm:space-y-6">
                 {/* ─── LIVE COUNTDOWN DISPLAY ─── */}
                 <div>
-                  <div className="flex items-center justify-between mb-2.5">
-                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-amber-600" /> Launch Countdown
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1">
+                      <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-600" /> Launch Countdown
                     </span>
-                    <span className="text-[10px] font-mono font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                    <span className="text-[9px] sm:text-[10px] font-mono font-bold text-amber-800 bg-amber-50 px-1.5 sm:px-2 py-0.5 rounded-md border border-amber-200">
                       Target: 7 Oct, 8:00 PM
                     </span>
                   </div>
 
                   {timeLeft.isLive ? (
-                    <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
-                      <span className="text-sm font-black text-emerald-800">
+                    <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
+                      <span className="text-xs sm:text-sm font-black text-emerald-800">
                         ⚡ Telemetry is now live! Initializing radar stream...
                       </span>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-4 gap-2 sm:gap-2.5 text-center">
+                    <div className="grid grid-cols-4 gap-1.5 sm:gap-2.5 text-center">
                       {/* Days */}
-                      <div className="bg-slate-900 text-white rounded-2xl p-2.5 sm:p-3 border border-slate-800 shadow-sm flex flex-col items-center justify-center">
-                        <span className="font-mono font-black text-2xl sm:text-3xl tracking-tight text-amber-400">
+                      <div className="bg-slate-900 text-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-slate-800 shadow-sm flex flex-col items-center justify-center">
+                        <span className="font-mono font-black text-xl sm:text-3xl tracking-tight text-amber-400">
                           {pad(timeLeft.days)}
                         </span>
-                        <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 mt-0.5">
+                        <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 mt-0.5">
                           Days
                         </span>
                       </div>
 
                       {/* Hours */}
-                      <div className="bg-slate-900 text-white rounded-2xl p-2.5 sm:p-3 border border-slate-800 shadow-sm flex flex-col items-center justify-center">
-                        <span className="font-mono font-black text-2xl sm:text-3xl tracking-tight text-white">
+                      <div className="bg-slate-900 text-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-slate-800 shadow-sm flex flex-col items-center justify-center">
+                        <span className="font-mono font-black text-xl sm:text-3xl tracking-tight text-white">
                           {pad(timeLeft.hours)}
                         </span>
-                        <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 mt-0.5">
+                        <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 mt-0.5">
                           Hours
                         </span>
                       </div>
 
                       {/* Minutes */}
-                      <div className="bg-slate-900 text-white rounded-2xl p-2.5 sm:p-3 border border-slate-800 shadow-sm flex flex-col items-center justify-center">
-                        <span className="font-mono font-black text-2xl sm:text-3xl tracking-tight text-white">
+                      <div className="bg-slate-900 text-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-slate-800 shadow-sm flex flex-col items-center justify-center">
+                        <span className="font-mono font-black text-xl sm:text-3xl tracking-tight text-white">
                           {pad(timeLeft.minutes)}
                         </span>
-                        <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 mt-0.5">
+                        <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 mt-0.5">
                           Minutes
                         </span>
                       </div>
 
                       {/* Seconds */}
-                      <div className="bg-slate-900 text-white rounded-2xl p-2.5 sm:p-3 border border-slate-800 shadow-sm flex flex-col items-center justify-center relative overflow-hidden">
-                        <span className="font-mono font-black text-2xl sm:text-3xl tracking-tight text-amber-400">
+                      <div className="bg-slate-900 text-white rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-slate-800 shadow-sm flex flex-col items-center justify-center relative overflow-hidden">
+                        <span className="font-mono font-black text-xl sm:text-3xl tracking-tight text-amber-400">
                           {pad(timeLeft.seconds)}
                         </span>
-                        <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 mt-0.5">
+                        <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-wider text-slate-400 mt-0.5">
                           Seconds
                         </span>
                         <div className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
@@ -233,38 +233,38 @@ export default function CheckPnrModal({
                 </div>
 
                 {/* ─── WHAT TO EXPECT IN PHASE 3 ─── */}
-                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 space-y-3">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 block">
+                <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-slate-200/80 space-y-2 sm:space-y-3">
+                  <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-slate-500 block">
                     What unlocks at 8:00 PM:
                   </span>
-                  <div className="space-y-2 text-left">
-                    <div className="flex items-start gap-2.5 text-xs text-slate-700">
-                      <div className="w-5 h-5 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 mt-0.5">
-                        <MapPin className="w-3 h-3" />
+                  <div className="space-y-1.5 sm:space-y-2 text-left">
+                    <div className="flex items-start gap-2 sm:gap-2.5 text-xs text-slate-700">
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md sm:rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 mt-0.5">
+                        <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                       </div>
                       <div>
-                        <strong className="text-slate-900 font-bold">Direct Berth Delivery:</strong>
-                        <span className="text-slate-600 block text-[11px]">Runner meets your coach door during scheduled halts.</span>
+                        <strong className="text-slate-900 font-bold text-[11px] sm:text-xs">Direct Berth Delivery:</strong>
+                        <span className="text-slate-600 block text-[10px] sm:text-[11px]">Runner meets your coach door during scheduled halts.</span>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-2.5 text-xs text-slate-700">
-                      <div className="w-5 h-5 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
-                        <Train className="w-3 h-3" />
+                    <div className="flex items-start gap-2 sm:gap-2.5 text-xs text-slate-700">
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md sm:rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
+                        <Train className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                       </div>
                       <div>
-                        <strong className="text-slate-900 font-bold">Live GPS &amp; Halt Sync:</strong>
-                        <span className="text-slate-600 block text-[11px]">Real-time delay tracking, platform numbers &amp; coach positions.</span>
+                        <strong className="text-slate-900 font-bold text-[11px] sm:text-xs">Live GPS &amp; Halt Sync:</strong>
+                        <span className="text-slate-600 block text-[10px] sm:text-[11px]">Real-time delay tracking, platform numbers &amp; coach positions.</span>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-2.5 text-xs text-slate-700">
-                      <div className="w-5 h-5 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
-                        <ShieldCheck className="w-3 h-3" />
+                    <div className="flex items-start gap-2 sm:gap-2.5 text-xs text-slate-700">
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md sm:rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+                        <ShieldCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                       </div>
                       <div>
-                        <strong className="text-slate-900 font-bold">100% Genuine MRP:</strong>
-                        <span className="text-slate-600 block text-[11px]">Printed retail price, zero markups, OTP sealed handoff.</span>
+                        <strong className="text-slate-900 font-bold text-[11px] sm:text-xs">100% Genuine MRP:</strong>
+                        <span className="text-slate-600 block text-[10px] sm:text-[11px]">Printed retail price, zero markups, OTP sealed handoff.</span>
                       </div>
                     </div>
                   </div>
@@ -276,22 +276,22 @@ export default function CheckPnrModal({
                     <motion.div
                       initial={{ scale: 0.95, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-left flex items-start gap-3"
+                      className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-50 border border-emerald-200 text-left flex items-start gap-2.5 sm:gap-3"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs font-black text-emerald-900">
+                        <p className="text-[11px] sm:text-xs font-black text-emerald-900">
                           Priority Alert Confirmed!
                         </p>
-                        <p className="text-[11px] text-emerald-700 mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] text-emerald-700 mt-0.5">
                           We will notify you the exact moment the Live PNR Radar launches on Oct 7 at 8:00 PM IST.
                         </p>
                       </div>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleNotifySubmit} className="space-y-2.5">
-                      <label className="text-xs font-black text-slate-800 flex items-center gap-1.5">
-                        <Bell className="w-3.5 h-3.5 text-amber-600" />
+                    <form onSubmit={handleNotifySubmit} className="space-y-1.5 sm:space-y-2.5">
+                      <label className="text-[11px] sm:text-xs font-black text-slate-800 flex items-center gap-1.5">
+                        <Bell className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-600" />
                         Get Alert When Radar Launches
                       </label>
                       <div className="relative">
@@ -305,25 +305,25 @@ export default function CheckPnrModal({
                           }}
                           disabled={isSubmitting}
                           style={{ fontSize: "14px" }}
-                          className="w-full h-12 pl-4 pr-32 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-bold placeholder:text-slate-400 focus:bg-white focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 outline-none transition-all shadow-inner"
+                          className="w-full h-10 sm:h-12 pl-3.5 sm:pl-4 pr-24 sm:pr-32 bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl text-slate-900 font-bold placeholder:text-slate-400 focus:bg-white focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 outline-none transition-all shadow-inner text-xs sm:text-sm"
                         />
                         <button
                           type="submit"
                           disabled={isSubmitting || !notifyInput.trim()}
-                          className="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-sm"
+                          className="absolute right-1 sm:right-1.5 top-1 sm:top-1.5 bottom-1 sm:bottom-1.5 px-3 sm:px-4 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-black transition-all flex items-center gap-1 sm:gap-1.5 shadow-sm"
                         >
                           {isSubmitting ? (
-                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            <Loader2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-spin" />
                           ) : (
                             <>
                               <span>Notify Me</span>
-                              <ArrowRight className="w-3 h-3 text-amber-400" />
+                              <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-400" />
                             </>
                           )}
                         </button>
                       </div>
                       {errorMsg && (
-                        <p className="text-[11px] font-bold text-rose-600 text-left pl-1">
+                        <p className="text-[10px] sm:text-[11px] font-bold text-rose-600 text-left pl-1">
                           {errorMsg}
                         </p>
                       )}
@@ -332,7 +332,7 @@ export default function CheckPnrModal({
                 </div>
 
                 {/* ─── PROTOTYPE EXPLORER LINK ─── */}
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
                   <span>Testing our telemetry prototype?</span>
                   <button
                     type="button"
@@ -342,7 +342,7 @@ export default function CheckPnrModal({
                     }}
                     className="text-blue-600 hover:text-blue-800 font-bold flex items-center gap-1 underline underline-offset-2 transition-colors"
                   >
-                    Preview Route Engine <ExternalLink className="w-3 h-3" />
+                    Preview Route Engine <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </button>
                 </div>
               </div>

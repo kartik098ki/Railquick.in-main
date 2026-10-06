@@ -9,6 +9,7 @@ import {
   Pill,
   Building2,
   Cookie,
+  Sparkles,
 } from "lucide-react";
 
 export default function WhatWeDeliverSection() {
@@ -54,6 +55,13 @@ export default function WhatWeDeliverSection() {
       description: "Chips, biscuits, juices, chocolates, and munchies.",
       bg: "bg-slate-50 border-slate-200/80",
       icon: <Cookie className="w-6 h-6 text-slate-700" />,
+      iconBg: "bg-white text-slate-700 shadow-2xs",
+    },
+    {
+      title: "Coming Soon With More",
+      description: "Hot beverages, fresh meals, gifts & many more essentials.",
+      bg: "bg-slate-50 border-slate-200/80",
+      icon: <Sparkles className="w-6 h-6 text-slate-700" />,
       iconBg: "bg-white text-slate-700 shadow-2xs",
     },
   ];

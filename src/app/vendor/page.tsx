@@ -492,14 +492,14 @@ export default function VendorPage() {
       <Navbar onOpenPnrModal={() => setIsCheckPnrOpen(true)} />
 
       {/* ─── MAIN CONTENT ─── */}
-      <main className="flex-1 pb-16 pt-20 sm:pt-24">
+      <main className="flex-1 pb-16 pt-32 sm:pt-28 md:pt-24">
         {/* Top Hero Section */}
-        <section className="pt-6 pb-10 sm:pt-10 sm:pb-12 bg-gradient-to-b from-emerald-50/70 via-white to-[#fafafa] border-b border-slate-200/70 relative">
+        <section className="pt-4 sm:pt-8 pb-10 sm:pb-12 bg-gradient-to-b from-emerald-50/70 via-white to-[#fafafa] border-b border-slate-200/70 relative">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
             {/* Live 7000+ Waitlist Callout Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-black mb-4 shadow-2xs animate-pulse">
-              <Sparkles className="w-4 h-4 text-emerald-700" />
-              <span>{content.waitlistBadge}</span>
+            <div className="inline-flex items-center justify-center max-w-[94%] sm:max-w-none gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-black mb-4 shadow-2xs">
+              <Sparkles className="w-4 h-4 text-emerald-700 shrink-0" />
+              <span className="leading-tight text-center">{content.waitlistBadge}</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">
@@ -833,92 +833,92 @@ export default function VendorPage() {
       {/* ── SUCCESSFUL REGISTRATION ID BADGE MODAL ── */}
       <AnimatePresence>
         {submittedPartner && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-950/70 backdrop-blur-sm">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 max-w-lg w-full shadow-2xl relative text-center"
+              className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-4 sm:p-7 max-w-md w-full shadow-2xl relative text-center max-h-[92vh] overflow-y-auto"
             >
-              <div className="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 border border-emerald-200">
-                <Award className="w-8 h-8" />
+              <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-2.5 sm:mb-3 border border-emerald-200">
+                <Award className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
 
-              <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-wider border border-emerald-200">
+              <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-emerald-100 text-emerald-800 text-[9px] sm:text-[10px] font-black uppercase tracking-wider border border-emerald-200">
                 Official RailQuick Partner Certificate
               </span>
 
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-2">
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-1.5 sm:mt-2">
                 Partner Application Received!
               </h2>
-              <p className="text-xs text-slate-600 mt-1 font-medium">
+              <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5 sm:mt-1 font-medium">
                 Your vendor details have been successfully registered in our database.
               </p>
 
               {/* ID BADGE CARD */}
-              <div className="my-5 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white p-5 rounded-2xl border border-slate-700 shadow-xl text-left relative overflow-hidden">
-                <div className="flex items-center justify-between mb-4 border-b border-slate-700 pb-3">
+              <div className="my-3 sm:my-4 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-700 shadow-xl text-left relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3 border-b border-slate-700 pb-2.5">
                   <div>
-                    <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest block font-bold">
+                    <span className="text-[9px] sm:text-[10px] font-mono text-emerald-400 uppercase tracking-widest block font-bold">
                       VERIFIED VENDOR PARTNER
                     </span>
-                    <h3 className="text-lg font-black text-white">{submittedPartner.shopName}</h3>
+                    <h3 className="text-base sm:text-lg font-black text-white">{submittedPartner.shopName}</h3>
                   </div>
-                  <QrCode className="w-10 h-10 text-amber-400 bg-white/10 p-1.5 rounded-xl border border-white/20" />
+                  <QrCode className="w-8 h-8 sm:w-10 sm:h-10 text-amber-400 bg-white/10 p-1 sm:p-1.5 rounded-lg sm:rounded-xl border border-white/20 shrink-0" />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 text-xs mb-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-2.5 text-xs mb-2.5">
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-medium">Partner ID</span>
-                    <span className="font-mono font-black text-amber-300 text-sm">{submittedPartner.partnerId}</span>
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Partner ID</span>
+                    <span className="font-mono font-black text-amber-300 text-xs sm:text-sm">{submittedPartner.partnerId}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-medium">Owner Name</span>
-                    <span className="font-bold text-white">{submittedPartner.ownerName}</span>
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Owner Name</span>
+                    <span className="font-bold text-white text-xs sm:text-sm truncate block">{submittedPartner.ownerName}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-medium">Vendor Category</span>
-                    <span className="font-medium text-emerald-300">{submittedPartner.vendorType}</span>
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Vendor Category</span>
+                    <span className="font-medium text-emerald-300 text-[11px] sm:text-xs truncate block">{submittedPartner.vendorType}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-medium">Date Issued</span>
-                    <span className="font-mono text-slate-300">{submittedPartner.date}</span>
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Date Issued</span>
+                    <span className="font-mono text-slate-300 text-[11px] sm:text-xs">{submittedPartner.date}</span>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[9px] sm:text-[10px] text-slate-400 font-mono">
                   <span className="flex items-center gap-1 text-emerald-400">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" /> Active Onboarding
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Active Onboarding
                   </span>
                   <span>RailQuick Private Limited</span>
                 </div>
               </div>
 
               {/* Prominent Verification Notice */}
-              <div className="bg-emerald-50 border border-emerald-200/90 rounded-2xl p-4 mb-5 text-left flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+              <div className="bg-emerald-50 border border-emerald-200/90 rounded-xl sm:rounded-2xl p-2.5 sm:p-3.5 mb-3 sm:mb-4 text-left flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-black text-emerald-900">
+                  <h4 className="text-[11px] sm:text-xs font-black text-emerald-900">
                     Our Team Will Contact You Soon to Verify
                   </h4>
-                  <p className="text-xs text-emerald-700 mt-1 leading-relaxed font-medium">
+                  <p className="text-[10px] sm:text-xs text-emerald-700 mt-0.5 sm:mt-1 leading-relaxed font-medium">
                     Our onboarding team will contact you soon on <strong>{submittedPartner.mobile}</strong> to verify your shop &amp; location details, guide you through order handoffs, and activate your live partner account.
                   </p>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-2.5">
+              <div className="flex gap-2">
                 <button
                   onClick={() => {
                     toast({ title: "Partner ID Saved!", description: `${submittedPartner.partnerId} saved to your device.` });
                   }}
-                  className="flex-1 h-11 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all"
+                  className="flex-1 h-10 sm:h-11 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all"
                 >
-                  <Download className="w-4 h-4" /> Save Partner Card
+                  <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Save Card
                 </button>
                 <button
                   onClick={() => setSubmittedPartner(null)}
-                  className="h-11 px-6 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-all"
+                  className="h-10 sm:h-11 px-5 sm:px-6 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-all"
                 >
                   Done
                 </button>

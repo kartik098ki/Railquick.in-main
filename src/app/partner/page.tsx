@@ -343,34 +343,34 @@ export default function PartnerPage() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100 text-center z-10 overflow-hidden"
+              className="relative w-full max-w-md bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl border border-slate-100 text-center z-10 overflow-hidden"
             >
               <button
                 onClick={() => setShowSuccessModal(false)}
-                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
-              <div className="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto mb-5 shadow-inner">
-                <CheckCircle2 className="w-9 h-9 stroke-[2.5]" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto mb-3 sm:mb-5 shadow-inner">
+                <CheckCircle2 className="w-7 h-7 sm:w-9 sm:h-9 stroke-[2.5]" />
               </div>
 
-              <span className="inline-block px-3.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-black rounded-full uppercase tracking-wider mb-3">
+              <span className="inline-block px-2.5 sm:px-3.5 py-0.5 sm:py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] sm:text-xs font-black rounded-full uppercase tracking-wider mb-2 sm:mb-3">
                 ✅ Application Received Successfully
               </span>
 
-              <h3 className="text-2xl font-black text-slate-900 mb-2">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-1.5 sm:mb-2">
                 🎉 Application Submitted Successfully!
               </h3>
 
-              <p className="text-sm text-slate-600 leading-relaxed mb-6 font-medium">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4 sm:mb-6 font-medium">
                 Thank you for applying to partner with RailQuick. Our team will review your application and contact you shortly.
               </p>
 
               <Button
                 onClick={() => setShowSuccessModal(false)}
-                className="w-full h-12 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-bold shadow-lg shadow-slate-900/20"
+                className="w-full h-10 sm:h-12 bg-slate-900 hover:bg-slate-800 text-white rounded-xl sm:rounded-2xl font-bold shadow-lg shadow-slate-900/20 text-xs sm:text-sm"
               >
                 Done
               </Button>
