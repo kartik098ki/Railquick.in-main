@@ -347,29 +347,29 @@ export default function CustomerDemandTicker() {
   const [isPaused, setIsPaused] = useState(false);
 
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden border-t border-b border-slate-800/80">
+    <section className="py-20 lg:py-28 bg-[#0b0f19] text-white relative overflow-hidden border-t border-b border-slate-800">
       {/* High-Tech Background Ambient Radar Lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[420px] bg-blue-600/15 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute top-12 left-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-80 h-80 bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[450px] bg-blue-600/10 rounded-full blur-[170px] pointer-events-none" />
+      <div className="absolute top-10 left-10 w-80 h-80 bg-amber-500/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-[160px] pointer-events-none" />
 
       {/* Subtle Blueprint Mesh */}
-      <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-35 pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           {/* Pulsing Live Telemetry Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-xs sm:text-sm font-black uppercase tracking-wider mb-5 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-black uppercase tracking-wider mb-5 shadow-[0_0_24px_rgba(16,185,129,0.18)]">
             <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
             </span>
             <span>Live Passenger Radar &bull; 100+ Trains Monitored</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 leading-tight">
-            Real Passengers Waiting for RailQuick
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 leading-tight text-white">
+            Real Passengers Waiting for <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">RailQuick</span>
           </h2>
 
           <p className="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto mb-10 font-normal">
@@ -380,7 +380,7 @@ export default function CustomerDemandTicker() {
           {/* 3 High-Impact Telemetry Stats Badges (100+ Routes Included) */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
             {/* Stat 1: 500+ Inquiries */}
-            <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-800/90 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-lg">
+            <div className="bg-[#111827]/85 backdrop-blur-xl border border-slate-700/60 hover:border-slate-600 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-xl transition-all duration-300">
               <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
                 <PhoneCall className="w-5 h-5 animate-bounce" />
               </div>
@@ -398,7 +398,7 @@ export default function CustomerDemandTicker() {
             </div>
 
             {/* Stat 2: 100+ Train Routes (Updated from 14+) */}
-            <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-800/90 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-lg">
+            <div className="bg-[#111827]/85 backdrop-blur-xl border border-slate-700/60 hover:border-slate-600 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-xl transition-all duration-300">
               <div className="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0">
                 <Train className="w-5 h-5" />
               </div>
@@ -416,7 +416,7 @@ export default function CustomerDemandTicker() {
             </div>
 
             {/* Stat 3: 100% Coach Accuracy */}
-            <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-800/90 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-lg">
+            <div className="bg-[#111827]/85 backdrop-blur-xl border border-slate-700/60 hover:border-slate-600 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-xl transition-all duration-300">
               <div className="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
@@ -437,7 +437,7 @@ export default function CustomerDemandTicker() {
       </div>
 
       {/* HORIZONTAL INFINITE TICKER (RIGHT -> LEFT) */}
-      {/* Pauses completely on hover or touch, seamlessly resumes when leaving */}
+      {/* Pauses completely on hover or touch, smoothly gliding at gentle reading pace */}
       <div
         className="relative group marquee-container w-full overflow-hidden py-4"
         onMouseEnter={() => setIsPaused(true)}
@@ -449,16 +449,16 @@ export default function CustomerDemandTicker() {
           className={`flex gap-4 sm:gap-6 animate-marquee py-3 group-hover:[animation-play-state:paused] ${
             isPaused ? "[animation-play-state:paused]" : ""
           }`}
-          style={{ width: "max-content" }}
+          style={{ width: "max-content", animationDuration: "115s" }}
         >
           {/* Double list for smooth, seamless, infinite 0% to -50% loop */}
           {[...customerRequests, ...customerRequests].map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className="flex-shrink-0 w-[320px] sm:w-[400px] bg-slate-900/95 backdrop-blur-xl border border-slate-800/90 hover:border-blue-500/60 rounded-3xl p-5 sm:p-6 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(59,130,246,0.18)] hover:-translate-y-1 flex flex-col justify-between group/card relative overflow-hidden"
+              className="flex-shrink-0 w-[330px] sm:w-[410px] bg-[#111827]/95 backdrop-blur-2xl border border-slate-800 hover:border-amber-400/60 rounded-3xl p-5 sm:p-6 transition-all duration-300 hover:shadow-[0_16px_40px_rgba(245,158,11,0.12)] hover:-translate-y-1 flex flex-col justify-between group/card relative overflow-hidden"
             >
               {/* Subtle top edge gradient highlight */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-blue-500/30 to-transparent group-hover/card:via-blue-400 transition-all" />
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-500/40 to-transparent group-hover/card:via-amber-400 transition-all" />
 
               <div>
                 {/* Header: Category Badge + Station/Time */}
@@ -475,22 +475,24 @@ export default function CustomerDemandTicker() {
                 </div>
 
                 {/* Railway Train & Berth Badge (Authentic Railway Ticket Telemetry) */}
-                <div className="flex items-center justify-between gap-2 bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-2 mb-4">
+                <div className="flex items-center justify-between gap-2 bg-[#090d16] border border-slate-800/90 rounded-xl px-3 py-2.5 mb-4">
                   <div className="flex items-center gap-2 min-w-0">
-                    <Train className="w-4 h-4 text-blue-400 shrink-0" />
+                    <div className="w-6 h-6 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0">
+                      <Train className="w-3.5 h-3.5 text-blue-400" />
+                    </div>
                     <span className="text-xs font-bold text-slate-200 truncate font-mono">
                       {item.trainNo} &bull; {item.train}
                     </span>
                   </div>
                   {item.coachSeat && (
-                    <span className="text-[11px] font-mono font-black text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-md shrink-0">
+                    <span className="text-[11px] font-mono font-black text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-md shrink-0">
                       {item.coachSeat}
                     </span>
                   )}
                 </div>
 
                 {/* Passenger Quote */}
-                <blockquote className="text-white text-base font-bold leading-snug mb-5 relative pl-3 border-l-2 border-blue-500/60 group-hover/card:border-blue-400 transition-colors">
+                <blockquote className="text-slate-100 text-[15px] font-semibold leading-relaxed mb-5 relative pl-3.5 border-l-2 border-amber-500/70 group-hover/card:border-amber-400 transition-colors">
                   &ldquo;{item.quote}&rdquo;
                 </blockquote>
               </div>
@@ -498,7 +500,7 @@ export default function CustomerDemandTicker() {
               {/* Card Footer: Passenger Avatar, Name, and Dispatch Status */}
               <div className="pt-3.5 border-t border-slate-800/80 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-black text-xs flex items-center justify-center shadow-inner">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-white font-black text-xs flex items-center justify-center shadow-inner">
                     {item.initials}
                   </div>
                   <div>
@@ -518,7 +520,7 @@ export default function CustomerDemandTicker() {
                   <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full inline-block">
                     Pilot Logged
                   </span>
-                  <div className="text-[10px] font-mono text-slate-500 mt-0.5">
+                  <div className="text-[10px] font-mono text-slate-400 mt-0.5">
                     {item.timeAgo}
                   </div>
                 </div>
@@ -528,8 +530,8 @@ export default function CustomerDemandTicker() {
         </div>
 
         {/* Ambient Left/Right Edge Shadows */}
-        <div className="absolute inset-y-0 left-0 w-20 sm:w-40 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-20 sm:w-40 bg-gradient-to-l from-slate-950 via-slate-950/90 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 left-0 w-20 sm:w-40 bg-gradient-to-r from-[#0b0f19] via-[#0b0f19]/90 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-20 sm:w-40 bg-gradient-to-l from-[#0b0f19] via-[#0b0f19]/90 to-transparent pointer-events-none z-10" />
       </div>
 
       {/* Interactive Helper Text */}

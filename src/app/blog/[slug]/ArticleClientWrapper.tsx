@@ -118,18 +118,24 @@ export default function ArticleClientWrapper({
       <CheckPnrModal isOpen={isCheckPnrOpen} onClose={() => setIsCheckPnrOpen(false)} />
       <Navbar onOpenPnrModal={() => setIsCheckPnrOpen(true)} />
 
-      <main className="flex-1 pt-28 sm:pt-36 pb-24 px-4 sm:px-6">
+      <main className="flex-1 pt-36 sm:pt-40 pb-24 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           {/* Top Magazine Breadcrumb & Kicker */}
-          <div className="flex items-center justify-between gap-4 mb-6 text-xs text-slate-500 font-semibold uppercase tracking-wider">
-            <div className="flex items-center gap-2">
-              <Link href="/blog" className="text-amber-800 hover:text-amber-900 flex items-center gap-1">
-                <ArrowLeft className="w-3.5 h-3.5" /> RailQuick Journal
+          <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-2 flex-wrap text-xs font-bold uppercase tracking-wider">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100/80 hover:bg-amber-200/80 text-amber-950 border border-amber-300 transition-all shadow-2xs group"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform text-amber-800" />
+                <span>RailQuick Journal</span>
               </Link>
-              <span>/</span>
-              <span className="text-slate-700">{article.category}</span>
-            </div>
-            <div className="hidden sm:flex items-center gap-2 text-slate-400 text-[11px]">
+              <span className="text-slate-300 font-normal">/</span>
+              <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-800 font-black text-[11px] tracking-wide border border-slate-200/80">
+                {article.category}
+              </span>
+            </nav>
+            <div className="flex items-center gap-2 text-slate-500 text-[11px] font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>{article.edition || "Editorial Dispatch"}</span>
             </div>

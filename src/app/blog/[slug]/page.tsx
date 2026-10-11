@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       <div className="min-h-screen bg-[#fafafa] text-slate-900 flex flex-col justify-between font-sans selection:bg-amber-100 selection:text-slate-950">
         <Navbar />
 
-        <main className="flex-1 pt-32 sm:pt-36 pb-20 px-4 sm:px-6 max-w-4xl mx-auto w-full">
+        <main className="flex-1 pt-36 sm:pt-40 pb-20 px-4 sm:px-6 max-w-4xl mx-auto w-full">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-8">
             <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>

@@ -81,7 +81,7 @@ export default function BlogPage() {
       <CheckPnrModal isOpen={isCheckPnrOpen} onClose={() => setIsCheckPnrOpen(false)} />
       <Navbar onOpenPnrModal={() => setIsCheckPnrOpen(true)} />
 
-      <main className="flex-1 pt-32 sm:pt-36 pb-20 px-4 sm:px-6 max-w-7xl mx-auto w-full">
+      <main className="flex-1 pt-36 sm:pt-40 pb-20 px-4 sm:px-6 max-w-7xl mx-auto w-full">
         {/* Magazine Masthead / Hero */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-black uppercase tracking-wider mb-5 shadow-2xs">
