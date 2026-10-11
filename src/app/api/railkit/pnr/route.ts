@@ -1,12 +1,23 @@
 import { NextResponse } from "next/server";
 import { normalizePNRResponse, normalizeLiveTrainResponse } from "@/lib/railkitNormalizer";
 
-const RAILKIT_API_KEY = process.env.RAILKIT_API_KEY || "";
+const RAILKIT_API_KEY =
+  process.env.RAILKIT_API_KEY || "irctc_d2736176c9ea10f80fb61dc03c41522e7553930a39941cdb";
 
 function formatDateForLiveApi(rawDate?: string): string {
-  if (!rawDate) {
+  if (!rawDate || rawDate === "today") {
     const now = new Date();
     return `${String(now.getDate()).padStart(2, "0")}-${String(now.getMonth() + 1).padStart(2, "0")}-${now.getFullYear()}`;
+  }
+
+  if (rawDate === "yesterday") {
+    const d = new Date(Date.now() - 86400000);
+    return `${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`;
+  }
+
+  if (rawDate === "tomorrow") {
+    const d = new Date(Date.now() + 86400000);
+    return `${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`;
   }
 
   // Already DD-MM-YYYY
@@ -14,13 +25,31 @@ function formatDateForLiveApi(rawDate?: string): string {
     return rawDate;
   }
 
-  // Handle YYYY-MM-DD
+  // DD/MM/YYYY
+  if (/^\d{2}\/\d{2}\/\d{4}$/.test(rawDate)) {
+    const [d, m, y] = rawDate.split("/");
+    return `${d}-${m}-${y}`;
+  }
+
+  // YYYY-MM-DD
   if (/^\d{4}-\d{2}-\d{2}$/.test(rawDate)) {
     const [y, m, d] = rawDate.split("-");
     return `${d}-${m}-${y}`;
   }
 
-  // Try standard date parsing (e.g. "22 Aug 2026, 04:35:00 pm" or "11 Oct 2026")
+  // DD-MMM-YYYY or "22 Aug 2026, 04:35:00 pm"
+  const MONTHS: Record<string, string> = {
+    jan: "01", feb: "02", mar: "03", apr: "04", may: "05", jun: "06",
+    jul: "07", aug: "08", sep: "09", oct: "10", nov: "11", dec: "12",
+  };
+  const matchDMMMY = rawDate.match(/^(\d{1,2})[-/ ]([a-zA-Z]{3})[-/ ](\d{4})/);
+  if (matchDMMMY) {
+    const d = matchDMMMY[1].padStart(2, "0");
+    const m = MONTHS[matchDMMMY[2].toLowerCase()] || "01";
+    const y = matchDMMMY[3];
+    return `${d}-${m}-${y}`;
+  }
+
   const parsed = new Date(rawDate);
   if (!isNaN(parsed.getTime())) {
     const d = String(parsed.getDate()).padStart(2, "0");

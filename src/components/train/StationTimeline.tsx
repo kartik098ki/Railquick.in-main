@@ -133,7 +133,7 @@ export default function StationTimeline({ stations, className = "" }: StationTim
                     {currentStation.name}
                   </h4>
                   <p className="text-xs text-slate-500 font-mono font-bold">
-                    Code: {currentStation.code} • Platform {currentStation.platform || "1"} • Halt: {currentStation.halt || "2m"}
+                    Code: {currentStation.code}{currentStation.platform ? ` • Platform ${currentStation.platform}` : ""}{(currentStation as any).halt ? ` • Halt: ${(currentStation as any).halt}` : ""}
                   </p>
                 </div>
 

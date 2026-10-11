@@ -137,10 +137,16 @@ function PnrResultContent() {
         <p className="text-sm text-slate-600 mb-6 font-medium">
           {error || "We couldn't retrieve journey details for this PNR."}
         </p>
-        <div className="flex justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-2.5">
+          <Link
+            href="/check-train"
+            className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs"
+          >
+            Track Train by Number
+          </Link>
           <Link
             href="/pnr"
-            className="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs"
+            className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-xs"
           >
             Back to PNR
           </Link>
@@ -218,10 +224,10 @@ function PnrResultContent() {
           <TrainLocation data={data} />
 
           {/* SECTION 8: JOURNEY PROGRESS */}
-          {data.live.progress !== undefined && <TrainProgress data={data} />}
+          {data.live?.progress !== undefined && <TrainProgress data={data} />}
 
           {/* SECTION 9: LIVE STATION TIMELINE */}
-          {data.live.stations && data.live.stations.length > 0 && (
+          {data.live?.stations && data.live.stations.length > 0 && (
             <StationTimeline stations={data.live.stations} />
           )}
         </>

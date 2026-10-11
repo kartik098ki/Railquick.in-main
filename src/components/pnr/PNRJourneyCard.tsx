@@ -23,8 +23,14 @@ export default function PNRJourneyCard({ data, className = "" }: PNRJourneyCardP
               <Train className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-full border border-emerald-200">
-                Confirmed Ticket
+              <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                passenger.status?.includes("WL") || passenger.status?.includes("WAIT")
+                  ? "text-amber-800 bg-amber-100/80 border-amber-300"
+                  : passenger.status?.includes("RAC")
+                  ? "text-blue-800 bg-blue-100/80 border-blue-300"
+                  : "text-emerald-800 bg-emerald-100/80 border-emerald-200"
+              }`}>
+                {passenger.status ? `${passenger.status} Status` : "Confirmed Ticket"}
               </span>
               <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight mt-0.5">
                 {train.name}
@@ -74,7 +80,7 @@ export default function PNRJourneyCard({ data, className = "" }: PNRJourneyCardP
                 <div className="w-2 h-2 rounded-full bg-blue-600" />
               </div>
               <span className="text-[10px] font-mono text-slate-400 mt-1">
-                Class {journey.class || "3A"} • {journey.quota || "General"} Quota
+                {journey.class ? `Class ${journey.class}` : "Reserved Coach"} &bull; {journey.quota ? `${journey.quota} Quota` : "Standard Quota"}
               </span>
             </div>
 
@@ -106,8 +112,14 @@ export default function PNRJourneyCard({ data, className = "" }: PNRJourneyCardP
               Your Seat Information
             </h3>
           </div>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold font-mono">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-xs font-bold font-mono ${
+            passenger.status?.includes("WL") || passenger.status?.includes("WAIT")
+              ? "bg-amber-500/20 text-amber-300 border-amber-500/30"
+              : passenger.status?.includes("RAC")
+              ? "bg-blue-500/20 text-blue-300 border-blue-500/30"
+              : "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
+          }`}>
+            <CheckCircle2 className="w-3.5 h-3.5" />
             {passenger.status || "CONFIRMED"}
           </span>
         </div>

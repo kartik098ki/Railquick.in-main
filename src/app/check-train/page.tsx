@@ -208,7 +208,7 @@ function CheckTrainContent() {
   const deliveryAvailable = data
     ? isRailQuickAvailable(
         data.train.number,
-        data.live.currentStationCode || data.journey.destinationCode
+        data.live?.currentStationCode || data.journey.destinationCode
       )
     : false;
 
@@ -469,10 +469,10 @@ function CheckTrainContent() {
               <TrainLocation data={data} />
 
               {/* Section 14: Journey Progress Card with Animated Bar */}
-              {data.live.progress !== undefined && <TrainProgress data={data} />}
+              {data.live?.progress !== undefined && <TrainProgress data={data} />}
 
               {/* Section 9: Live Station Timeline */}
-              {data.live.stations && data.live.stations.length > 0 && (
+              {data.live?.stations && data.live.stations.length > 0 && (
                 <StationTimeline stations={data.live.stations} />
               )}
             </>

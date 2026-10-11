@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { TRAIN_DIRECTORY } from "@/lib/trainDatabase";
 
-const RAILKIT_API_KEY = process.env.RAILKIT_API_KEY || "";
+const RAILKIT_API_KEY =
+  process.env.RAILKIT_API_KEY || "irctc_d2736176c9ea10f80fb61dc03c41522e7553930a39941cdb";
 
 const POPULAR_TRAINS = Object.values(TRAIN_DIRECTORY).map((t) => ({
   trainNo: t.trainNo,
@@ -115,10 +116,21 @@ export async function GET(request: Request) {
     const seen = new Set<string>();
     const merged: Array<{ trainNo: string; trainName: string; route: string }> = [];
 
-    for (const t of [...upstreamTrains, ...localFiltered]) {
+    for (const t of [...localFiltered, ...upstreamTrains]) {
       if (t.trainNo && !seen.has(t.trainNo)) {
         seen.add(t.trainNo);
-        merged.push(t);
+        let route = t.route;
+        const local = TRAIN_DIRECTORY[t.trainNo];
+        if (local && (!route || route === "Origin ⇄ Destination")) {
+          route = `${local.from.name} ⇄ ${local.to.name}`;
+        } else if (!route || route === "Origin ⇄ Destination") {
+          route = "Indian Railways Express";
+        }
+        merged.push({
+          trainNo: t.trainNo,
+          trainName: local?.trainName || t.trainName,
+          route,
+        });
       }
     }
 

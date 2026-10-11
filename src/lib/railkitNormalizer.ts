@@ -149,6 +149,17 @@ export function normalizePNRResponse(raw: any, pnr: string): NormalizedJourneyDa
 
   let passengersList: NormalizedPassenger[] = [];
 
+  const BERTH_MAP: Record<string, string> = {
+    LB: "Lower Berth",
+    MB: "Middle Berth",
+    UB: "Upper Berth",
+    SL: "Side Lower",
+    SU: "Side Upper",
+    WS: "Window Seat",
+    SM: "Side Middle",
+    CP: "Cabin / Coupe",
+  };
+
   if (Array.isArray(rawPassengers) && rawPassengers.length > 0) {
     passengersList = rawPassengers.map((p: any, idx: number) => {
       const coach =
@@ -165,17 +176,24 @@ export function normalizePNRResponse(raw: any, pnr: string): NormalizedJourneyDa
         p?.seat ??
         ""
       );
-      const berthType =
+      const rawBerth =
         p?.current?.berthCode ||
         p?.booking?.berthCode ||
         p?.berth_type ||
+        p?.berthType ||
         "";
-      const status =
+      const berthType = BERTH_MAP[rawBerth.toUpperCase()]
+        ? `${BERTH_MAP[rawBerth.toUpperCase()]} (${rawBerth.toUpperCase()})`
+        : rawBerth;
+
+      const rawStatus =
         p?.current?.status ||
         p?.booking?.status ||
         p?.current_status ||
         p?.status ||
         "";
+      const status = rawStatus === "CNF" ? "CONFIRMED" : rawStatus;
+
       const details =
         p?.current?.details ||
         p?.booking?.details ||

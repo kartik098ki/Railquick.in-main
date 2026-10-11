@@ -65,7 +65,13 @@ export default function TrainLocation({ data, className = "" }: TrainLocationPro
               {live.currentStation}
             </h4>
             <p className="text-xs text-slate-500 font-medium mt-0.5">
-              Train {train.number} ({train.name}) is in active transit.
+              {live.journeyState === "completed"
+                ? `Train ${train.number} (${train.name}) has arrived at its destination.`
+                : live.journeyState === "upcoming"
+                ? `Train ${train.number} (${train.name}) has not departed yet for this date.`
+                : live.journeyState === "not_running"
+                ? `Train ${train.number} (${train.name}) is not running on this date.`
+                : `Train ${train.number} (${train.name}) is in active transit.`}
             </p>
           </div>
         </div>
