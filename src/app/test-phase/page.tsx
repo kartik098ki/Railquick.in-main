@@ -11,6 +11,7 @@ import { toast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import CheckPnrModal from "@/components/CheckPnrModal";
 import TicketPnrButton from "@/components/TicketPnrButton";
+import CustomerDemandTicker from "@/components/CustomerDemandTicker";
 import { CheckCircle2, Clock, Smartphone, Zap, MapPin, Train, ShieldCheck, Cpu, Package, Users, Rocket, Handshake, Flame, Mail, Loader2, ArrowRight } from "lucide-react";
 
 const phases = [
@@ -353,6 +354,8 @@ export default function TestPhasePage() {
         </div>
       </section>
 
+      {/* Customer Demand Section — Live Ticker with 500+ Inquiries */}
+      <CustomerDemandTicker />
 
       {/* CTA */}
       <section className="py-20 lg:py-40 bg-white border-t border-slate-100">
@@ -372,6 +375,11 @@ export default function TestPhasePage() {
               <Button variant="outline" className="h-16 md:h-20 px-10 md:px-12 text-lg md:text-xl font-bold rounded-full border-2 md:border-4 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 transition-all duration-300 w-full sm:w-auto">
                 Partner With Us
               </Button>
+            </Link>
+          </div>
+          <div className="mt-8 text-center">
+            <Link href="/pilot-terms" className="text-xs text-slate-500 hover:text-slate-800 underline transition-colors">
+              Review RailQuick Pilot Program Terms
             </Link>
           </div>
         </div>

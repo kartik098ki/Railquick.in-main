@@ -704,8 +704,14 @@ section {
 }
 
 /* Marquee Pause on Hover */
-.marquee-container:hover .marquee-content {
-  animation-play-state: paused;
+.marquee-container:hover .marquee-content,
+.marquee-container:hover .animate-marquee,
+.marquee-container:hover .animate-marquee-reverse,
+.animate-marquee:hover,
+.animate-marquee-reverse:hover,
+.group:hover .animate-marquee,
+.group:hover .animate-marquee-reverse {
+  animation-play-state: paused !important;
 }
 
 /* No scrollbar utility */

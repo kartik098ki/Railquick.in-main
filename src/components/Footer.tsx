@@ -40,7 +40,7 @@ export default function Footer() {
         </svg>
       </a>
       <a
-        href="https://www.instagram.com/railquick/"
+        href="https://www.instagram.com/railquick/p/DeWK7rciKLN/"
         target="_blank"
         rel="noopener noreferrer"
         className="w-9 h-9 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-white hover:text-slate-900 transition-all md:hover:scale-110"
@@ -107,6 +107,7 @@ export default function Footer() {
               <div className="space-y-2 sm:space-y-3">
                 <Link href="/terms" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Terms</Link>
                 <Link href="/privacy" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Privacy</Link>
+                <Link href="/pilot-terms" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Pilot Terms</Link>
                 <Link href="/disclaimer" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Disclaimer</Link>
               </div>
             </div>
@@ -126,6 +127,27 @@ export default function Footer() {
           <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Follow Us</h4>
           <div className="flex gap-2.5 justify-center">
             {socialLinks}
+          </div>
+        </div>
+
+        {/* Semantic SEO Essentials Discovery Bar */}
+        <div className="border-t border-slate-900/80 pt-6 pb-4">
+          <div className="text-[11px] text-slate-500 leading-relaxed text-center sm:text-left space-y-2">
+            <p>
+              <strong className="text-slate-400 font-semibold">Train Journey Essentials Delivered to Berth:</strong>{" "}
+              Sealed Mineral Water • Fast Phone Chargers &amp; Type-C Cables • Compliant OTC Health Supplies &amp; First Aid •
+              Disinfectant Wet Wipes &amp; Pocket Sanitizers • Baby Diapers &amp; Sensitive Wipes • Heavy Luggage Berth Locks •
+              Packaged Travel Snacks &amp; Heritage Sweets.
+            </p>
+            <p className="text-[10px] text-slate-600 font-mono flex flex-wrap gap-x-3 gap-y-1 justify-center sm:justify-start">
+              <span># ट्रेन में सामान डिलीवरी</span>
+              <span># train me charger chahiye</span>
+              <span># train seat delivery India</span>
+              <span># water bottle in train</span>
+              <span># train me medicine</span>
+              <span># ट्रेन की सीट पर सामान</span>
+              <span># 500+ pilot inquiries logged</span>
+            </p>
           </div>
         </div>
 

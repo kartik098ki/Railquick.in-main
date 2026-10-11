@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { configure, getTrainInfo } from "railkit";
 import { TRAIN_DIRECTORY, resolveTrainInfo } from "@/lib/trainDatabase";
 
-const API_KEY = process.env.RAILKIT_API_KEY || "irctc_e6be745cb2116767464349ff98cf094ae7188c3fd518b9f3";
+const API_KEY = process.env.RAILKIT_API_KEY || "";
 
 try {
   configure(API_KEY);

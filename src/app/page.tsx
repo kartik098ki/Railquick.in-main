@@ -1067,8 +1067,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative">
-          <div className="flex gap-4 animate-marquee py-4">
+        <div className="relative group marquee-container">
+          <div className="flex gap-4 animate-marquee py-4 group-hover:[animation-play-state:paused]">
             {[...testimonials, ...testimonials].map((t, i) => (
               <div key={i} className="flex-shrink-0 w-[280px] sm:w-[340px] bg-slate-50 rounded-xl sm:rounded-2xl p-5 sm:p-6 hover:bg-white hover:shadow-lg transition-all duration-300">
                 <div className="flex text-amber-400 mb-3">

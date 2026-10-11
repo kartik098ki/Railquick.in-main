@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { TRAIN_DIRECTORY } from "@/lib/trainDatabase";
 
-const RAILKIT_API_KEY =
-  process.env.RAILKIT_API_KEY || "irctc_d2736176c9ea10f80fb61dc03c41522e7553930a39941cdb";
+const RAILKIT_API_KEY = process.env.RAILKIT_API_KEY || "";
 
 const POPULAR_TRAINS = Object.values(TRAIN_DIRECTORY).map((t) => ({
   trainNo: t.trainNo,
