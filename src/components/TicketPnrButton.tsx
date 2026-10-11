@@ -10,6 +10,7 @@ interface TicketPnrButtonProps {
   size?: "sm" | "md" | "lg";
   variant?: "amber" | "lite" | "emerald" | "navy";
   showLiveDot?: boolean;
+  showNewBadge?: boolean;
   label?: string;
 }
 
@@ -19,6 +20,7 @@ export default function TicketPnrButton({
   size = "md",
   variant = "amber",
   showLiveDot = true,
+  showNewBadge = true,
   label = "Check PNR",
 }: TicketPnrButtonProps) {
   const router = useRouter();
@@ -28,7 +30,7 @@ export default function TicketPnrButton({
     if (onClick) {
       onClick();
     } else {
-      router.push("/pnr-status");
+      router.push("/pnr");
     }
   };
 
@@ -90,49 +92,59 @@ export default function TicketPnrButton({
   const isLg = size === "lg";
 
   return (
-    <button
-      onClick={handleClick}
-      type="button"
-      className={`relative group inline-flex items-center select-none overflow-hidden transition-all duration-300 active:scale-95 hover:-translate-y-0.5 ${
-        isSm
-          ? "h-9 rounded-xl text-xs"
-          : isLg
-          ? "h-12 rounded-2xl text-base"
-          : "h-10 sm:h-11 rounded-2xl text-sm"
-      } ${themeStyles.bg} ${themeStyles.shadow} border ${themeStyles.border} ${className}`}
-      title="Track Indian Railways Live PNR Status"
-      aria-label="Check PNR Status"
-    >
-      {/* Authentic Train Ticket Notch Cutouts */}
-      <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-slate-50 border-r border-amber-300/40 rounded-full shadow-inner pointer-events-none z-20" />
-      <span className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-slate-50 border-l border-amber-300/40 rounded-full shadow-inner pointer-events-none z-20" />
+    <div className="relative inline-block">
+      {/* Floating NEW Pill Badge */}
+      {showNewBadge && (
+        <span className="absolute -top-1.5 right-1.5 z-30 inline-flex items-center gap-0.5 px-1.5 py-[1px] rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-[8px] font-black uppercase tracking-wider text-white shadow-xs border border-white pointer-events-none animate-pulse">
+          <span className="w-1 h-1 rounded-full bg-white" />
+          NEW
+        </span>
+      )}
 
-      {/* Ticket Left Stub (Train Icon + Mini Barcode) */}
-      <div
-        className={`flex items-center justify-center shrink-0 border-r border-dashed ${themeStyles.dashed} ${themeStyles.stubBg} ${
-          isSm ? "px-2.5 h-full" : "px-3.5 h-full"
-        }`}
+      <button
+        onClick={handleClick}
+        type="button"
+        className={`relative group inline-flex items-center select-none overflow-hidden transition-all duration-300 active:scale-95 hover:-translate-y-0.5 ${
+          isSm
+            ? "h-9 rounded-xl text-xs"
+            : isLg
+            ? "h-12 rounded-2xl text-base"
+            : "h-10 sm:h-11 rounded-2xl text-sm"
+        } ${themeStyles.bg} ${themeStyles.shadow} border ${themeStyles.border} ${className}`}
+        title="Track Indian Railways Live PNR Status"
+        aria-label="Check PNR Status"
       >
-        <div className="flex flex-col items-center justify-center gap-0.5">
-          <Train className={isSm ? "w-3.5 h-3.5" : isLg ? "w-5 h-5" : "w-4 h-4"} />
-          {/* Stylized tiny ticket perforation barcode */}
-          <span
-            className={`font-mono text-[7px] tracking-tighter leading-none select-none font-black ${themeStyles.barcode}`}
-          >
-            ||||
+        {/* Authentic Train Ticket Notch Cutouts */}
+        <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-slate-50 border-r border-amber-300/40 rounded-full shadow-inner pointer-events-none z-20" />
+        <span className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-slate-50 border-l border-amber-300/40 rounded-full shadow-inner pointer-events-none z-20" />
+
+        {/* Ticket Left Stub (Train Icon + Mini Barcode) */}
+        <div
+          className={`flex items-center justify-center shrink-0 border-r border-dashed ${themeStyles.dashed} ${themeStyles.stubBg} ${
+            isSm ? "px-2.5 h-full" : "px-3.5 h-full"
+          }`}
+        >
+          <div className="flex flex-col items-center justify-center gap-0.5">
+            <Train className={isSm ? "w-3.5 h-3.5" : isLg ? "w-5 h-5" : "w-4 h-4"} />
+            {/* Stylized tiny ticket perforation barcode */}
+            <span
+              className={`font-mono text-[7px] tracking-tighter leading-none select-none font-black ${themeStyles.barcode}`}
+            >
+              ||||
+            </span>
+          </div>
+        </div>
+
+        {/* Ticket Body: Label */}
+        <div className={`flex items-center gap-1.5 ${isSm ? "px-3" : "px-4"}`}>
+          <span className="font-black tracking-tight whitespace-nowrap">
+            {label}
           </span>
         </div>
-      </div>
 
-      {/* Ticket Body: Label */}
-      <div className={`flex items-center gap-1.5 ${isSm ? "px-3" : "px-4"}`}>
-        <span className="font-black tracking-tight whitespace-nowrap">
-          {label}
-        </span>
-      </div>
-
-      {/* Glossy ticket foil sheen on hover */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-200/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-    </button>
+        {/* Glossy ticket foil sheen on hover */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-200/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
+      </button>
+    </div>
   );
 }

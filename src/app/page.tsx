@@ -144,7 +144,7 @@ const testimonials = [
 const stats = [
   { value: '100+', numericValue: 100, suffix: '+', label: 'Ongoing Train Deliveries' },
   { value: '500+', numericValue: 500, suffix: '+', label: 'Testers' },
-  { value: '7k+', numericValue: 7000, suffix: '+', label: 'Customers Waitlist' },
+  { value: '9000+', numericValue: 9000, suffix: '+', label: 'Customers Waitlist' },
   { value: '10000+', numericValue: 10000, suffix: '+', label: 'Interactions' },
 ];
 
@@ -999,15 +999,14 @@ export default function HomePage() {
                 Check coach number, live train location, and order essentials directly to your seat.
               </p>
 
-              <button
-                type="button"
-                onClick={() => setShowCheckPnrModal(true)}
+              <Link
+                href="/pnr"
                 className="w-full h-12 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-98 transition-all"
               >
                 <Train className="w-4 h-4 text-amber-400" />
                 <span>Track 10-Digit PNR / Train Status</span>
                 <ArrowRight className="w-4 h-4 text-white" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -1162,12 +1161,12 @@ export default function HomePage() {
           {/* Quick PNR Trigger in Waitlist */}
           <div className="flex items-center justify-center gap-4 text-xs text-slate-400 pt-2">
             <span>Traveling right now?</span>
-            <button
-              onClick={() => setShowCheckPnrModal(true)}
+            <Link
+              href="/pnr"
               className="text-blue-400 hover:text-blue-300 font-bold underline underline-offset-4 flex items-center gap-1 transition-colors"
             >
               Track Live PNR Status <ArrowRight className="w-3.5 h-3.5" />
-            </button>
+            </Link>
           </div>
         </div>
       </section>

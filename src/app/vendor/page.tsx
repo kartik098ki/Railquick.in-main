@@ -109,7 +109,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "Instant Payout Direct to Bank Account",
       "Dedicated RailQuick Station Runner Support",
     ],
-    waitlistBadge: "7k+ Customers on Early Waitlist!",
+    waitlistBadge: "9000+ Customers on Early Waitlist!",
   },
   hi: {
     badge: "रेलक्विक वेंडर पार्टनर नेटवर्क",
@@ -151,7 +151,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "डिलीवरी पूरा होते ही तुरंत बैंक ट्रांसफर",
       "हर स्टेशन पर रेलक्विक सपोर्ट एग्जीक्यूटिव",
     ],
-    waitlistBadge: "7k+ ग्राहक वेटलिस्ट में शामिल!",
+    waitlistBadge: "9000+ ग्राहक वेटलिस्ट में शामिल!",
   },
   hinglish: {
     badge: "RailQuick Vendor Partner Network",
@@ -193,7 +193,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "Instant Payment Direct Direct Bank Account Mein",
       "Har Station Par RailQuick Partner Support",
     ],
-    waitlistBadge: "7k+ Customers Waitlist Joined!",
+    waitlistBadge: "9000+ Customers Waitlist Joined!",
   },
   mr: {
     badge: "रेलक्विक व्हेंडर पार्टनर नेटवर्क",
@@ -235,7 +235,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "थेट बँक खात्यात त्वरित पेमेंट",
       "प्रत्येक स्टेशनवर २४/७ सपोर्ट",
     ],
-    waitlistBadge: "७k+ ग्राहक वेटलिस्टमध्ये सामील!",
+    waitlistBadge: "९०००+ ग्राहक वेटलिस्टमध्ये सामील!",
   },
   bn: {
     badge: "রেলকুইক ভেন্ডর পার্টনার নেটওয়ার্ক",
@@ -277,7 +277,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "সরাসরি ব্যাংক অ্যাকাউন্টে দ্রুত পেমেন্ট",
       "প্রতিটি স্টেশনে ২৪/৭ সাপোর্ট",
     ],
-    waitlistBadge: "৭k+ গ্রাহক ওয়েটলিস্টে যুক্ত!",
+    waitlistBadge: "৯০০০+ গ্রাহক ওয়েটলিস্টে যুক্ত!",
   },
   ta: {
     badge: "ரயில் குவிக் வெண்டர் நெட்வொர்க்",
@@ -319,7 +319,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "நேரடி வங்கி கணக்கில் உடனடி பணம் செலுத்துதல்",
       "24/7 ஆதரவு சேவை",
     ],
-    waitlistBadge: "7k+ வாடிக்கையாளர்கள் காத்திருப்பு பட்டியலில்!",
+    waitlistBadge: "9000+ வாடிக்கையாளர்கள் காத்திருப்பு பட்டியலில்!",
   },
   gu: {
     badge: "રેલક્વિક વેન્ડર પાર્ટનર નેટવર્ક",
@@ -361,7 +361,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "સીધા બેંક એકાઉન્ટમાં તુરંત ટ્રાન્સફર",
       "દરેક સ્ટેશન પર રેલક્વિક સપોર્ટ",
     ],
-    waitlistBadge: "૭k+ ગ્રાહકો પ્રતીક્ષા યાદીમાં!",
+    waitlistBadge: "૯૦૦૦+ ગ્રાહકો પ્રતીક્ષા યાદીમાં!",
   },
 };
 
@@ -496,7 +496,7 @@ export default function VendorPage() {
         {/* Top Hero Section */}
         <section className="pt-4 sm:pt-8 pb-10 sm:pb-12 bg-gradient-to-b from-emerald-50/70 via-white to-[#fafafa] border-b border-slate-200/70 relative">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            {/* Live 7000+ Waitlist Callout Badge */}
+            {/* Live 9000+ Waitlist Callout Badge */}
             <div className="inline-flex items-center justify-center max-w-[94%] sm:max-w-none gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-black mb-4 shadow-2xs">
               <Sparkles className="w-4 h-4 text-emerald-700 shrink-0" />
               <span className="leading-tight text-center">{content.waitlistBadge}</span>

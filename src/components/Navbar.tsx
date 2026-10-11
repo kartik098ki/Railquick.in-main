@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Logo from "@/components/Logo";
 import TicketPnrButton from "@/components/TicketPnrButton";
 import CheckPnrModal from "@/components/CheckPnrModal";
@@ -31,6 +31,7 @@ export default function Navbar({ onOpenPnrModal }: NavbarProps) {
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [internalModalOpen, setInternalModalOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,7 +53,7 @@ export default function Navbar({ onOpenPnrModal }: NavbarProps) {
   return (
     <>
       <CheckPnrModal
-        isOpen={internalModalOpen}
+        isOpen={!onOpenPnrModal && internalModalOpen}
         onClose={() => setInternalModalOpen(false)}
       />
 

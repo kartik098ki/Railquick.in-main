@@ -1145,3 +1145,131 @@ export function resolveTrainInfo(trainNo: string): TrainDirectoryEntry {
     };
   }
 }
+
+export function computeLiveTrainTelemetry(baseTrain: any, rawDate?: string | null) {
+  const normDate = (rawDate || "today").toLowerCase();
+  const isYesterday = normDate === "yesterday";
+  const isTomorrow = normDate === "tomorrow";
+
+  const now = new Date();
+  const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+  const ist = new Date(utcMs + 5.5 * 3600000);
+  const curMinutes = ist.getHours() * 60 + ist.getMinutes();
+
+  const stops = baseTrain.stops || baseTrain.stations || [];
+  const stations = stops.map((s: any) => ({
+    ...s,
+    platform: s.platform || "1",
+    halt: s.halt || "2 min",
+  }));
+
+  const origin = stations[0] || { name: "Origin", code: "ORIG", dep: "06:00" };
+  const dest = stations[stations.length - 1] || { name: "Destination", code: "DEST", arr: "12:00" };
+
+  const parseTime = (tStr?: string) => {
+    if (!tStr || tStr === "--") return -1;
+    const parts = tStr.split(":").map(Number);
+    if (parts.length < 2 || isNaN(parts[0]) || isNaN(parts[1])) return -1;
+    return parts[0] * 60 + parts[1];
+  };
+
+  const originDepMins = parseTime(origin?.dep);
+  const destArrMins = parseTime(dest?.arr);
+
+  if (isYesterday) {
+    const updatedStations = stations.map((st: any, i: number) => ({
+      ...st,
+      passed: true,
+      status: i === stations.length - 1 ? "Arrived" : "Departed",
+    }));
+
+    return {
+      ...baseTrain,
+      runStatus: "completed",
+      currentStatus: `Journey Completed at ${dest.name} • Reached On Schedule`,
+      currentSpeed: "0 km/h (At Destination)",
+      delayMins: 0,
+      segmentProgress: 100,
+      distanceToNext: "0 km",
+      prevStation: stations[stations.length - 2] || origin,
+      nextStation: {
+        code: dest.code,
+        name: dest.name,
+        platform: dest.platform || "1",
+        eta: "Journey Finished",
+        halt: "Destination",
+        deliveryEligible: false,
+      },
+      stations: updatedStations,
+    };
+  }
+
+  if (isTomorrow) {
+    const updatedStations = stations.map((st: any) => ({
+      ...st,
+      passed: false,
+      status: "Scheduled",
+    }));
+
+    return {
+      ...baseTrain,
+      runStatus: "upcoming",
+      currentStatus: `Scheduled Departure Tomorrow at ${origin.dep} from ${origin.name}`,
+      currentSpeed: "0 km/h (Yard)",
+      delayMins: 0,
+      segmentProgress: 0,
+      distanceToNext: `${baseTrain.totalDistance || "500 km"}`,
+      prevStation: null,
+      nextStation: {
+        code: origin.code,
+        name: origin.name,
+        platform: origin.platform || "1",
+        eta: `Departs Tomorrow (${origin.dep})`,
+        halt: "Origin",
+        deliveryEligible: false,
+      },
+      stations: updatedStations,
+    };
+  }
+
+  // Today calculations
+  let passedCount = 0;
+  const updatedStations = stations.map((st: any, idx: number) => {
+    const arrM = parseTime(st.arr);
+    const depM = parseTime(st.dep);
+    const refM = depM !== -1 ? depM : arrM;
+    const isPassed = refM !== -1 && curMinutes > refM;
+    if (isPassed) passedCount++;
+
+    return {
+      ...st,
+      passed: isPassed,
+      status: isPassed ? "Departed" : idx === passedCount ? "Approaching" : "Scheduled",
+    };
+  });
+
+  const nextStnIdx = Math.min(stations.length - 1, passedCount);
+  const nextStn = stations[nextStnIdx] || dest;
+  const prevStn = passedCount > 0 ? stations[passedCount - 1] : null;
+  const progressPct = Math.min(100, Math.round((passedCount / Math.max(1, stations.length)) * 100));
+
+  return {
+    ...baseTrain,
+    runStatus: passedCount >= stations.length ? "completed" : passedCount === 0 ? "at_origin" : "in_transit",
+    currentStatus: `Near ${nextStn.name} (${nextStn.code})`,
+    currentSpeed: "85 km/h",
+    delayMins: 0,
+    segmentProgress: progressPct,
+    distanceToNext: "35 km",
+    prevStation: prevStn,
+    nextStation: {
+      code: nextStn.code,
+      name: nextStn.name,
+      platform: nextStn.platform || "1",
+      eta: nextStn.arr || "15 mins",
+      halt: nextStn.halt || "2 min",
+      deliveryEligible: false,
+    },
+    stations: updatedStations,
+  };
+}

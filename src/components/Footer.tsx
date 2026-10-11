@@ -92,7 +92,7 @@ export default function Footer() {
                 <Link href="/about" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">About Us</Link>
                 <Link href="/blog" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm font-medium text-blue-400 hover:text-blue-300">Blog</Link>
                 <Link href="/check-train" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm font-medium text-amber-400 hover:text-amber-300">Check Train</Link>
-                <Link href="/pnr-status" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">PNR Status</Link>
+                <Link href="/pnr" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">PNR Status</Link>
                 <Link href="/test-phase" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Test Phase</Link>
                 <Link href="/contact" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Contact</Link>
                 <Link href="/vendor" className="block text-emerald-400 hover:text-emerald-300 font-bold transition-colors text-[10px] sm:text-sm flex items-center gap-1">

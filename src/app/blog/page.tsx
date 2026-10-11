@@ -112,7 +112,7 @@ export default function BlogPage() {
               </div>
             )}
             <span className="text-[11px] text-slate-400 font-mono mt-3 block">
-              Join 7k+ customers on our early waitlist.
+              Join 9000+ customers on our early waitlist.
             </span>
           </motion.div>
 
