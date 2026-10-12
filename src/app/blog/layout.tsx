@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The RailQuick Dispatch | Train Travel Magazine & Guides",
+  title: "RailQuick Travel Journal | Train Travel Guides & Stories",
   description:
     "Expert travel guides, packing checklists, night travel security tips, and railway tech insights for long-distance Indian Railways travelers.",
   keywords: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     canonical: "https://railquick.in/blog",
   },
   openGraph: {
-    title: "The RailQuick Dispatch | Train Travel Magazine & Guides",
+    title: "RailQuick Travel Journal | Train Travel Guides & Stories",
     description:
       "Expert travel guides, packing checklists, night travel security tips, and railway tech insights for Indian Railways passengers.",
     url: "https://railquick.in/blog",

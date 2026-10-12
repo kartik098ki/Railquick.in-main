@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
+  compress: true,
+  poweredByHeader: false,
 };
 
 export default nextConfig;

@@ -307,6 +307,7 @@ export default function HomePage() {
   const [modalEmail, setModalEmail] = useState('');
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [activeFeatureTab, setActiveFeatureTab] = useState(0);
+  const [isReviewsPaused, setIsReviewsPaused] = useState(false);
 
   const [showTestModal, setShowTestModal] = useState(false);
   const [testEmail, setTestEmail] = useState('');
@@ -460,6 +461,22 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Responsive Preloads for LCP Hero Images */}
+      <link
+        rel="preload"
+        as="image"
+        href="/mobile-hero-train.webp"
+        type="image/webp"
+        media="(max-width: 767px)"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/hero-train.webp"
+        type="image/webp"
+        media="(min-width: 768px)"
+      />
+
       {/* Check PNR Live Tracking Modal */}
       <CheckPnrModal isOpen={showCheckPnrModal} onClose={() => setShowCheckPnrModal(false)} />
 
@@ -646,11 +663,18 @@ export default function HomePage() {
 
           {/* Full-bleed portrait train background */}
           <div className="absolute inset-0 z-0">
-            <img
-              src="/mobile-hero-train.jpg"
-              alt="Train Background"
-              className="w-full h-full object-cover object-center"
-            />
+            <picture>
+              <source srcSet="/mobile-hero-train.webp" type="image/webp" />
+              <img
+                src="/mobile-hero-train.jpg"
+                alt="Train Background"
+                width={558}
+                height={974}
+                fetchPriority="high"
+                decoding="async"
+                className="w-full h-full object-cover object-center"
+              />
+            </picture>
             {/* Rain & Lightning */}
             <RainThunderEffect />
             {/* Soft White Fog/Glow gradient fade at top under white nav header */}
@@ -718,11 +742,18 @@ export default function HomePage() {
         <div className="hidden md:flex relative min-h-[85vh] lg:min-h-[90vh] items-center pt-16 pb-24 overflow-hidden bg-slate-950">
           {/* Background Train Image & Rain/Thunderstorm Effect */}
           <div className="absolute inset-0 z-0">
-            <img 
-              src="/hero-train.jpg" 
-              alt="Train Background" 
-              className="w-full h-full object-cover object-right"
-            />
+            <picture>
+              <source srcSet="/hero-train.webp" type="image/webp" />
+              <img 
+                src="/hero-train.jpg" 
+                alt="Train Background" 
+                width={1024}
+                height={570}
+                fetchPriority="high"
+                decoding="async"
+                className="w-full h-full object-cover object-right"
+              />
+            </picture>
             {/* Animated Rain & Thunderstorm Lightning Overlay */}
             <RainThunderEffect />
             {/* Smooth left-side white fog gradient so text sits cleanly on white */}
@@ -1056,10 +1087,10 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials / Why Travelers Choose Us */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden">
+      <section className="py-14 sm:py-20 lg:py-24 bg-white overflow-hidden border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full text-xs font-extrabold text-blue-600 uppercase tracking-widest mb-3">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-50 border border-blue-200/80 rounded-full text-xs font-black text-blue-700 uppercase tracking-widest mb-3 shadow-2xs">
               Why Travelers Choose Us
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">What our early users say</h2>
@@ -1067,27 +1098,63 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative group marquee-container">
-          <div className="flex gap-4 animate-marquee py-4 group-hover:[animation-play-state:paused]">
+        <div
+          className="relative group marquee-container w-full overflow-hidden cursor-pointer"
+          onMouseEnter={() => setIsReviewsPaused(true)}
+          onMouseLeave={() => setIsReviewsPaused(false)}
+          onTouchStart={() => setIsReviewsPaused(true)}
+          onTouchEnd={() => setIsReviewsPaused(false)}
+          onClick={() => setIsReviewsPaused((p) => !p)}
+          title="Tap or hover to pause"
+        >
+          <div
+            className="flex gap-3 sm:gap-4.5 animate-marquee py-3"
+            style={{
+              width: "max-content",
+              animationDuration: "80s",
+              animationPlayState: isReviewsPaused ? "paused" : "running",
+            }}
+          >
             {[...testimonials, ...testimonials].map((t, i) => (
-              <div key={i} className="flex-shrink-0 w-[280px] sm:w-[340px] bg-slate-50 rounded-xl sm:rounded-2xl p-5 sm:p-6 hover:bg-white hover:shadow-lg transition-all duration-300">
-                <div className="flex text-amber-400 mb-3">
-                  {[...Array(5)].map((_, j) => (
-                    <svg key={j} className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-slate-700 mb-3 sm:mb-4 leading-relaxed text-sm">&ldquo;{t.text}&rdquo;</p>
+              <div
+                key={i}
+                className="flex-shrink-0 w-[260px] sm:w-[330px] bg-slate-50/70 border border-slate-200/90 hover:border-blue-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-2xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+              >
                 <div>
-                  <p className="font-semibold text-slate-900 text-sm">{t.name}</p>
-                  <p className="text-xs text-slate-500">{t.role}</p>
+                  <div className="flex items-center justify-between mb-2.5">
+                    <div className="flex text-amber-400">
+                      {[...Array(5)].map((_, j) => (
+                        <svg key={j} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                    <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">
+                      Verified Passenger
+                    </span>
+                  </div>
+                  <p className="text-slate-700 mb-3.5 leading-relaxed text-xs sm:text-sm font-medium">&ldquo;{t.text}&rdquo;</p>
+                </div>
+
+                <div className="pt-3 border-t border-slate-200/60 flex items-center gap-2.5">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-bold text-slate-900 text-xs sm:text-sm flex items-center gap-1">
+                      {t.name}
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    </p>
+                    <p className="text-[11px] text-slate-500 font-medium">{t.role}</p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="absolute inset-y-0 left-0 w-16 sm:w-24 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-16 sm:w-24 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+
+          {/* Left/Right Overlays - Small on Mobile, Smooth Fade */}
+          <div className="absolute inset-y-0 left-0 w-8 sm:w-28 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-y-0 right-0 w-8 sm:w-28 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
         </div>
       </section>
 

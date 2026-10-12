@@ -27,6 +27,7 @@ const REEL_DURATION_SECONDS = 15;
 export default function WatchOurStorySection() {
   const [activeReelIndex, setActiveReelIndex] = useState(0);
   const [isSectionInView, setIsSectionInView] = useState(false);
+  const [hasLoadedReels, setHasLoadedReels] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,8 +37,11 @@ export default function WatchOurStorySection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsSectionInView(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setHasLoadedReels(true);
+        }
       },
-      { threshold: 0.2 }
+      { threshold: 0.05, rootMargin: "350px" }
     );
 
     if (sectionRef.current) {
@@ -148,18 +152,29 @@ export default function WatchOurStorySection() {
                     : "border-slate-200 opacity-90 hover:opacity-100 hover:border-slate-300"
                 }`}
               >
-                <iframe
-                  src={`https://www.instagram.com/p/${reel.shortcode}/embed/?autoplay=${
-                    isActive && isSectionInView ? "1" : "0"
-                  }`}
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  scrolling="no"
-                  className="absolute inset-0 w-full h-full bg-slate-950 pointer-events-auto"
-                  allowTransparency={true}
-                  allow="autoplay; encrypted-media"
-                />
+                {hasLoadedReels ? (
+                  <iframe
+                    src={`https://www.instagram.com/p/${reel.shortcode}/embed/?autoplay=${
+                      isActive && isSectionInView ? "1" : "0"
+                    }`}
+                    width="100%"
+                    height="100%"
+                    loading="lazy"
+                    frameBorder="0"
+                    scrolling="no"
+                    title={`RailQuick Journey Reel ${reel.id}`}
+                    className="absolute inset-0 w-full h-full bg-slate-950 pointer-events-auto"
+                    allowTransparency={true}
+                    allow="autoplay; encrypted-media"
+                  />
+                ) : (
+                  <div className="absolute inset-0 w-full h-full bg-slate-950 flex flex-col items-center justify-center p-6 text-center">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white mb-3">
+                      <Instagram className="w-6 h-6 text-pink-400" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-400">RailQuick Journey Reel</span>
+                  </div>
+                )}
               </div>
             );
           })}

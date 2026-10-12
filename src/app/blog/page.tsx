@@ -90,7 +90,7 @@ export default function BlogPage() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-950 tracking-tight leading-[1.08] mb-4">
-            Travel Dispatches
+            Train Travel Guides &amp; Stories
           </h1>
 
           <p className="text-base sm:text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto">

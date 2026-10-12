@@ -343,92 +343,99 @@ const customerRequests: CustomerRequest[] = [
   },
 ];
 
+const getCategoryBadgeClass = (category: string) => {
+  const cat = category.toLowerCase();
+  if (cat.includes("emergency") || cat.includes("urgent")) {
+    return "bg-red-50 text-red-700 border-red-200";
+  }
+  if (cat.includes("medicine") || cat.includes("health")) {
+    return "bg-rose-50 text-rose-700 border-rose-200";
+  }
+  if (cat.includes("digestion") || cat.includes("otc") || cat.includes("snack")) {
+    return "bg-amber-50 text-amber-800 border-amber-200";
+  }
+  if (cat.includes("baby") || cat.includes("family")) {
+    return "bg-purple-50 text-purple-700 border-purple-200";
+  }
+  if (cat.includes("hygiene") || cat.includes("care")) {
+    return "bg-sky-50 text-sky-700 border-sky-200";
+  }
+  if (cat.includes("electronic") || cat.includes("charger") || cat.includes("device")) {
+    return "bg-blue-50 text-blue-700 border-blue-200";
+  }
+  return "bg-emerald-50 text-emerald-700 border-emerald-200";
+};
+
 export default function CustomerDemandTicker() {
   const [isPaused, setIsPaused] = useState(false);
 
-  return (
-    <section className="py-20 lg:py-28 bg-[#0b0f19] text-white relative overflow-hidden border-t border-b border-slate-800">
-      {/* High-Tech Background Ambient Radar Lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[450px] bg-blue-600/10 rounded-full blur-[170px] pointer-events-none" />
-      <div className="absolute top-10 left-10 w-80 h-80 bg-amber-500/10 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-[160px] pointer-events-none" />
+  const togglePause = () => setIsPaused((prev) => !prev);
 
-      {/* Subtle Blueprint Mesh */}
-      <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-35 pointer-events-none" />
+  return (
+    <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-slate-50/70 to-white text-slate-900 relative overflow-hidden border-t border-b border-slate-200/80">
+      {/* Subtle Ambient Background Glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-blue-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-10 left-10 w-72 h-72 bg-amber-500/5 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
+
+      {/* Subtle Dot Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-60 pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           {/* Pulsing Live Telemetry Badge */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-black uppercase tracking-wider mb-5 shadow-[0_0_24px_rgba(16,185,129,0.18)]">
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-black uppercase tracking-wider mb-4 shadow-2xs">
             <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600" />
             </span>
             <span>Live Passenger Radar &bull; 100+ Trains Monitored</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-4 leading-tight text-white">
-            Real Passengers Waiting for <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">RailQuick</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 leading-tight text-slate-900">
+            Real Passengers Waiting for <span className="text-blue-600">RailQuick</span>
           </h2>
 
-          <p className="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto mb-10 font-normal">
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-8 font-medium">
             Real passenger requests received while en route on running trains across Indian Railways.
             From emergency medicines to fast phone chargers, water, and baby diapers &mdash; this is why on-seat delivery matters.
           </p>
 
-          {/* 3 High-Impact Telemetry Stats Badges (100+ Routes Included) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
+          {/* 2 High-Impact Telemetry Stats Badges */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-2xl mx-auto">
             {/* Stat 1: 500+ Inquiries */}
-            <div className="bg-[#111827]/85 backdrop-blur-xl border border-slate-700/60 hover:border-slate-600 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-xl transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
+            <div className="bg-white border border-slate-200/90 hover:border-slate-300 rounded-2xl p-4 text-left flex items-center gap-3.5 shadow-sm transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200/80 text-blue-600 flex items-center justify-center shrink-0">
                 <PhoneCall className="w-5 h-5 animate-bounce" />
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-black text-white flex items-center gap-1.5">
+                <div className="text-2xl font-black text-slate-900 flex items-center gap-1.5">
                   500+
-                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/25">
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                     Live Pilot
                   </span>
                 </div>
-                <div className="text-xs text-slate-400 font-medium leading-snug">
+                <div className="text-xs text-slate-500 font-medium leading-snug">
                   Urgent Calls &amp; Emails Logged
                 </div>
               </div>
             </div>
 
-            {/* Stat 2: 100+ Train Routes (Updated from 14+) */}
-            <div className="bg-[#111827]/85 backdrop-blur-xl border border-slate-700/60 hover:border-slate-600 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-xl transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0">
+            {/* Stat 2: 100+ Train Routes */}
+            <div className="bg-white border border-slate-200/90 hover:border-slate-300 rounded-2xl p-4 text-left flex items-center gap-3.5 shadow-sm transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-200/80 text-emerald-600 flex items-center justify-center shrink-0">
                 <Train className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-black text-white flex items-center gap-1.5">
+                <div className="text-2xl font-black text-slate-900 flex items-center gap-1.5">
                   100+
-                  <span className="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full border border-blue-500/25">
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
                     Verified
                   </span>
                 </div>
-                <div className="text-xs text-slate-400 font-medium leading-snug">
+                <div className="text-xs text-slate-500 font-medium leading-snug">
                   Train Routes Across India
-                </div>
-              </div>
-            </div>
-
-            {/* Stat 3: 100% Coach Accuracy */}
-            <div className="bg-[#111827]/85 backdrop-blur-xl border border-slate-700/60 hover:border-slate-600 rounded-2xl p-4 sm:p-5 text-left flex items-center gap-3.5 shadow-xl transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-black text-white flex items-center gap-1.5">
-                  100%
-                  <span className="text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/25">
-                    MRP Only
-                  </span>
-                </div>
-                <div className="text-xs text-slate-400 font-medium leading-snug">
-                  Direct Coach Gate Handoff
                 </div>
               </div>
             </div>
@@ -439,107 +446,106 @@ export default function CustomerDemandTicker() {
       {/* HORIZONTAL INFINITE TICKER (RIGHT -> LEFT) */}
       {/* Pauses completely on hover or touch, smoothly gliding at gentle reading pace */}
       <div
-        className="relative group marquee-container w-full overflow-hidden py-4"
+        className="relative group marquee-container w-full overflow-hidden py-3 cursor-pointer"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={() => setIsPaused(true)}
         onTouchEnd={() => setIsPaused(false)}
+        onClick={togglePause}
+        title="Tap or hover to pause"
       >
         <div
-          className={`flex gap-4 sm:gap-6 animate-marquee py-3 group-hover:[animation-play-state:paused] ${
-            isPaused ? "[animation-play-state:paused]" : ""
-          }`}
-          style={{ width: "max-content", animationDuration: "115s" }}
+          className="flex gap-3.5 sm:gap-5 animate-marquee py-3"
+          style={{
+            width: "max-content",
+            animationDuration: "160s",
+            animationPlayState: isPaused ? "paused" : "running",
+          }}
         >
           {/* Double list for smooth, seamless, infinite 0% to -50% loop */}
-          {[...customerRequests, ...customerRequests].map((item, idx) => (
-            <div
-              key={`${item.id}-${idx}`}
-              className="flex-shrink-0 w-[330px] sm:w-[410px] bg-[#111827]/95 backdrop-blur-2xl border border-slate-800 hover:border-amber-400/60 rounded-3xl p-5 sm:p-6 transition-all duration-300 hover:shadow-[0_16px_40px_rgba(245,158,11,0.12)] hover:-translate-y-1 flex flex-col justify-between group/card relative overflow-hidden"
-            >
-              {/* Subtle top edge gradient highlight */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-500/40 to-transparent group-hover/card:via-amber-400 transition-all" />
+          {[...customerRequests, ...customerRequests].map((item, idx) => {
+            const badgeClass = getCategoryBadgeClass(item.category);
+            return (
+              <div
+                key={`${item.id}-${idx}`}
+                className="flex-shrink-0 w-[270px] sm:w-[380px] bg-white border border-slate-200/90 hover:border-blue-400 rounded-2xl sm:rounded-3xl p-4 sm:p-5 transition-all duration-300 shadow-xs hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between group/card relative overflow-hidden"
+              >
+                {/* Subtle top edge gradient highlight */}
+                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-blue-500/40 to-transparent group-hover/card:via-blue-600 transition-all" />
 
-              <div>
-                {/* Header: Category Badge + Station/Time */}
-                <div className="flex items-center justify-between gap-2 mb-3.5">
-                  <span
-                    className={`text-[11px] font-extrabold px-3 py-1 rounded-full border ${item.categoryTheme.badge} uppercase tracking-wider`}
-                  >
-                    {item.category}
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    {item.stationOrTime}
-                  </span>
-                </div>
-
-                {/* Railway Train & Berth Badge (Authentic Railway Ticket Telemetry) */}
-                <div className="flex items-center justify-between gap-2 bg-[#090d16] border border-slate-800/90 rounded-xl px-3 py-2.5 mb-4">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <div className="w-6 h-6 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0">
-                      <Train className="w-3.5 h-3.5 text-blue-400" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-200 truncate font-mono">
-                      {item.trainNo} &bull; {item.train}
+                <div>
+                  {/* Header: Category Badge + Station/Time */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span
+                      className={`text-[10px] sm:text-[11px] font-black px-2.5 py-1 rounded-full border ${badgeClass} uppercase tracking-wider`}
+                    >
+                      {item.category}
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      {item.stationOrTime}
                     </span>
                   </div>
-                  {item.coachSeat && (
-                    <span className="text-[11px] font-mono font-black text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-md shrink-0">
-                      {item.coachSeat}
+
+                  {/* Railway Train & Berth Badge (Authentic Railway Ticket Telemetry) */}
+                  <div className="flex items-center justify-between gap-2 bg-slate-50 border border-slate-200/90 rounded-xl px-2.5 py-2 mb-3">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <div className="w-5 h-5 rounded-md bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
+                        <Train className="w-3 h-3 text-blue-600" />
+                      </div>
+                      <span className="text-[11px] sm:text-xs font-bold text-slate-800 truncate font-mono">
+                        {item.trainNo} &bull; {item.train}
+                      </span>
+                    </div>
+                    {item.coachSeat && (
+                      <span className="text-[10px] sm:text-[11px] font-mono font-black text-amber-900 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded shrink-0">
+                        {item.coachSeat}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Passenger Quote */}
+                  <blockquote className="text-slate-800 text-[13px] sm:text-[14px] font-semibold leading-relaxed mb-4 relative pl-3 border-l-2 border-amber-500 group-hover/card:border-blue-600 transition-colors">
+                    &ldquo;{item.quote}&rdquo;
+                  </blockquote>
+                </div>
+
+                {/* Card Footer: Passenger Avatar, Name, and Dispatch Status */}
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-black text-[11px] sm:text-xs flex items-center justify-center shadow-xs">
+                      {item.initials}
+                    </div>
+                    <div>
+                      <div className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-1">
+                        {item.name}
+                        {item.verified && (
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                        )}
+                      </div>
+                      <div className="text-[10px] sm:text-[11px] text-slate-500 font-medium">
+                        {item.role}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full inline-block">
+                      Pilot Logged
                     </span>
-                  )}
-                </div>
-
-                {/* Passenger Quote */}
-                <blockquote className="text-slate-100 text-[15px] font-semibold leading-relaxed mb-5 relative pl-3.5 border-l-2 border-amber-500/70 group-hover/card:border-amber-400 transition-colors">
-                  &ldquo;{item.quote}&rdquo;
-                </blockquote>
-              </div>
-
-              {/* Card Footer: Passenger Avatar, Name, and Dispatch Status */}
-              <div className="pt-3.5 border-t border-slate-800/80 flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-white font-black text-xs flex items-center justify-center shadow-inner">
-                    {item.initials}
-                  </div>
-                  <div>
-                    <div className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
-                      {item.name}
-                      {item.verified && (
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                      )}
-                    </div>
-                    <div className="text-[11px] text-slate-400 font-medium">
-                      {item.role}
+                    <div className="text-[10px] font-mono text-slate-400 mt-0.5">
+                      {item.timeAgo}
                     </div>
                   </div>
                 </div>
-
-                <div className="text-right">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full inline-block">
-                    Pilot Logged
-                  </span>
-                  <div className="text-[10px] font-mono text-slate-400 mt-0.5">
-                    {item.timeAgo}
-                  </div>
-                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Ambient Left/Right Edge Shadows */}
-        <div className="absolute inset-y-0 left-0 w-20 sm:w-40 bg-gradient-to-r from-[#0b0f19] via-[#0b0f19]/90 to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-20 sm:w-40 bg-gradient-to-l from-[#0b0f19] via-[#0b0f19]/90 to-transparent pointer-events-none z-10" />
-      </div>
-
-      {/* Interactive Helper Text */}
-      <div className="text-center mt-6">
-        <p className="text-xs text-slate-400 flex items-center justify-center gap-2 font-medium">
-          <Activity className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-          <span>Hover or tap any passenger card to pause &bull; Continuous real-time stream</span>
-        </p>
+        {/* Ambient Left/Right Edge Overlays: small on mobile, smooth fade */}
+        <div className="absolute inset-y-0 left-0 w-8 sm:w-28 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-8 sm:w-28 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
       </div>
     </section>
   );

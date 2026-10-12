@@ -12,7 +12,10 @@ export default function RainThunderEffect() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
+    let flashTimeout: NodeJS.Timeout | null = null;
+    let isVisible = false;
+
     let width = (canvas.width = canvas.offsetWidth);
     let height = (canvas.height = canvas.offsetHeight);
 
@@ -22,7 +25,7 @@ export default function RainThunderEffect() {
       height = canvas.height = canvas.offsetHeight;
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     // Subtle, delicate realistic raindrops
     const dropCount = 45;
@@ -37,6 +40,7 @@ export default function RainThunderEffect() {
 
     // Rain Loop
     const draw = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, width, height);
 
       // Draw delicate rain streaks
@@ -66,11 +70,9 @@ export default function RainThunderEffect() {
       animationFrameId = requestAnimationFrame(draw);
     };
 
-    draw();
-
     // Thunderstorm / Real Bijli Lightning Controller
-    let flashTimeout: NodeJS.Timeout;
     const triggerLightning = () => {
+      if (!isVisible) return;
       const flashEl = flashRef.current;
       if (!flashEl) return;
 
@@ -91,12 +93,45 @@ export default function RainThunderEffect() {
       flashTimeout = setTimeout(triggerLightning, nextDelay);
     };
 
-    flashTimeout = setTimeout(triggerLightning, 3000);
+    const startAnimation = () => {
+      if (isVisible) return;
+      isVisible = true;
+      handleResize();
+      if (width > 0 && height > 0) {
+        animationFrameId = requestAnimationFrame(draw);
+        flashTimeout = setTimeout(triggerLightning, 3000);
+      }
+    };
+
+    const stopAnimation = () => {
+      isVisible = false;
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+      if (flashTimeout !== null) {
+        clearTimeout(flashTimeout);
+        flashTimeout = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(canvas);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
-      clearTimeout(flashTimeout);
+      stopAnimation();
     };
   }, []);
 
