@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { normalizeLiveTrainResponse } from "@/lib/railkitNormalizer";
 
 const RAILKIT_API_KEY =
-  process.env.RAILKIT_API_KEY || "irctc_d2736176c9ea10f80fb61dc03c41522e7553930a39941cdb";
+  process.env.RAILKIT_API_KEY || "irctc_20451835ee7fa9026d90f263d327df7aa7e866c0cd585aee";
 
 function formatDateForLiveApi(rawDate?: string): string {
   if (!rawDate || rawDate === "today") {
