@@ -662,7 +662,7 @@ export default function HomePage() {
         {/* Mobile Hero — Clean Top White Fog, Shifted-Up Festive Scene, Laptop-Style Compact Badges & Typography */}
         <div className="md:hidden relative bg-[#070b14] overflow-hidden rounded-b-[40px] flex flex-col pt-[128px] sm:pt-[136px] pb-5 sm:pb-7 px-5 shadow-[0_12px_30px_rgba(15,23,42,0.18)]">
 
-          {/* Full-bleed HD portrait festive train platform delivery scene: shifted so train, delivery runner & coach door are fully visible */}
+          {/* Full-bleed HD portrait festive train platform delivery scene: shifted down so people's faces are clear of pills */}
           <div className="absolute inset-0 z-0">
             <picture>
               <source srcSet="/images/hero-diwali-mobile-v2.webp" type="image/webp" />
@@ -673,11 +673,11 @@ export default function HomePage() {
                 height={1820}
                 fetchPriority="high"
                 decoding="async"
-                className="w-full h-full object-cover object-[86%_top]"
+                className="w-full h-full object-cover object-[86%_top] translate-y-7 sm:translate-y-8"
               />
             </picture>
             {/* Clean Soft White Fog/Glow gradient at the very top (for RailQuick, Check PNR & Top Marigold Arch readability) */}
-            <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white via-white/80 via-40% to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 inset-x-0 h-36 bg-gradient-to-b from-white via-white/85 via-40% to-transparent z-10 pointer-events-none" />
             {/* Bottom dark smoky vignette for crisp headline & CTA button readability */}
             <div
               className="absolute inset-x-0 bottom-0 h-[58%] z-10 pointer-events-none"
@@ -719,7 +719,7 @@ export default function HomePage() {
             </div>
 
             {/* Center visible window — keeps the festive coach door handoff, family & rangoli completely unobstructed */}
-            <div className="h-[195px] sm:h-[220px] shrink-0" />
+            <div className="h-[205px] sm:h-[225px] shrink-0" />
 
             {/* Headline + Centered Premium Buttons — Positioned Directly Beneath the Rangoli (Above, Not at the Bottom) */}
             <div className="pt-1">
