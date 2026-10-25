@@ -16,7 +16,6 @@ import { toast } from "@/hooks/use-toast";
 import HowItWorksFlow from "@/components/HowItWorksFlow";
 import WhatWeDeliverSection from "@/components/WhatWeDeliverSection";
 import WatchOurStorySection from "@/components/WatchOurStorySection";
-import RailQuickGuarantees from "@/components/RailQuickGuarantees";
 import DelhiStationComingSoon from "@/components/DelhiStationComingSoon";
 import { useInteractiveMarquee } from "@/hooks/use-interactive-marquee";
 import {
@@ -313,7 +312,7 @@ export default function HomePage() {
     containerRef: testimonialsRef,
     isDragging: isTestimonialsDragging,
     handlers: testimonialsHandlers,
-  } = useInteractiveMarquee({ speed: 38, copies: 3 });
+  } = useInteractiveMarquee({ speed: 42, copies: 3 });
 
   const [showTestModal, setShowTestModal] = useState(false);
   const [testEmail, setTestEmail] = useState('');
@@ -1248,10 +1247,6 @@ export default function HomePage() {
 
       {/* Coming Soon to Delhi Railway Station Showcase */}
       <DelhiStationComingSoon onOpenWaitlist={() => setShowCheckPnrModal(true)} />
-
-      {/* The RailQuick Promise — Real 4-Point Passenger Guarantees */}
-      <RailQuickGuarantees />
-
 
       {/* FAQ */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">

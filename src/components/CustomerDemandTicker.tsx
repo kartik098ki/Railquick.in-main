@@ -369,7 +369,7 @@ const getCategoryBadgeClass = (category: string) => {
 
 export default function CustomerDemandTicker() {
   const { containerRef, isDragging, handlers } = useInteractiveMarquee({
-    speed: 36,
+    speed: 42,
     copies: 3,
   });
 
