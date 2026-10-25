@@ -660,7 +660,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative bg-white">
         {/* Mobile Hero — Clean Top White Fog, Shifted-Up Festive Scene, Laptop-Style Compact Badges & Typography */}
-        <div className="md:hidden relative bg-[#070b14] overflow-hidden rounded-b-[42px] min-h-[720px] flex flex-col pt-[130px] sm:pt-[138px] pb-10 px-5 shadow-[0_12px_30px_rgba(15,23,42,0.18)]">
+        <div className="md:hidden relative bg-[#070b14] overflow-hidden rounded-b-[40px] flex flex-col pt-[128px] sm:pt-[136px] pb-5 sm:pb-7 px-5 shadow-[0_12px_30px_rgba(15,23,42,0.18)]">
 
           {/* Full-bleed HD portrait festive train platform delivery scene: shifted so train, delivery runner & coach door are fully visible */}
           <div className="absolute inset-0 z-0">
@@ -719,7 +719,7 @@ export default function HomePage() {
             </div>
 
             {/* Center visible window — keeps the festive coach door handoff, family & rangoli completely unobstructed */}
-            <div className="h-[210px] sm:h-[235px] shrink-0" />
+            <div className="h-[195px] sm:h-[220px] shrink-0" />
 
             {/* Headline + Centered Premium Buttons — Positioned Directly Beneath the Rangoli (Above, Not at the Bottom) */}
             <div className="pt-1">
@@ -874,7 +874,7 @@ export default function HomePage() {
       </section>
 
       {/* Value Highlights (Laptop: 4 Metallic Gold-Bordered Cards | Mobile: Overlapping Oval Feature Pills) */}
-      <section className="relative z-30 -mt-6 md:-mt-[4.2vw] mb-10 md:mb-16 px-3 md:px-[10%]">
+      <section className="relative z-30 -mt-2 sm:-mt-3 md:-mt-[4.2vw] mb-10 md:mb-16 px-3 md:px-[10%]">
         <div className="max-w-7xl mx-auto">
           {/* Laptop View: 4 Clean Value Highlight Cards with Crisp Golden-Bronze Border overlapping Hero bottom */}
           <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3.5 lg:gap-4">

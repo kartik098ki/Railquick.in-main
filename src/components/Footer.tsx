@@ -145,7 +145,7 @@ export default function Footer() {
             >
               ❤️
             </span>
-            <span>in India — Built for Every Train Passenger&apos;s Journey</span>
+            <span>for train passengers</span>
           </p>
         </div>
       </div>
