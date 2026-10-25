@@ -660,9 +660,9 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative bg-white">
         {/* Mobile Hero — Clean Top White Fog, Shifted-Up Festive Scene, Laptop-Style Compact Badges & Typography */}
-        <div className="md:hidden relative bg-[#070b14] overflow-hidden rounded-b-[42px] min-h-[750px] flex flex-col justify-between pt-34 sm:pt-38 pb-10 px-5 shadow-[0_12px_30px_rgba(15,23,42,0.18)]">
+        <div className="md:hidden relative bg-[#070b14] overflow-hidden rounded-b-[42px] min-h-[730px] flex flex-col justify-between pt-[104px] sm:pt-[116px] pb-7 px-5 shadow-[0_12px_30px_rgba(15,23,42,0.18)]">
 
-          {/* Full-bleed HD portrait festive train platform delivery scene shifted higher so train, people & rangoli are clearly visible */}
+          {/* Full-bleed HD portrait festive train platform delivery scene: shifted so train, delivery runner & coach door are fully visible */}
           <div className="absolute inset-0 z-0">
             <picture>
               <source srcSet="/images/hero-diwali-mobile-v2.webp" type="image/webp" />
@@ -673,17 +673,17 @@ export default function HomePage() {
                 height={1820}
                 fetchPriority="high"
                 decoding="async"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-[85%_top]"
               />
             </picture>
             {/* Clean Soft White Fog/Glow gradient at the very top (for RailQuick, Check PNR & Top Marigold Arch readability) */}
             <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white via-white/80 via-40% to-transparent z-10 pointer-events-none" />
             {/* Bottom dark smoky vignette for crisp headline & CTA button readability */}
             <div
-              className="absolute inset-x-0 bottom-0 h-[50%] z-10 pointer-events-none"
+              className="absolute inset-x-0 bottom-0 h-[52%] z-10 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(0deg, rgba(24,29,39,0.96) 0%, rgba(10,14,24,0.93) 48%, rgba(15,23,42,0.50) 80%, rgba(15,23,42,0) 100%)",
+                  "linear-gradient(0deg, rgba(24,29,39,0.98) 0%, rgba(10,14,24,0.95) 44%, rgba(15,23,42,0.52) 78%, rgba(15,23,42,0) 100%)",
               }}
             />
           </div>
@@ -719,11 +719,11 @@ export default function HomePage() {
             </div>
 
             {/* Center visible window — keeps the festive coach door handoff, family & rangoli completely unobstructed */}
-            <div className="flex-1 min-h-[190px] sm:min-h-[220px]" />
+            <div className="flex-1 min-h-[75px] sm:min-h-[95px]" />
 
-            {/* Bottom Content: Left-Aligned Headline + Centered Premium Buttons — Shifted Above for Perfect Ergonomics */}
-            <div className="mt-auto pt-2 pb-6 sm:pb-8">
-              <div className="flex flex-col items-start gap-1 mb-4 text-left">
+            {/* Bottom Content: Left-Aligned Headline + Centered Premium Buttons — Positioned Just Beneath the Rangoli */}
+            <div className="pt-0.5 pb-4 sm:pb-6">
+              <div className="flex flex-col items-start gap-1 mb-3.5 text-left">
                 <div
                   className="flex items-center flex-nowrap gap-2.5 whitespace-nowrap font-black text-white tracking-tight leading-none"
                   style={{ fontSize: "clamp(30px, 9vw, 42px)" }}
@@ -753,7 +753,7 @@ export default function HomePage() {
               </div>
 
               {/* Centered Premium Mobile CTA Buttons — Comfortable Wider Width & Earlier Ultra-Premium Aesthetic */}
-              <div className="flex flex-col items-center gap-3 w-full max-w-[345px] sm:max-w-[365px] mx-auto text-center">
+              <div className="flex flex-col items-center gap-2.5 w-full max-w-[345px] sm:max-w-[365px] mx-auto text-center">
                 {/* Button 1: Specular Royal Sapphire Pill Button */}
                 <button
                   onClick={handleTestNow}
