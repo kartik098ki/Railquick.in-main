@@ -212,7 +212,7 @@ export default function AboutPage() {
                     <div className="text-sm lg:text-base font-medium text-slate-500 uppercase tracking-wide">Early Testers</div>
                   </div>
                   <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] lg:hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">9000+</div>
+                    <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">12000+</div>
                     <div className="text-sm lg:text-base font-medium text-slate-500 uppercase tracking-wide">Waitlist Users</div>
                   </div>
                   <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] lg:hover:-translate-y-1 transition-all duration-300">

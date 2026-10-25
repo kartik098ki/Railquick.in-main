@@ -20,7 +20,7 @@ export default function TicketPnrButton({
   size = "md",
   variant = "amber",
   showLiveDot = true,
-  showNewBadge = true,
+  showNewBadge = false,
   label = "Check PNR",
 }: TicketPnrButtonProps) {
   const router = useRouter();
@@ -37,13 +37,13 @@ export default function TicketPnrButton({
   // Light, authentic railway ticket design
   const themeStyles = {
     amber: {
-      bg: "bg-gradient-to-r from-amber-50/95 via-white to-orange-50/95 hover:from-amber-100/80 hover:via-amber-50/90 hover:to-orange-100/80 text-slate-900",
-      border: "border-amber-300/80 hover:border-amber-400",
-      shadow: "shadow-xs hover:shadow-md shadow-amber-500/10",
-      stubBg: "bg-amber-100/60 text-amber-800",
-      dashed: "border-amber-300/70",
+      bg: "bg-gradient-to-b from-[#fbf6ea] to-[#f3ead6] hover:from-[#faf1de] hover:to-[#ede0c4] text-slate-900",
+      border: "border-[#dec27c] hover:border-[#cfa954]",
+      shadow: "shadow-[0_4px_14px_rgba(180,140,60,0.18)] hover:shadow-md",
+      stubBg: "bg-gradient-to-b from-[#f1dca5] to-[#e4c67e] text-[#5c4014]",
+      dashed: "border-[#d4b46a]",
       badgeBg: "bg-emerald-50 text-emerald-700 border border-emerald-200/80",
-      barcode: "text-amber-800/60",
+      barcode: "text-[#6b4c1b]/80",
       pulse: "bg-emerald-500",
     },
     lite: {

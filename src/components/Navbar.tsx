@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
 import TicketPnrButton from "@/components/TicketPnrButton";
 import CheckPnrModal from "@/components/CheckPnrModal";
@@ -13,25 +13,17 @@ interface NavbarProps {
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   { label: "Test Phase", href: "/test-phase" },
   { label: "Contact", href: "/contact" },
+  { label: "Vendor", href: "/vendor" },
   { label: "We're Hiring", href: "/hiring" },
-];
-
-const MOBILE_NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Test", href: "/test-phase" },
-  { label: "Contact", href: "/contact" },
-  { label: "Hiring", href: "/hiring" },
 ];
 
 export default function Navbar({ onOpenPnrModal }: NavbarProps) {
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [internalModalOpen, setInternalModalOpen] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,41 +50,52 @@ export default function Navbar({ onOpenPnrModal }: NavbarProps) {
       />
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white md:bg-transparent shadow-[0_2px_24px_rgba(15,23,42,0.10)] md:shadow-none ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           headerScrolled
-            ? "md:bg-white/95 md:backdrop-blur-xl md:border-b md:border-slate-100 md:shadow-sm"
-            : ""
+            ? "bg-white/95 backdrop-blur-xl border-b border-slate-100 shadow-sm"
+            : isHome
+            ? "bg-transparent shadow-none"
+            : "bg-white/95 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none shadow-[0_2px_20px_rgba(15,23,42,0.08)] md:shadow-none"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+        {/* Top Bar: aligned at px-[8%] on desktop so RailQuick sits directly above the first marigold swag */}
+        <div className="w-full px-4 md:px-[8%] relative z-30">
+          <div className="flex items-center justify-between h-15 sm:h-18 md:h-[4.6vw] md:min-h-[60px] md:max-h-[78px]">
             {/* Logo */}
-            <Link href="/" className="inline-block shrink-0">
-              <Logo className="h-9 sm:h-12 w-auto" />
+            <Link href="/" className="inline-block shrink-0 relative z-30">
+              <Logo className="h-9 sm:h-11 md:h-11 lg:h-12 w-auto drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]" />
             </Link>
 
-            {/* Desktop Nav - Original Floating Pill Design */}
-            <div className="hidden md:flex items-center gap-1 bg-slate-100/50 backdrop-blur-md p-1 rounded-full border border-slate-200/50">
+            {/* Desktop Nav - Crisp White Oval Capsule Pill Design */}
+            <div className="hidden md:flex items-center gap-1 bg-white/95 backdrop-blur-xl p-1.5 rounded-full border border-white shadow-[0_8px_30px_rgba(15,23,42,0.14)]">
               {NAV_LINKS.map((item) => {
                 const isActive = pathname === item.href;
+                const isVendor = item.label === "Vendor";
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`px-4 lg:px-5 py-2 rounded-full text-xs lg:text-sm font-semibold transition-all duration-300 ${
+                    className={`relative px-4 lg:px-5 xl:px-6 py-2 rounded-full text-xs lg:text-sm font-bold transition-all duration-300 flex items-center justify-center ${
                       isActive
-                        ? "bg-white text-slate-900 shadow-sm"
-                        : "text-slate-500 hover:text-slate-900 hover:bg-white/50"
+                        ? "bg-white text-slate-900 shadow-[0_2px_10px_rgba(15,23,42,0.10)] border border-slate-200/80"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"
                     }`}
                   >
-                    {item.label}
+                    <span className="relative inline-flex items-center">
+                      <span>{item.label}</span>
+                      {isVendor && (
+                        <span className="absolute -top-2.5 -right-3.5 px-1.5 py-[1.5px] rounded-full bg-emerald-600 text-white text-[8px] lg:text-[8.5px] font-black uppercase tracking-wider shadow-xs leading-none pointer-events-none">
+                          Join
+                        </span>
+                      )}
+                    </span>
                   </Link>
                 );
               })}
             </div>
 
             {/* Desktop Ticket PNR Action Button */}
-            <div className="hidden md:block shrink-0">
+            <div className="hidden md:block shrink-0 relative z-30">
               <TicketPnrButton
                 onClick={handleOpenPnr}
                 size="md"
@@ -101,7 +104,7 @@ export default function Navbar({ onOpenPnrModal }: NavbarProps) {
             </div>
 
             {/* Mobile Ticket PNR Action Button */}
-            <div className="md:hidden shrink-0">
+            <div className="md:hidden shrink-0 relative z-30">
               <TicketPnrButton
                 onClick={handleOpenPnr}
                 size="sm"
@@ -111,23 +114,31 @@ export default function Navbar({ onOpenPnrModal }: NavbarProps) {
           </div>
         </div>
 
-        {/* Mobile Nav Links - Floating White Glass Pill Bar */}
-        <div className="flex px-4 pb-3 md:hidden w-full overflow-x-auto no-scrollbar">
-          <div className="w-full bg-white border border-slate-200/80 rounded-full p-1 shadow-[0_4px_20px_rgba(15,23,42,0.10)]">
+        {/* Mobile Nav Links - Unified 5 Links (Home, Test Phase, Contact, Vendor, We're Hiring) matching Laptop across all pages */}
+        <div className="flex px-3.5 pb-2.5 md:hidden w-full relative z-30">
+          <div className="w-full bg-white/95 backdrop-blur-xl border border-white/90 rounded-full p-1 shadow-[0_6px_22px_rgba(15,23,42,0.14)]">
             <div className="flex items-center justify-between gap-0.5 w-full">
-              {MOBILE_NAV_LINKS.map((item) => {
+              {NAV_LINKS.map((item) => {
                 const isActive = pathname === item.href;
+                const isVendor = item.label === "Vendor";
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`flex-1 text-center py-2 px-1 rounded-full text-[11px] font-extrabold tracking-tight transition-all duration-300 ${
+                    className={`relative px-2.5 py-2 rounded-full text-[11px] sm:text-xs whitespace-nowrap tracking-tight transition-all duration-300 text-center flex items-center justify-center ${
                       isActive
-                        ? "bg-white text-blue-600 shadow-sm border border-slate-100"
-                        : "text-slate-500 hover:text-slate-900"
+                        ? "bg-white text-[#0c4a8a] font-extrabold shadow-[0_2px_8px_rgba(15,23,42,0.10)] border border-slate-200/80"
+                        : "text-slate-500 hover:text-slate-900 font-bold"
                     }`}
                   >
-                    {item.label}
+                    <span className="relative inline-flex items-center">
+                      <span>{item.label}</span>
+                      {isVendor && (
+                        <span className="absolute -top-2.5 -right-3.5 px-1.5 py-[1.5px] rounded-full bg-emerald-600 text-white text-[7px] font-black uppercase tracking-wider shadow-xs leading-none pointer-events-none">
+                          Join
+                        </span>
+                      )}
+                    </span>
                   </Link>
                 );
               })}

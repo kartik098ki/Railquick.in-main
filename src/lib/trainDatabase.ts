@@ -59,6 +59,56 @@ export interface TrainDirectoryEntry {
 }
 
 export const TRAIN_DIRECTORY: Record<string, TrainDirectoryEntry> = {
+  // Mangalore SF Express (CSMT - MAJN)
+  "12133": {
+    trainNo: "12133",
+    trainName: "MANGALURU JN SF EXPRESS",
+    trainType: "Superfast Express",
+    from: { code: "CSMT", name: "Chhatrapati Shivaji Maharaj Terminus" },
+    to: { code: "MAJN", name: "Mangaluru Jn" },
+    travelTime: "15:03 hrs",
+    totalDistance: "894 km",
+    runningDays: "All 7 Days",
+    stops: [
+      { code: "CSMT", name: "Chhatrapati Shivaji Maharaj Terminus", halt: "Origin", arr: "--", dep: "22:02", platform: "8" },
+      { code: "TNA", name: "Thane", halt: "3 min", arr: "22:27", dep: "22:30", platform: "7" },
+      { code: "PNVL", name: "Panvel", halt: "5 min", arr: "23:10", dep: "23:15", platform: "6" },
+      { code: "RN", name: "Ratnagiri", halt: "5 min", arr: "03:40", dep: "03:45", platform: "1" },
+      { code: "KKW", name: "Kankavali", halt: "2 min", arr: "05:30", dep: "05:32", platform: "1" },
+      { code: "THVM", name: "Thivim", halt: "2 min", arr: "06:42", dep: "06:44", platform: "1" },
+      { code: "MAO", name: "Madgaon Jn", halt: "10 min", arr: "07:40", dep: "07:50", platform: "1" },
+      { code: "KAWR", name: "Karwar", halt: "2 min", arr: "08:40", dep: "08:42", platform: "1" },
+      { code: "KT", name: "Kumta", halt: "2 min", arr: "09:38", dep: "09:40", platform: "1" },
+      { code: "MRDW", name: "Murdeshwar", halt: "2 min", arr: "10:16", dep: "10:18", platform: "1" },
+      { code: "BYNR", name: "Mookambika Road Byndoor", halt: "2 min", arr: "10:42", dep: "10:44", platform: "1" },
+      { code: "UD", name: "Udupi", halt: "2 min", arr: "11:36", dep: "11:38", platform: "1" },
+      { code: "SL", name: "Surathkal", halt: "2 min", arr: "12:18", dep: "12:20", platform: "1" },
+      { code: "MAJN", name: "Mangaluru Jn", halt: "Destination", arr: "13:05", dep: "--", platform: "2" },
+    ],
+  },
+  "12134": {
+    trainNo: "12134",
+    trainName: "MUMBAI CSMT SF EXPRESS",
+    trainType: "Superfast Express",
+    from: { code: "MAJN", name: "Mangaluru Jn" },
+    to: { code: "CSMT", name: "Chhatrapati Shivaji Maharaj Terminus" },
+    travelTime: "15:10 hrs",
+    totalDistance: "894 km",
+    runningDays: "All 7 Days",
+    stops: [
+      { code: "MAJN", name: "Mangaluru Jn", halt: "Origin", arr: "--", dep: "14:00", platform: "2" },
+      { code: "UD", name: "Udupi", halt: "2 min", arr: "15:00", dep: "15:02", platform: "1" },
+      { code: "MRDW", name: "Murdeshwar", halt: "2 min", arr: "16:20", dep: "16:22", platform: "1" },
+      { code: "KT", name: "Kumta", halt: "2 min", arr: "17:00", dep: "17:02", platform: "1" },
+      { code: "KAWR", name: "Karwar", halt: "2 min", arr: "17:58", dep: "18:00", platform: "1" },
+      { code: "MAO", name: "Madgaon Jn", halt: "10 min", arr: "19:00", dep: "19:10", platform: "2" },
+      { code: "THVM", name: "Thivim", halt: "2 min", arr: "20:00", dep: "20:02", platform: "2" },
+      { code: "RN", name: "Ratnagiri", halt: "5 min", arr: "23:05", dep: "23:10", platform: "2" },
+      { code: "PNVL", name: "Panvel", halt: "5 min", arr: "03:40", dep: "03:45", platform: "7" },
+      { code: "TNA", name: "Thane", halt: "3 min", arr: "04:22", dep: "04:25", platform: "6" },
+      { code: "CSMT", name: "Chhatrapati Shivaji Maharaj Terminus", halt: "Destination", arr: "05:10", dep: "--", platform: "14" },
+    ],
+  },
   // Lucknow Shatabdi
   "12004": {
     trainNo: "12004",

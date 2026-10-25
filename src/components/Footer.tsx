@@ -40,7 +40,7 @@ export default function Footer() {
         </svg>
       </a>
       <a
-        href="https://www.instagram.com/railquick/p/DeWK7rciKLN/"
+        href="https://www.instagram.com/railquick/"
         target="_blank"
         rel="noopener noreferrer"
         className="w-9 h-9 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-white hover:text-slate-900 transition-all md:hover:scale-110"
@@ -107,6 +107,7 @@ export default function Footer() {
               <div className="space-y-2 sm:space-y-3">
                 <Link href="/terms" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Terms</Link>
                 <Link href="/privacy" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Privacy</Link>
+                <Link href="/security" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm font-medium text-emerald-400 hover:text-emerald-300">Security</Link>
                 <Link href="/pilot-terms" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Pilot Terms</Link>
                 <Link href="/disclaimer" className="block text-slate-400 hover:text-white transition-colors text-[10px] sm:text-sm">Disclaimer</Link>
               </div>
@@ -131,9 +132,21 @@ export default function Footer() {
         </div>
 
 
-        {/* Bottom bar with Copyright */}
-        <div className="border-t border-slate-900 pt-6 text-center">
-          <p className="text-slate-400 text-xs sm:text-sm font-medium">© 2026 RailQuick Private Limited. All rights reserved.</p>
+        {/* Bottom bar with Copyright & Red Heart Signature */}
+        <div className="border-t border-slate-900 pt-6 flex flex-col items-center justify-center gap-2.5 text-center">
+          <p className="text-slate-400 text-xs sm:text-sm font-medium">
+            © 2026 RailQuick Private Limited. All rights reserved.
+          </p>
+          <p className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-300 tracking-wide">
+            <span>Made with</span>
+            <span
+              className="inline-flex items-center justify-center text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.65)] animate-pulse text-sm sm:text-base"
+              aria-label="love"
+            >
+              ❤️
+            </span>
+            <span>in India — Built for Every Train Passenger&apos;s Journey</span>
+          </p>
         </div>
       </div>
     </footer>

@@ -160,7 +160,6 @@ export default function RootLayout({
           "RailQuick Private Limited connects Indian Railways passengers with essential products — including sealed drinking water, mobile chargers, emergency OTC medicines, hygiene kits, baby care, and travel comfort accessories — delivered directly to their coach and seat during scheduled train halts.",
         sameAs: [
           "https://www.instagram.com/railquick/",
-          "https://www.instagram.com/railquick/p/DeWK7rciKLN/",
         ],
         contactPoint: [
           {

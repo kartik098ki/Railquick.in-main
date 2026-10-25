@@ -92,7 +92,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
     locationStationPlaceholder: "e.g. CNB - Kanpur Central (Platform 1 & 4)",
     categoryLabel: "Select Products Offered",
     categories: [
-      "Hot Restaurant Meals & Thalis",
+      "Daily Travel Essentials",
       "City Famous Sweets & Regional Specialities",
       "Packaged Munchies, Chips & Drinks",
       "Emergency Medicines & First Aid",
@@ -109,7 +109,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "Instant Payout Direct to Bank Account",
       "Dedicated RailQuick Station Runner Support",
     ],
-    waitlistBadge: "9000+ Customers on Early Waitlist!",
+    waitlistBadge: "12000+ Customers on Early Waitlist!",
   },
   hi: {
     badge: "रेलक्विक वेंडर पार्टनर नेटवर्क",
@@ -134,7 +134,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
     locationStationPlaceholder: "उदा. CNB - कानपुर सेंट्रल (प्लेटफॉर्म 1)",
     categoryLabel: "बेचे जाने वाले सामान चुनें",
     categories: [
-      "गरमा गरम खाना और थाली",
+      "दैनिक यात्रा आवश्यकताएँ व सामान",
       "शहर की प्रसिद्ध मिठाईयाँ व नमकीन",
       "पैक्ड स्नैक्स, चिप्स और कोल्ड ड्रिंक्स",
       "इमरजेंसी दवाइयाँ और फर्स्ट एड",
@@ -151,7 +151,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "डिलीवरी पूरा होते ही तुरंत बैंक ट्रांसफर",
       "हर स्टेशन पर रेलक्विक सपोर्ट एग्जीक्यूटिव",
     ],
-    waitlistBadge: "9000+ ग्राहक वेटलिस्ट में शामिल!",
+    waitlistBadge: "12000+ ग्राहक वेटलिस्ट में शामिल!",
   },
   hinglish: {
     badge: "RailQuick Vendor Partner Network",
@@ -176,7 +176,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
     locationStationPlaceholder: "e.g. CNB - Kanpur Central (Platform 1)",
     categoryLabel: "Konsa Items Sell Karoge?",
     categories: [
-      "Garam Fresh Meals & Thali",
+      "Daily Travel Essentials & Items",
       "City Famous Sweets & Local Items",
       "Packaged Snacks, Biscuits & Cold Drinks",
       "Emergency Medicines & First Aid Kit",
@@ -193,7 +193,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "Instant Payment Direct Direct Bank Account Mein",
       "Har Station Par RailQuick Partner Support",
     ],
-    waitlistBadge: "9000+ Customers Waitlist Joined!",
+    waitlistBadge: "12000+ Customers Waitlist Joined!",
   },
   mr: {
     badge: "रेलक्विक व्हेंडर पार्टनर नेटवर्क",
@@ -218,7 +218,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
     locationStationPlaceholder: "उदा. PUNE - पुणे जंक्शन (प्लॅटफॉर्म १)",
     categoryLabel: "विक्रीची उत्पादने निवडा",
     categories: [
-      "गरम जेवण आणि थाळी",
+      "दैनिक प्रवास जीवनावश्यक वस्तू",
       "स्थानिक प्रसिद्ध मिठाई आणि फराळ",
       "पॅक केलेले स्नॅक्स आणि शीतपेये",
       "आपत्कालीन औषधे",
@@ -235,7 +235,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "थेट बँक खात्यात त्वरित पेमेंट",
       "प्रत्येक स्टेशनवर २४/७ सपोर्ट",
     ],
-    waitlistBadge: "९०००+ ग्राहक वेटलिस्टमध्ये सामील!",
+    waitlistBadge: "१२०००+ ग्राहक वेटलिस्टमध्ये सामील!",
   },
   bn: {
     badge: "রেলকুইক ভেন্ডর পার্টনার নেটওয়ার্ক",
@@ -260,12 +260,12 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
     locationStationPlaceholder: "যেমন- HWH - হাওড়া জংশন (প্ল্যাটফর্ম ৯)",
     categoryLabel: "বিক্রয়যোগ্য পণ্য নির্বাচন করুন",
     categories: [
-      "গরম খাবার ও থালি",
+      "ভ্রমণের প্রয়োজনীয় জিনিসপত্র",
       "শহরের বিখ্যাত মিষ্টি ও স্ন্যাক্স",
       "প্যাকেজড স্ন্যাক্স ও পানীয়",
       "জরুরি ওষুধ ও ফার্স্ট এইড",
       "মোবাইল চার্জার ও ইলেকট্রনিক্স",
-      "ভ্রমণের প্রয়োজনীয় জিনিসপত্র",
+      "ভ্রমণ কমফোর্ট কিট",
     ],
     fssaiLabel: "FSSAI লাইসেন্স / GSTIN",
     fssaiPlaceholder: "FSSAI নম্বর",
@@ -277,7 +277,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "সরাসরি ব্যাংক অ্যাকাউন্টে দ্রুত পেমেন্ট",
       "প্রতিটি স্টেশনে ২৪/৭ সাপোর্ট",
     ],
-    waitlistBadge: "৯০০০+ গ্রাহক ওয়েটলিস্টে যুক্ত!",
+    waitlistBadge: "১২০০০+ গ্রাহক ওয়েটলিস্টে যুক্ত!",
   },
   ta: {
     badge: "ரயில் குவிக் வெண்டர் நெட்வொர்க்",
@@ -302,7 +302,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
     locationStationPlaceholder: "உ-ம்: MAS - சென்னை சென்ட்ரல் (பிளாட்பாரம் 1)",
     categoryLabel: "வழங்கப்படும் பொருட்கள்",
     categories: [
-      "சூடான உணவுகள் & சாப்பாடு",
+      "தினசரி பயண அத்தியாவசிய பொருட்கள்",
       "பிரபலமான இனிப்புகள் & தின்பண்டங்கள்",
       "பாக்கெட் சிப்ஸ் & குளிர்பானங்கள்",
       "அவசர மருந்துகள்",
@@ -319,7 +319,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "நேரடி வங்கி கணக்கில் உடனடி பணம் செலுத்துதல்",
       "24/7 ஆதரவு சேவை",
     ],
-    waitlistBadge: "9000+ வாடிக்கையாளர்கள் காத்திருப்பு பட்டியலில்!",
+    waitlistBadge: "12000+ வாடிக்கையாளர்கள் காத்திருப்பு பட்டியலில்!",
   },
   gu: {
     badge: "રેલક્વિક વેન્ડર પાર્ટનર નેટવર્ક",
@@ -344,12 +344,12 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
     locationStationPlaceholder: "દા.ત. ADI - અમદાવાદ જંકશન (પ્લેટફોર્મ ૧)",
     categoryLabel: "વેચાણ માટેની વસ્તુઓ પસંદ કરો",
     categories: [
-      "ગરમા ગરમ ખાણું અને થાળી",
+      "મુસાફરીનો જરૂરી સામાન",
       "શહેરની પ્રખ્યાત મીઠાઈઓ અને ફરસાણ",
       "પેક્ડ સ્નેક્સ અને ઠંડા પીણાં",
       "ઈમરજન્સી દવાઓ",
       "મોબાઈલ ચાર્જર અને ઈલેક્ટ્રોનિક્સ",
-      "મુસાફરીનો જરૂરી સામાન",
+      "મુસાફરી સહાયક કીટ",
     ],
     fssaiLabel: "FSSAI લાયસન્સ / GST નંબર",
     fssaiPlaceholder: "FSSAI નંબર",
@@ -361,7 +361,7 @@ const TRANSLATIONS: Record<SupportedLanguage, LanguageContent> = {
       "સીધા બેંક એકાઉન્ટમાં તુરંત ટ્રાન્સફર",
       "દરેક સ્ટેશન પર રેલક્વિક સપોર્ટ",
     ],
-    waitlistBadge: "૯૦૦૦+ ગ્રાહકો પ્રતીક્ષા યાદીમાં!",
+    waitlistBadge: "૧૨૦૦૦+ ગ્રાહકો પ્રતીક્ષા યાદીમાં!",
   },
 };
 
@@ -485,39 +485,71 @@ export default function VendorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-slate-900 flex flex-col justify-between selection:bg-amber-100 selection:text-slate-950">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col justify-between selection:bg-blue-100 selection:text-blue-950">
       <CheckPnrModal isOpen={isCheckPnrOpen} onClose={() => setIsCheckPnrOpen(false)} />
 
       {/* ─── UNIFIED HEADER NAVIGATION ─── */}
       <Navbar onOpenPnrModal={() => setIsCheckPnrOpen(true)} />
 
       {/* ─── MAIN CONTENT ─── */}
-      <main className="flex-1 pb-16 pt-32 sm:pt-28 md:pt-24">
-        {/* Top Hero Section */}
-        <section className="pt-4 sm:pt-8 pb-10 sm:pb-12 bg-gradient-to-b from-emerald-50/70 via-white to-[#fafafa] border-b border-slate-200/70 relative">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            {/* Live 9000+ Waitlist Callout Badge */}
-            <div className="inline-flex items-center justify-center max-w-[94%] sm:max-w-none gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-black mb-4 shadow-2xs">
-              <Sparkles className="w-4 h-4 text-emerald-700 shrink-0" />
-              <span className="leading-tight text-center">{content.waitlistBadge}</span>
+      <main className="flex-1 pb-24 pt-28 sm:pt-32 md:pt-28 bg-gradient-to-b from-blue-50/60 via-white to-[#f8fafc]">
+        {/* Bright, High-Trust Light Hero Section */}
+        <section className="relative overflow-hidden pt-6 pb-14 sm:pt-10 sm:pb-18 border-b border-slate-200/70">
+          {/* Soft Daylight Pastel Glows */}
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[680px] h-[300px] bg-blue-400/10 rounded-full blur-[110px] pointer-events-none" />
+          <div className="absolute top-12 right-10 w-72 h-72 bg-emerald-400/10 rounded-full blur-[100px] pointer-events-none" />
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10">
+            {/* Top Callout Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 mb-5">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold tracking-tight shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>{content.waitlistBadge}</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/90 text-amber-800 text-xs font-extrabold uppercase tracking-wider shadow-2xs">
+                <Zap className="w-3.5 h-3.5 text-amber-600" />
+                <span>0% Commission • First 30 Days</span>
+              </div>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">
+            <h1 className="text-3xl sm:text-5xl lg:text-[50px] font-black text-slate-900 tracking-tight leading-[1.12] mb-4 max-w-4xl mx-auto">
               {content.title}
             </h1>
-            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium mb-6">
+            <p className="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium mb-8">
               {content.subtitle}
             </p>
 
-            {/* ── LANGUAGE SELECTOR AT TOP (SCROLLABLE BAR) ── */}
-            <div className="bg-white p-3.5 rounded-3xl border border-slate-200 shadow-sm max-w-2xl mx-auto text-left">
-              <div className="flex items-center gap-2 mb-2 px-1 text-xs font-black text-slate-800 uppercase tracking-wider">
-                <Globe className="w-4 h-4 text-emerald-600" />
-                <span>Select Vendor Portal Language / भाषा चुनें:</span>
+            {/* 3 Compact Executive Highlights in a Single Clean Row */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-3.5 max-w-2xl mx-auto mb-7">
+              <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-3 p-2.5 sm:p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_16px_rgba(15,23,42,0.04)] text-center sm:text-left">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
+                  <ShieldCheck className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-black text-slate-900 leading-tight">0% Commission</span>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-3 p-2.5 sm:p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_16px_rgba(15,23,42,0.04)] text-center sm:text-left">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
+                  <CreditCard className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-black text-slate-900 leading-tight">Instant Payout</span>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-3 p-2.5 sm:p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_16px_rgba(15,23,42,0.04)] text-center sm:text-left">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
+                  <Train className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-black text-slate-900 leading-tight">Live Coach Sync</span>
+              </div>
+            </div>
+
+            {/* ── ELEGANT NATIVE LANGUAGE SELECTOR ── */}
+            <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 p-2 sm:p-2.5 bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-full border border-slate-200/90 shadow-sm max-w-3xl mx-auto mb-2">
+              <div className="flex items-center gap-1.5 px-3 py-0.5 text-slate-500 text-xs font-bold shrink-0">
+                <Globe className="w-4 h-4 text-blue-600" />
+                <span className="text-[11px] uppercase tracking-wider font-extrabold text-slate-600">भाषा / Language:</span>
               </div>
 
-              {/* Horizontal Scrollable Language Bar */}
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar snap-x py-1 px-1 rounded-2xl bg-slate-100/80 border border-slate-200/80">
+              {/* Responsive Wrap Language Switcher */}
+              <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5">
                 {[
                   { id: "en", label: "English", sub: "EN" },
                   { id: "hi", label: "हिन्दी", sub: "Hindi" },
@@ -526,62 +558,68 @@ export default function VendorPage() {
                   { id: "bn", label: "বাংলা", sub: "Bengali" },
                   { id: "ta", label: "தமிழ்", sub: "Tamil" },
                   { id: "gu", label: "ગુજરાતી", sub: "Gujarati" },
-                ].map((l) => (
-                  <button
-                    key={l.id}
-                    type="button"
-                    onClick={() => setLang(l.id as SupportedLanguage)}
-                    className={`snap-center shrink-0 px-4 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                      lang === l.id
-                        ? "bg-slate-900 text-white shadow-md scale-102"
-                        : "bg-white hover:bg-slate-200/60 text-slate-700 border border-slate-200/60"
-                    }`}
-                  >
-                    <span>{l.label}</span>
-                    <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-mono font-normal ${
-                      lang === l.id ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"
-                    }`}>
-                      {l.sub}
-                    </span>
-                  </button>
-                ))}
+                ].map((l) => {
+                  const isSelected = lang === l.id;
+                  return (
+                    <button
+                      key={l.id}
+                      type="button"
+                      onClick={() => setLang(l.id as SupportedLanguage)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                        isSelected
+                          ? "bg-slate-900 text-white shadow-xs"
+                          : "bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200/70"
+                      }`}
+                    >
+                      <span>{l.label}</span>
+                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
         </section>
 
         {/* Form Container */}
-        <section className="max-w-3xl mx-auto px-4 sm:px-6 -mt-4 relative z-10">
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 -mt-6 relative z-20">
           <form
             onSubmit={handleSubmit}
-            className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-lg space-y-8"
+            className="bg-white rounded-[28px] border border-slate-200/90 p-6 sm:p-10 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.08)] space-y-8"
           >
             {/* 1. VENDOR TYPE SELECTION */}
             <div>
-              <label className="block text-xs font-mono font-black uppercase tracking-wider text-slate-500 mb-3">
-                1. {content.typeLabel}
-              </label>
+              <div className="flex items-center gap-2.5 mb-4">
+                <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-black flex items-center justify-center shadow-2xs">
+                  1
+                </span>
+                <label className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">
+                  {content.typeLabel}
+                </label>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div
                   onClick={() => setVendorType("running")}
                   className={`cursor-pointer p-5 rounded-2xl border-2 transition-all flex flex-col justify-between ${
                     vendorType === "running"
-                      ? "border-emerald-600 bg-emerald-50/50 shadow-sm"
-                      : "border-slate-200 bg-white hover:border-slate-300"
+                      ? "border-blue-600 bg-gradient-to-br from-blue-50/70 via-white to-emerald-50/30 shadow-md shadow-blue-500/10"
+                      : "border-slate-200 bg-white hover:border-blue-300"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700">
+                    <div className="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-sm">
                       <Train className="w-5 h-5" />
                     </div>
-                    <input
-                      type="radio"
-                      name="vendorType"
-                      checked={vendorType === "running"}
-                      onChange={() => setVendorType("running")}
-                      className="w-4 h-4 text-emerald-600 focus:ring-emerald-500"
-                    />
+                    <div
+                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        vendorType === "running"
+                          ? "border-blue-600 bg-blue-600 text-white"
+                          : "border-slate-300 bg-white"
+                      }`}
+                    >
+                      {vendorType === "running" && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                    </div>
                   </div>
                   <h3 className="text-base font-black text-slate-900 mb-1">
                     {content.typeRunning}
@@ -595,21 +633,23 @@ export default function VendorPage() {
                   onClick={() => setVendorType("station")}
                   className={`cursor-pointer p-5 rounded-2xl border-2 transition-all flex flex-col justify-between ${
                     vendorType === "station"
-                      ? "border-emerald-600 bg-emerald-50/50 shadow-sm"
-                      : "border-slate-200 bg-white hover:border-slate-300"
+                      ? "border-emerald-600 bg-gradient-to-br from-emerald-50/70 via-white to-blue-50/30 shadow-md shadow-emerald-500/10"
+                      : "border-slate-200 bg-white hover:border-emerald-300"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700">
+                    <div className="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-sm">
                       <Store className="w-5 h-5" />
                     </div>
-                    <input
-                      type="radio"
-                      name="vendorType"
-                      checked={vendorType === "station"}
-                      onChange={() => setVendorType("station")}
-                      className="w-4 h-4 text-emerald-600 focus:ring-emerald-500"
-                    />
+                    <div
+                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        vendorType === "station"
+                          ? "border-emerald-600 bg-emerald-600 text-white"
+                          : "border-slate-300 bg-white"
+                      }`}
+                    >
+                      {vendorType === "station" && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                    </div>
                   </div>
                   <h3 className="text-base font-black text-slate-900 mb-1">
                     {content.typeStation}
@@ -622,15 +662,20 @@ export default function VendorPage() {
             </div>
 
             {/* 2. BASIC VENDOR DETAILS */}
-            <div className="space-y-4 pt-4 border-t border-slate-100">
-              <label className="block text-xs font-mono font-black uppercase tracking-wider text-slate-500">
-                2. Business &amp; Contact Details
-              </label>
+            <div className="space-y-4 pt-6 border-t border-slate-100">
+              <div className="flex items-center gap-2.5 mb-2">
+                <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-black flex items-center justify-center shadow-2xs">
+                  2
+                </span>
+                <label className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">
+                  Business &amp; Contact Details
+                </label>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    {content.shopNameLabel} *
+                    {content.shopNameLabel} <span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
                     <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -640,14 +685,14 @@ export default function VendorPage() {
                       placeholder={content.shopNamePlaceholder}
                       value={shopName}
                       onChange={(e) => setShopName(e.target.value)}
-                      className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-slate-400 focus:outline-none transition-all"
+                      className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    {content.ownerNameLabel} *
+                    {content.ownerNameLabel} <span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
                     <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -657,14 +702,14 @@ export default function VendorPage() {
                       placeholder={content.ownerNamePlaceholder}
                       value={ownerName}
                       onChange={(e) => setOwnerName(e.target.value)}
-                      className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-slate-400 focus:outline-none transition-all"
+                      className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    {content.mobileLabel} *
+                    {content.mobileLabel} <span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
                     <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -674,7 +719,7 @@ export default function VendorPage() {
                       placeholder={content.mobilePlaceholder}
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value)}
-                      className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-slate-400 focus:outline-none transition-all"
+                      className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -684,7 +729,7 @@ export default function VendorPage() {
                     {content.whatsappLabel}
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-emerald-600">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[11px] font-black text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">
                       WA
                     </span>
                     <input
@@ -692,7 +737,7 @@ export default function VendorPage() {
                       placeholder={content.whatsappPlaceholder}
                       value={whatsapp}
                       onChange={(e) => setWhatsapp(e.target.value)}
-                      className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-slate-400 focus:outline-none transition-all"
+                      className="w-full h-12 pl-12 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -716,17 +761,22 @@ export default function VendorPage() {
                     }
                     value={locationDetails}
                     onChange={(e) => setLocationDetails(e.target.value)}
-                    className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-slate-400 focus:outline-none transition-all"
+                    className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/10 focus:outline-none transition-all"
                   />
                 </div>
               </div>
             </div>
 
             {/* 3. PRODUCT CATEGORIES */}
-            <div className="pt-4 border-t border-slate-100">
-              <label className="block text-xs font-mono font-black uppercase tracking-wider text-slate-500 mb-3">
-                3. {content.categoryLabel}
-              </label>
+            <div className="pt-6 border-t border-slate-100">
+              <div className="flex items-center gap-2.5 mb-3.5">
+                <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-black flex items-center justify-center shadow-2xs">
+                  3
+                </span>
+                <label className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">
+                  {content.categoryLabel}
+                </label>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {content.categories.map((cat) => {
@@ -735,17 +785,17 @@ export default function VendorPage() {
                     <div
                       key={cat}
                       onClick={() => handleCategoryToggle(cat)}
-                      className={`cursor-pointer p-3 rounded-xl border transition-all flex items-center justify-between ${
+                      className={`cursor-pointer p-3.5 rounded-xl border transition-all flex items-center justify-between ${
                         isChecked
-                          ? "border-emerald-600 bg-emerald-50/70 text-slate-900 font-bold"
-                          : "border-slate-200 bg-slate-50/50 hover:bg-slate-100 text-slate-700 text-xs font-medium"
+                          ? "border-blue-600 bg-blue-50/70 text-slate-900 font-bold shadow-2xs"
+                          : "border-slate-200 bg-slate-50/60 hover:bg-slate-100 text-slate-700 text-xs font-semibold"
                       }`}
                     >
-                      <span className="text-xs">{cat}</span>
+                      <span className="text-xs sm:text-[13px]">{cat}</span>
                       <div
-                        className={`w-5 h-5 rounded-md flex items-center justify-center text-xs ${
+                        className={`w-5 h-5 rounded-md flex items-center justify-center text-xs shrink-0 ${
                           isChecked
-                            ? "bg-emerald-600 text-white"
+                            ? "bg-blue-600 text-white"
                             : "border border-slate-300 bg-white"
                         }`}
                       >
@@ -758,10 +808,15 @@ export default function VendorPage() {
             </div>
 
             {/* 4. LICENSE & PAYOUT INFO */}
-            <div className="space-y-4 pt-4 border-t border-slate-100">
-              <label className="block text-xs font-mono font-black uppercase tracking-wider text-slate-500">
-                4. License &amp; Instant Bank Payout
-              </label>
+            <div className="space-y-4 pt-6 border-t border-slate-100">
+              <div className="flex items-center gap-2.5 mb-2">
+                <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-black flex items-center justify-center shadow-2xs">
+                  4
+                </span>
+                <label className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-800">
+                  License &amp; Instant Bank Payout
+                </label>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -775,7 +830,7 @@ export default function VendorPage() {
                       placeholder={content.fssaiPlaceholder}
                       value={fssai}
                       onChange={(e) => setFssai(e.target.value)}
-                      className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-slate-400 focus:outline-none transition-all"
+                      className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 focus:outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -791,19 +846,19 @@ export default function VendorPage() {
                       placeholder={content.payoutPlaceholder}
                       value={payout}
                       onChange={(e) => setPayout(e.target.value)}
-                      className="w-full h-11 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-slate-400 focus:outline-none transition-all"
+                      className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 focus:outline-none transition-all"
                     />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* TRUST POINTS BADGE */}
-            <div className="bg-emerald-50/80 border border-emerald-200/80 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-bold text-emerald-900">
+            {/* LIGHT TRUST POINTS BADGE */}
+            <div className="bg-gradient-to-r from-emerald-50/90 via-blue-50/60 to-emerald-50/90 text-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-extrabold border border-emerald-200/80 shadow-2xs">
               {content.trustPoints.map((tp, idx) => (
-                <div key={idx} className="flex items-center gap-1.5">
+                <div key={idx} className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>{tp}</span>
+                  <span className="text-slate-800">{tp}</span>
                 </div>
               ))}
             </div>
@@ -812,7 +867,7 @@ export default function VendorPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-14 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-60 text-white font-black text-sm sm:text-base rounded-2xl shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition-all active:scale-98"
+              className="w-full h-14 bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 disabled:opacity-60 text-white font-black text-sm sm:text-base rounded-2xl shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2.5 transition-all active:scale-98 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
@@ -833,7 +888,7 @@ export default function VendorPage() {
       {/* ── SUCCESSFUL REGISTRATION ID BADGE MODAL ── */}
       <AnimatePresence>
         {submittedPartner && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-900/40 backdrop-blur-sm">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -856,39 +911,39 @@ export default function VendorPage() {
               </p>
 
               {/* ID BADGE CARD */}
-              <div className="my-3 sm:my-4 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-700 shadow-xl text-left relative overflow-hidden">
-                <div className="flex items-center justify-between mb-3 border-b border-slate-700 pb-2.5">
+              <div className="my-3 sm:my-4 bg-gradient-to-br from-blue-600 via-indigo-600 to-emerald-600 text-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-blue-400/30 shadow-xl text-left relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3 border-b border-white/20 pb-2.5">
                   <div>
-                    <span className="text-[9px] sm:text-[10px] font-mono text-emerald-400 uppercase tracking-widest block font-bold">
+                    <span className="text-[9px] sm:text-[10px] font-mono text-amber-200 uppercase tracking-widest block font-bold">
                       VERIFIED VENDOR PARTNER
                     </span>
                     <h3 className="text-base sm:text-lg font-black text-white">{submittedPartner.shopName}</h3>
                   </div>
-                  <QrCode className="w-8 h-8 sm:w-10 sm:h-10 text-amber-400 bg-white/10 p-1 sm:p-1.5 rounded-lg sm:rounded-xl border border-white/20 shrink-0" />
+                  <QrCode className="w-8 h-8 sm:w-10 sm:h-10 text-amber-300 bg-white/15 p-1 sm:p-1.5 rounded-lg sm:rounded-xl border border-white/25 shrink-0" />
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 sm:gap-2.5 text-xs mb-2.5">
                   <div>
-                    <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Partner ID</span>
-                    <span className="font-mono font-black text-amber-300 text-xs sm:text-sm">{submittedPartner.partnerId}</span>
+                    <span className="text-[9px] sm:text-[10px] text-blue-100 block font-medium">Partner ID</span>
+                    <span className="font-mono font-black text-amber-200 text-xs sm:text-sm">{submittedPartner.partnerId}</span>
                   </div>
                   <div>
-                    <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Owner Name</span>
+                    <span className="text-[9px] sm:text-[10px] text-blue-100 block font-medium">Owner Name</span>
                     <span className="font-bold text-white text-xs sm:text-sm truncate block">{submittedPartner.ownerName}</span>
                   </div>
                   <div>
-                    <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Vendor Category</span>
-                    <span className="font-medium text-emerald-300 text-[11px] sm:text-xs truncate block">{submittedPartner.vendorType}</span>
+                    <span className="text-[9px] sm:text-[10px] text-blue-100 block font-medium">Vendor Category</span>
+                    <span className="font-medium text-emerald-100 text-[11px] sm:text-xs truncate block">{submittedPartner.vendorType}</span>
                   </div>
                   <div>
-                    <span className="text-[9px] sm:text-[10px] text-slate-400 block font-medium">Date Issued</span>
-                    <span className="font-mono text-slate-300 text-[11px] sm:text-xs">{submittedPartner.date}</span>
+                    <span className="text-[9px] sm:text-[10px] text-blue-100 block font-medium">Date Issued</span>
+                    <span className="font-mono text-white text-[11px] sm:text-xs">{submittedPartner.date}</span>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[9px] sm:text-[10px] text-slate-400 font-mono">
-                  <span className="flex items-center gap-1 text-emerald-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Active Onboarding
+                <div className="pt-2 border-t border-white/20 flex items-center justify-between text-[9px] sm:text-[10px] text-blue-100 font-mono">
+                  <span className="flex items-center gap-1 text-emerald-200">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" /> Active Onboarding
                   </span>
                   <span>RailQuick Private Limited</span>
                 </div>
@@ -912,7 +967,7 @@ export default function VendorPage() {
                   onClick={() => {
                     toast({ title: "Partner ID Saved!", description: `${submittedPartner.partnerId} saved to your device.` });
                   }}
-                  className="flex-1 h-10 sm:h-11 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all"
+                  className="flex-1 h-10 sm:h-11 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all"
                 >
                   <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Save Card
                 </button>

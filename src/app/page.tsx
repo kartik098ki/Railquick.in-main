@@ -7,16 +7,17 @@ import Footer from "@/components/Footer";
 import Logo from "@/components/Logo";
 import CheckPnrModal from "@/components/CheckPnrModal";
 import Navbar from "@/components/Navbar";
-import RainThunderEffect from "@/components/RainThunderEffect";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import TicketPnrButton from "@/components/TicketPnrButton";
+import FestiveToran from "@/components/FestiveToran";
 import { toast } from "@/hooks/use-toast";
 import HowItWorksFlow from "@/components/HowItWorksFlow";
 import WhatWeDeliverSection from "@/components/WhatWeDeliverSection";
 import WatchOurStorySection from "@/components/WatchOurStorySection";
 import RailQuickGuarantees from "@/components/RailQuickGuarantees";
+import DelhiStationComingSoon from "@/components/DelhiStationComingSoon";
 import {
   Pill,
   Package,
@@ -142,9 +143,9 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: '100+', numericValue: 100, suffix: '+', label: 'Ongoing Train Deliveries' },
+  { value: '100+', numericValue: 100, suffix: '+', label: 'Deliveries in Just 2-Day Pilot Test' },
   { value: '500+', numericValue: 500, suffix: '+', label: 'Testers' },
-  { value: '9000+', numericValue: 9000, suffix: '+', label: 'Customers Waitlist' },
+  { value: '12000+', numericValue: 12000, suffix: '+', label: 'Customers Waitlist' },
   { value: '10000+', numericValue: 10000, suffix: '+', label: 'Interactions' },
 ];
 
@@ -163,7 +164,7 @@ const reels = [
 ];
 
 // Stable outside component — prevents infinite re-render in typewriter useEffect
-const TYPING_CATEGORIES = ['Snacks', 'Water', 'Chargers', 'Essentials', 'Medicines', 'Pillows'];
+const TYPING_CATEGORIES = ['Sweets', 'Snacks', 'Water', 'Chargers', 'Essentials', 'Medicines', 'Pillows'];
 
 export default function HomePage() {
   const router = useRouter();
@@ -465,14 +466,14 @@ export default function HomePage() {
       <link
         rel="preload"
         as="image"
-        href="/mobile-hero-train.webp"
+        href="/images/hero-diwali-mobile-v2.webp"
         type="image/webp"
         media="(max-width: 767px)"
       />
       <link
         rel="preload"
         as="image"
-        href="/hero-train.webp"
+        href="/images/hero-diwali-desktop-v2.webp"
         type="image/webp"
         media="(min-width: 768px)"
       />
@@ -657,248 +658,341 @@ export default function HomePage() {
 
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        {/* Mobile Hero — exact layout & white fog gradient matching reference photo */}
-        <div className="md:hidden relative bg-slate-950 overflow-hidden min-h-[680px] flex flex-col justify-between pt-36 sm:pt-40 pb-12 px-5">
+      <section className="relative bg-white">
+        {/* Mobile Hero — Clean Top White Fog, Shifted-Up Festive Scene, Laptop-Style Compact Badges & Typography */}
+        <div className="md:hidden relative bg-[#070b14] overflow-hidden rounded-b-[42px] min-h-[750px] flex flex-col justify-between pt-34 sm:pt-38 pb-10 px-5 shadow-[0_12px_30px_rgba(15,23,42,0.18)]">
 
-          {/* Full-bleed portrait train background */}
+          {/* Full-bleed HD portrait festive train platform delivery scene shifted higher so train, people & rangoli are clearly visible */}
           <div className="absolute inset-0 z-0">
             <picture>
-              <source srcSet="/mobile-hero-train.webp" type="image/webp" />
+              <source srcSet="/images/hero-diwali-mobile-v2.webp" type="image/webp" />
               <img
-                src="/mobile-hero-train.jpg"
-                alt="Train Background"
-                width={558}
-                height={974}
+                src="/images/hero-diwali-mobile-v2.jpg"
+                alt="RailQuick Festive Diwali On-Seat Train Delivery"
+                width={1024}
+                height={1820}
                 fetchPriority="high"
                 decoding="async"
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-top"
               />
             </picture>
-            {/* Rain & Lightning */}
-            <RainThunderEffect />
-            {/* Soft White Fog/Glow gradient fade at top under white nav header */}
-            <div className="absolute top-0 inset-x-0 h-44 bg-gradient-to-b from-white via-white/85 via-white/35 to-transparent z-10 pointer-events-none" />
-            {/* Bottom dark vignette overlay for headline & buttons readability */}
-            <div className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-slate-950 via-slate-950/90 via-slate-950/40 to-transparent z-10 pointer-events-none" />
+            {/* Clean Soft White Fog/Glow gradient at the very top (for RailQuick, Check PNR & Top Marigold Arch readability) */}
+            <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white via-white/80 via-40% to-transparent z-10 pointer-events-none" />
+            {/* Bottom dark smoky vignette for crisp headline & CTA button readability */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-[44%] z-10 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(0deg, rgba(24,29,39,0.96) 0%, rgba(10,14,24,0.93) 42%, rgba(15,23,42,0.50) 75%, rgba(15,23,42,0) 100%)",
+              }}
+            />
           </div>
 
           {/* Mobile Hero Content Layout */}
           <div className="relative z-20 flex flex-col justify-between flex-1 h-full w-full">
 
-            {/* Badges stacked at top-left — generous top margin & no overlap */}
-            <div className="flex flex-col items-start gap-2 pt-1">
-              <div className="flex items-center gap-2 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-full px-3.5 py-1.5 shadow-lg max-w-full">
+            {/* Top Badges Stack — Compact w-fit pills matching Laptop style (100+ Live Deliveries removed) */}
+            <div className="flex flex-col items-start gap-2 pt-0.5">
+              {/* Pill 1: Compact Metallic Gold Oval Pill */}
+              <div className="w-fit p-[1.5px] rounded-full bg-gradient-to-r from-[#fae29c] via-[#c8912e] to-[#fae29c] shadow-[0_4px_14px_rgba(0,0,0,0.35)]">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#c48b2a] via-[#ecc76d] to-[#c48b2a] px-3.5 py-1">
+                  <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z" fill="#fffbeb" />
+                    <path d="M19 15L19.8 17.5L22.3 18.3L19.8 19.1L19 21.6L18.2 19.1L15.7 18.3L18.2 17.5L19 15Z" fill="#fef08a" />
+                  </svg>
+                  <span className="text-[#1a1104] text-[11px] sm:text-xs font-extrabold tracking-tight">
+                    Celebrating the Festival of Lights
+                  </span>
+                </div>
+              </div>
+
+              {/* Pill 2: Compact w-fit On-Seat Train Delivery Pill (matching Laptop style) */}
+              <div className="w-fit inline-flex items-center gap-2 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-full px-3.5 py-1.5 shadow-md">
                 <span className="flex h-2 w-2 relative shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#2563eb]"></span>
                 </span>
-                <span className="text-white text-[11px] sm:text-xs font-bold tracking-tight">India&apos;s First On-Seat Train Delivery</span>
-              </div>
-              <div className="flex items-center gap-2 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-full px-3.5 py-1.5 shadow-lg max-w-full">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-                <span className="text-emerald-400 text-[11px] sm:text-xs font-bold tracking-tight">100+ Live Deliveries</span>
+                <span className="text-slate-800 text-[11px] sm:text-xs font-bold tracking-tight whitespace-nowrap">
+                  India&apos;s First On-Seat Train Delivery
+                </span>
               </div>
             </div>
 
-            {/* Train visible area — flex grows to show train engine in middle */}
-            <div className="flex-1 min-h-[140px]" />
+            {/* Center visible window — keeps the festive coach door handoff, family & rangoli completely unobstructed */}
+            <div className="flex-1 min-h-[255px] sm:min-h-[285px]" />
 
-            {/* Headline + Subtitle positioned below train engine */}
-            <div className="flex flex-col items-start gap-1.5 mb-4 text-left">
-              <div className="flex items-center flex-nowrap gap-2 whitespace-nowrap font-black text-white tracking-tight" style={{fontSize:'clamp(28px,9vw,40px)'}}>
-                <span className="text-white">Order</span>
-                <span className="inline-flex items-center">
-                  <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-sky-400 bg-clip-text text-transparent font-black">
-                    {typedText}
+            {/* Bottom Content: Left-Aligned Headline + Centered Premium Buttons */}
+            <div className="mt-auto pt-4 pb-1">
+              <div className="flex flex-col items-start gap-1 mb-4 text-left">
+                <div
+                  className="flex items-center flex-nowrap gap-2.5 whitespace-nowrap font-black text-white tracking-tight leading-none"
+                  style={{ fontSize: "clamp(30px, 9vw, 42px)" }}
+                >
+                  <span className="text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">Order</span>
+                  <span className="inline-flex items-center font-black">
+                    <span
+                      className="bg-gradient-to-b from-[#4f86f7] via-[#2b63d9] to-[#1d4ed8] bg-clip-text text-transparent"
+                      style={{
+                        filter: "drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.45))",
+                      }}
+                    >
+                      {typedText}
+                    </span>
+                    <span
+                      className="inline-block bg-[#3b82f6] ml-1.5 animate-pulse rounded-full"
+                      style={{ width: "3px", height: "0.82em" }}
+                    />
                   </span>
-                  <span className="inline-block bg-blue-500 ml-1.5 animate-pulse rounded-full" style={{width:'3px', height:'0.85em'}} />
-                </span>
+                </div>
+                <div
+                  className="font-extrabold text-white tracking-tight leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+                  style={{ fontSize: "clamp(21px, 6.5vw, 30px)" }}
+                >
+                  Delivered to Your Seat
+                </div>
               </div>
-              <div className="font-extrabold text-white tracking-tight leading-tight" style={{fontSize:'clamp(22px,7vw,32px)'}}>
-                Delivered to Your Seat
-              </div>
-            </div>
 
-            {/* Buttons pinned to bottom */}
-            <div className="flex flex-col gap-3 w-full">
-              <button
-                onClick={handleTestNow}
-                className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-base font-extrabold shadow-xl shadow-blue-600/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
-              >
-                Open App <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <Link href="/test-phase" className="w-full">
-                <button className="w-full py-4 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-white rounded-2xl text-sm font-bold active:scale-[0.98] transition-all flex items-center justify-center">
-                  Learn About Test Phase →
+              {/* Centered Premium Mobile CTA Buttons — Comfortable Wider Width & Earlier Ultra-Premium Aesthetic */}
+              <div className="flex flex-col items-center gap-3 w-full max-w-[345px] sm:max-w-[365px] mx-auto text-center">
+                {/* Button 1: Specular Royal Sapphire Pill Button */}
+                <button
+                  onClick={handleTestNow}
+                  className="w-full py-3.5 px-6 bg-gradient-to-b from-[#2575fc] via-[#105ded] to-[#073fa8] hover:from-[#1d65e5] hover:to-[#093596] border border-white/40 text-white rounded-full text-[15.5px] font-black tracking-tight shadow-[inset_0_1.5px_2px_rgba(255,255,255,0.6),0_10px_28px_rgba(13,89,242,0.55)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                >
+                  <span>Open App</span>
+                  <ArrowRight className="w-4 h-4 stroke-[2.8] group-hover:translate-x-1 transition-transform" />
                 </button>
-              </Link>
+
+                {/* Button 2: Metallic Champagne-Gold Rim + Dark Smoky Slate Pill */}
+                <Link href="/test-phase" className="w-full block">
+                  <div className="p-[1.5px] rounded-full bg-gradient-to-r from-[#fae29c] via-[#b5934c] to-[#fae29c] shadow-[0_8px_24px_rgba(0,0,0,0.45)] active:scale-[0.98] transition-all">
+                    <button className="w-full py-3.5 px-5 rounded-full bg-gradient-to-r from-[#12161f]/95 via-[#222836]/94 to-[#3c4558]/92 backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.22)] text-white text-[14px] font-black tracking-tight flex items-center justify-center gap-2 group cursor-pointer">
+                      <span>Learn About Test Phase</span>
+                      <ArrowRight className="w-4 h-4 stroke-[2.5] text-[#fae29c] group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </Link>
+              </div>
             </div>
 
           </div>
         </div>
 
-        {/* Desktop Hero */}
-        <div className="hidden md:flex relative min-h-[85vh] lg:min-h-[90vh] items-center pt-16 pb-24 overflow-hidden bg-slate-950">
-          {/* Background Train Image & Rain/Thunderstorm Effect */}
+        {/* Desktop Hero — Festive Diwali Edition (Exact vw-locked Layout matching Laptop Reference 1:1) */}
+        <div className="hidden md:flex relative h-[48.5vw] min-h-[540px] max-h-[760px] items-start overflow-hidden rounded-b-[44px] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
+          {/* Background Festive Train Platform Delivery Image with Baked Top-Left Photorealistic Marigold Toran (Cache-Busted v2) */}
           <div className="absolute inset-0 z-0">
             <picture>
-              <source srcSet="/hero-train.webp" type="image/webp" />
-              <img 
-                src="/hero-train.jpg" 
-                alt="Train Background" 
-                width={1024}
-                height={570}
+              <source srcSet="/images/hero-diwali-desktop-v2.webp" type="image/webp" />
+              <img
+                src="/images/hero-diwali-desktop-v2.jpg"
+                alt="RailQuick Festive Diwali On-Seat Train Delivery"
+                width={2048}
+                height={1143}
                 fetchPriority="high"
                 decoding="async"
-                className="w-full h-full object-cover object-right"
+                className="w-full h-full object-cover object-left-top"
               />
             </picture>
-            {/* Animated Rain & Thunderstorm Lightning Overlay */}
-            <RainThunderEffect />
-            {/* Smooth left-side white fog gradient so text sits cleanly on white */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 via-white/60 to-transparent w-full md:w-[65%] lg:w-[58%] z-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent pointer-events-none z-10" />
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-6 py-20 lg:py-28 w-full z-20">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              
-              {/* Hero Left Content */}
-              <div className="text-left">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur-md rounded-full border border-slate-200/90 shadow-sm">
-                    <span className="flex h-2.5 w-2.5 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+          {/* Left Content Block — vw-aligned so it sits right below the first marigold swag & between the hanging strings */}
+          <div className="relative w-full pl-[8%] pr-6 pt-[12.2vw] z-20">
+            <div className="max-w-[540px] text-left">
+              {/* Stacked Festive Gold Oval Pill + White On-Seat Delivery Oval Pill */}
+              <div className="flex flex-col items-start gap-3 mb-5">
+                {/* Gold Metallic Oval Pill: Celebrating the Festival of Lights */}
+                <div className="p-[2px] rounded-full bg-gradient-to-r from-[#fae4a3] via-[#b88228] to-[#fae4a3] shadow-[0_6px_18px_rgba(184,130,40,0.32)]">
+                  <div className="inline-flex items-center gap-2.5 px-5 py-1.5 rounded-full bg-gradient-to-r from-[#c48b2a] via-[#ecc76d] to-[#c48b2a]">
+                    <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z" fill="#fffbeb" />
+                      <path d="M19 15L19.8 17.5L22.3 18.3L19.8 19.1L19 21.6L18.2 19.1L15.7 18.3L18.2 17.5L19 15Z" fill="#fef08a" />
+                    </svg>
+                    <span className="text-xs lg:text-[15px] font-extrabold text-[#1a1104] tracking-tight">
+                      Celebrating the Festival of Lights
                     </span>
-                    <span className="text-sm font-bold text-slate-800">India&apos;s First On-Seat Train Delivery</span>
-                  </div>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100/90 backdrop-blur-md border border-slate-200/80 rounded-full shadow-sm">
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                    </span>
-                    <span className="text-sm font-bold text-slate-800">100+ Live Deliveries</span>
                   </div>
                 </div>
 
-                {/* Headline: Typewriter Animation */}
-                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-none mb-3 flex items-center flex-nowrap gap-3 sm:gap-4 whitespace-nowrap">
-                  <span className="shrink-0 text-slate-900">Order</span>
-                  <span className="inline-flex items-center text-slate-900 font-black">
-                    <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 bg-clip-text text-transparent">
-                      {typedText}
-                    </span>
-                    <span className="w-[4px] h-[0.85em] bg-blue-600 ml-2 inline-block animate-pulse rounded-full" />
+                {/* White Oval Pill: India's First On-Seat Train Delivery */}
+                <div className="inline-flex items-center gap-2.5 px-4.5 py-2 bg-white/95 backdrop-blur-md rounded-full border border-slate-200/90 shadow-[0_4px_16px_rgba(15,23,42,0.08)]">
+                  <span className="flex h-2.5 w-2.5 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#2563eb]"></span>
                   </span>
-                </h1>
-
-                <p className="text-2xl sm:text-3xl text-slate-700 font-extrabold mb-8 tracking-tight">
-                  Delivered to Your Seat
-                </p>
-
-                <div className="flex items-center gap-4">
-                  <Button
-                    onClick={handleTestNow}
-                    className="px-8 py-7 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-lg font-extrabold transition-all duration-300 hover:scale-[1.02] shadow-xl shadow-slate-900/20 flex items-center gap-2 group"
-                  >
-                    Open App <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                  <Link href="/test-phase">
-                    <Button variant="outline" className="px-8 py-7 bg-white border-2 border-slate-200 hover:border-slate-400 text-slate-800 rounded-2xl text-lg font-bold transition-all duration-300 hover:scale-[1.02] shadow-sm">
-                      Test Phase
-                    </Button>
-                  </Link>
+                  <span className="text-xs lg:text-[13.5px] font-bold text-slate-800">
+                    India&apos;s First On-Seat Train Delivery
+                  </span>
                 </div>
               </div>
 
+              {/* Headline: Order + Typewriter Animation */}
+              <h1 className="text-5xl lg:text-[62px] xl:text-[68px] font-black tracking-tight text-[#111827] leading-[1.04] mb-1.5 flex items-center flex-nowrap gap-3.5 whitespace-nowrap">
+                <span className="shrink-0 text-[#111827]">Order</span>
+                <span className="inline-flex items-center font-black">
+                  <span
+                    className="bg-gradient-to-b from-[#3b76e6] via-[#2255b8] to-[#173d8c] bg-clip-text text-transparent"
+                    style={{
+                      filter: "drop-shadow(0px 4px 3px rgba(15, 23, 42, 0.22))",
+                    }}
+                  >
+                    {typedText}
+                  </span>
+                  <span className="w-[4px] h-[0.82em] bg-[#1f53b8] ml-2 inline-block animate-pulse rounded-full" />
+                </span>
+              </h1>
+
+              <p className="text-2xl lg:text-[33px] xl:text-[36px] text-[#111827] font-black mb-7 tracking-tight">
+                Delivered to Your Seat
+              </p>
+
+              {/* Festive Metallic Gold-Bordered CTA Buttons matching Image 2 */}
+              <div className="flex items-center gap-4">
+                {/* Open App Button with 2px Metallic Gold Rim & Dark Navy Fill */}
+                <div className="p-[2px] rounded-[20px] bg-gradient-to-br from-[#fae49f] via-[#b88a38] to-[#f7df96] shadow-[0_12px_28px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:scale-[1.02]">
+                  <button
+                    onClick={handleTestNow}
+                    className="px-7 lg:px-8 py-3.5 lg:py-4 rounded-[18px] bg-gradient-to-b from-[#1d2638] via-[#101725] to-[#080c14] hover:from-[#263249] hover:to-[#0f172a] text-white text-base lg:text-lg font-bold flex items-center gap-3 group"
+                  >
+                    <span>Open App</span>
+                    <ArrowRight className="w-5 h-5 text-[#e5b85c] group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+
+                {/* Test Phase Button with 2px Metallic Gold Rim & Champagne Pearl Fill */}
+                <Link href="/test-phase">
+                  <div className="p-[2px] rounded-[20px] bg-gradient-to-br from-[#fff3c4] via-[#c7a052] to-[#fbe5a2] shadow-[0_10px_24px_rgba(180,145,75,0.25)] transition-transform duration-300 hover:scale-[1.02]">
+                    <button className="px-8 lg:px-9 py-3.5 lg:py-4 rounded-[18px] bg-gradient-to-r from-[#d5ccb6] via-[#f4efe6] to-[#d5ccb6] hover:from-[#e2dac7] hover:to-[#e2dac7] text-[#1e293b] text-base lg:text-lg font-bold">
+                      Test Phase
+                    </button>
+                  </div>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Value Highlights (Laptop: 4 Cards | Mobile: Ultra-Sleek Fast Express Order Widget) */}
-      <section className="relative z-20 -mt-6 sm:-mt-10 lg:-mt-12 mb-10 md:mb-16 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Laptop View: 4 Clean Value Highlight Cards */}
-          <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
+      {/* Value Highlights (Laptop: 4 Metallic Gold-Bordered Cards | Mobile: Overlapping Oval Feature Pills) */}
+      <section className="relative z-30 -mt-6 md:-mt-[4.2vw] mb-10 md:mb-16 px-3 md:px-[10%]">
+        <div className="max-w-7xl mx-auto">
+          {/* Laptop View: 4 Clean Value Highlight Cards with Crisp Golden-Bronze Border overlapping Hero bottom */}
+          <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3.5 lg:gap-4">
             {[
               {
                 title: "Direct Berth Delivery",
                 subtitle: "Inside running trains",
                 description: "Delivered straight to your coach during scheduled halts.",
-                icon: <Train className="w-5 h-5 text-blue-600" />,
-                iconBg: "bg-blue-50 border-blue-100",
+                icon: <Train className="w-5 h-5 text-[#3b5bdb]" />,
+                iconBg: "bg-[#eef2ff] border-[#dbe4ff]",
               },
               {
                 title: "100% Genuine MRP",
                 subtitle: "Zero overpricing",
                 description: "Standard printed retail price. No arbitrary vendor markups.",
-                icon: <ShieldCheck className="w-5 h-5 text-emerald-600" />,
-                iconBg: "bg-emerald-50 border-emerald-100",
+                icon: <ShieldCheck className="w-5 h-5 text-[#15803d]" />,
+                iconBg: "bg-[#dcfce7] border-[#bbf7d0]",
               },
               {
                 title: "Swift Coach Handoff",
                 subtitle: "Even in 2-min halts",
                 description: "Runner meets you directly at your coach door. Zero platform rush, luggage stays safe.",
-                icon: <Zap className="w-5 h-5 text-amber-600" />,
-                iconBg: "bg-amber-50 border-amber-100",
+                icon: <Zap className="w-5 h-5 text-[#b45309]" />,
+                iconBg: "bg-[#fef3c7] border-[#fde68a]",
               },
               {
                 title: "Live GPS Sync",
                 subtitle: "Route tracking",
                 description: "Real-time sync with Indian Railways schedules & platforms.",
-                icon: <MapPin className="w-5 h-5 text-indigo-600" />,
-                iconBg: "bg-indigo-50 border-indigo-100",
+                icon: <MapPin className="w-5 h-5 text-[#6d28d9]" />,
+                iconBg: "bg-[#f3e8ff] border-[#e9d5ff]",
               },
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[0_8px_30px_rgba(15,23,42,0.06)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
+                className="p-[2px] rounded-[26px] bg-gradient-to-b from-[#d8b872] via-[#b89756] to-[#cda960] shadow-[0_12px_32px_rgba(15,23,42,0.10)] hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
               >
-                <div>
-                  <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl border ${item.iconBg} flex items-center justify-center mb-3 shadow-2xs`}>
-                    {item.icon}
+                <div className="bg-white rounded-[24px] p-4 lg:p-5 h-full flex flex-col justify-between">
+                  <div>
+                    <div className={`w-10 h-10 lg:w-11 lg:h-11 rounded-2xl border ${item.iconBg} flex items-center justify-center mb-3 shadow-2xs`}>
+                      {item.icon}
+                    </div>
+                    <h3 className="text-[15px] lg:text-base font-black text-slate-900 leading-snug">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs font-extrabold text-[#1d4ed8] mb-1">
+                      {item.subtitle}
+                    </p>
+                    <p className="text-[11px] lg:text-xs text-slate-600 font-medium leading-relaxed">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="text-sm sm:text-base font-black text-slate-900 leading-snug">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs font-bold text-blue-600 mb-1">
-                    {item.subtitle}
-                  </p>
-                  <p className="text-[11px] sm:text-xs text-slate-500 font-medium leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Mobile View: High-Tech Interactive Feature Explorer with Tabs & Real Telemetry */}
+          {/* Mobile View: Pure Oval Capsule Feature Pills overlapping the curved bottom edge of the dark hero */}
           <div className="block md:hidden space-y-4">
-            {/* 1. Horizontal Interactive Feature Pill Selector */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+            {/* 1. Horizontal Oval Capsule Pill Selector overlapping the Hero bottom edge (-mt-6 on parent section) */}
+            <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1.5 px-1">
               {[
-                { id: 0, label: "Berth Delivery", icon: Train, color: "text-blue-600", activeBg: "bg-blue-600 text-white" },
-                { id: 1, label: "Printed MRP", icon: ShieldCheck, color: "text-emerald-600", activeBg: "bg-emerald-600 text-white" },
-                { id: 2, label: "2-Min Handoff", icon: Zap, color: "text-amber-600", activeBg: "bg-amber-600 text-white" },
-                { id: 3, label: "Live GPS", icon: MapPin, color: "text-indigo-600", activeBg: "bg-indigo-600 text-white" },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActiveFeatureTab(tab.id)}
-                  className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shrink-0 transition-all shadow-2xs ${
-                    activeFeatureTab === tab.id
-                      ? `${tab.activeBg} shadow-md scale-102`
-                      : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
-                  }`}
-                >
-                  <tab.icon className={`w-3.5 h-3.5 ${activeFeatureTab === tab.id ? "text-white" : tab.color}`} />
-                  <span>{tab.label}</span>
-                </button>
-              ))}
+                {
+                  id: 0,
+                  label: "Berth Delivery",
+                  icon: Train,
+                  activeClass:
+                    "bg-[#105df5] text-white border-[1.5px] border-[#3b82f6] shadow-[0_6px_16px_rgba(16,93,245,0.38)]",
+                  inactiveClass:
+                    "bg-[#105df5] text-white border-[1.5px] border-[#3b82f6] shadow-[0_6px_16px_rgba(16,93,245,0.32)]",
+                  iconColor: "text-white",
+                },
+                {
+                  id: 1,
+                  label: "Printed MRP",
+                  icon: ShieldCheck,
+                  activeClass:
+                    "bg-[#d1fae5] text-[#0f172a] border-[1.5px] border-[#6ee7b7] shadow-[0_6px_16px_rgba(15,23,42,0.12)] ring-2 ring-emerald-500/30",
+                  inactiveClass:
+                    "bg-[#dcfce7] text-[#0f172a] border-[1.5px] border-[#a7f3d0] shadow-[0_6px_16px_rgba(15,23,42,0.10)]",
+                  iconColor: "text-[#15803d]",
+                },
+                {
+                  id: 2,
+                  label: "2-Min Halt",
+                  icon: Zap,
+                  activeClass:
+                    "bg-[#fde68a] text-[#0f172a] border-[1.5px] border-[#f59e0b] shadow-[0_6px_16px_rgba(15,23,42,0.12)] ring-2 ring-amber-500/30",
+                  inactiveClass:
+                    "bg-[#fef3c7] text-[#0f172a] border-[1.5px] border-[#fde68a] shadow-[0_6px_16px_rgba(15,23,42,0.10)]",
+                  iconColor: "text-[#b45309]",
+                },
+                {
+                  id: 3,
+                  label: "Live GPS",
+                  icon: MapPin,
+                  activeClass:
+                    "bg-[#dbeafe] text-[#0f172a] border-[1.5px] border-[#93c5fd] shadow-[0_6px_16px_rgba(15,23,42,0.12)] ring-2 ring-indigo-500/30",
+                  inactiveClass:
+                    "bg-[#e0e7ff] text-[#0f172a] border-[1.5px] border-[#c7d2fe] shadow-[0_6px_16px_rgba(15,23,42,0.10)]",
+                  iconColor: "text-[#4f46e5]",
+                },
+              ].map((tab) => {
+                const isActive = activeFeatureTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveFeatureTab(tab.id)}
+                    className={`px-4.5 py-3 rounded-full text-[13.5px] font-extrabold flex items-center gap-2 shrink-0 transition-all ${
+                      isActive ? `${tab.activeClass} scale-[1.02]` : tab.inactiveClass
+                    }`}
+                  >
+                    <tab.icon className={`w-4 h-4 ${tab.iconColor}`} />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {/* 2. Active Feature Spotlight Card (Dynamic Content per Tab) */}
@@ -1051,17 +1145,11 @@ export default function HomePage() {
       {/* What We Deliver — Curated Essentials & Travel Comfort */}
       <WhatWeDeliverSection />
 
-      {/* Watch Our Story — Interactive Silent Reels */}
-      <WatchOurStorySection />
-
-      {/* The RailQuick Promise — Real 4-Point Passenger Guarantees */}
-      <RailQuickGuarantees />
-
-      {/* Stats */}
-      <section ref={statsRef} className="py-16 sm:py-24 lg:py-32 bg-white border-t border-b border-slate-100/60">
+      {/* Stats / By The Numbers — Placed Above Watch Our Story */}
+      <section ref={statsRef} className="py-12 sm:py-16 lg:py-22 bg-white border-t border-b border-slate-100/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16">
-            <p className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-3">By the numbers</p>
+          <div className="text-center mb-10 sm:mb-12">
+            <p className="text-xs sm:text-sm font-bold text-blue-600 uppercase tracking-widest mb-2.5">By the numbers</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Growing every day</h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
@@ -1077,7 +1165,7 @@ export default function HomePage() {
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 group-hover:text-white mb-2 transition-colors duration-300 tabular-nums">
                   {animatedValues[index]}{stat.suffix}
                 </div>
-                <div className="text-xs sm:text-sm text-slate-500 group-hover:text-blue-100 uppercase tracking-wider font-extrabold transition-colors duration-300 max-w-[150px] mx-auto leading-snug">
+                <div className="text-xs sm:text-sm text-slate-500 group-hover:text-blue-100 uppercase tracking-wider font-extrabold transition-colors duration-300 max-w-[195px] mx-auto leading-snug">
                   {stat.label}
                 </div>
               </motion.div>
@@ -1086,15 +1174,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials / Why Travelers Choose Us */}
-      <section className="py-14 sm:py-20 lg:py-24 bg-white overflow-hidden border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10">
+      {/* Watch Our Story — Interactive Silent Reels */}
+      <WatchOurStorySection />
+
+      {/* Testimonials / Why Travelers Choose Us — Placed Directly Below Watch Our Story */}
+      <section className="pt-8 pb-12 sm:pt-10 sm:pb-16 lg:pt-14 lg:pb-20 bg-white overflow-hidden border-t border-b border-slate-100/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-5 sm:mb-7">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-50 border border-blue-200/80 rounded-full text-xs font-black text-blue-700 uppercase tracking-widest mb-3 shadow-2xs">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-50 border border-blue-200/80 rounded-full text-xs font-black text-blue-700 uppercase tracking-widest mb-2.5 shadow-2xs">
               Why Travelers Choose Us
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">What our early users say</h2>
-            <p className="text-xs sm:text-sm text-slate-500 font-medium mt-2">Real feedback from train passengers across Indian Railways.</p>
+            <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1.5">Real feedback from train passengers across Indian Railways.</p>
           </div>
         </div>
 
@@ -1158,6 +1249,12 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Coming Soon to Delhi Railway Station Showcase */}
+      <DelhiStationComingSoon onOpenWaitlist={() => setShowCheckPnrModal(true)} />
+
+      {/* The RailQuick Promise — Real 4-Point Passenger Guarantees */}
+      <RailQuickGuarantees />
+
 
       {/* FAQ */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
@@ -1189,23 +1286,46 @@ export default function HomePage() {
       </section>
 
       {/* India's Train Delivery App Waitlist Section */}
-      <section id="waitlist" className="py-20 sm:py-28 bg-slate-950 relative overflow-hidden border-t border-slate-900">
+      <section
+        id="waitlist"
+        className="pt-10 pb-16 sm:pt-14 sm:pb-22 bg-slate-950 relative overflow-hidden rounded-t-[2.5rem] sm:rounded-t-[4rem] border-t-2 border-blue-500/60 shadow-[0_-12px_40px_rgba(59,130,246,0.18)]"
+      >
         {/* Subtle Luxury Ambient Lighting */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-blue-600/15 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[650px] h-[300px] bg-blue-600/15 rounded-full blur-[130px] pointer-events-none" />
         <div className="absolute bottom-0 right-10 w-80 h-80 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="relative max-w-4xl mx-auto px-5 text-center z-10">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-400/20 rounded-full text-xs font-black text-blue-400 uppercase tracking-widest mb-4 backdrop-blur-xs">
-            ⚡ ON-SEAT IN-TRAIN PLATFORM
-          </span>
-
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight leading-[1.15]">
-            India&apos;s Train Delivery App
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black mb-6 tracking-tight leading-[1.12]">
+            <span className="text-white">India&apos;s </span>
+            <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
+              Train Delivery App
+            </span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-400 mb-8 max-w-lg mx-auto px-2 leading-relaxed font-medium">
-            Delivering verified travel essentials, fast chargers, emergency medicines &amp; sealed snacks directly to your seat while your train is in motion.
-          </p>
+          {/* Google Play Store + Coming Soon Showcase */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-8">
+            <div className="inline-flex items-center gap-3.5 px-5 py-3 rounded-2xl bg-white/[0.06] hover:bg-white/[0.10] border border-white/15 backdrop-blur-md shadow-[0_12px_36px_rgba(0,0,0,0.45)] transition-all duration-300 group">
+              {/* Official Multi-Color Google Play Triangle SVG */}
+              <svg className="w-8 h-8 shrink-0 group-hover:scale-105 transition-transform" viewBox="0 0 48 48" fill="none">
+                <path d="M7.35 5.43C6.8 6.01 6.5 6.91 6.5 8.08V39.92C6.5 41.09 6.8 41.99 7.35 42.57L7.49 42.7L25.33 24.86V24.44L7.49 5.3L7.35 5.43Z" fill="#3BCCFF" />
+                <path d="M31.27 30.8L25.33 24.86V24.14L31.28 18.2L31.41 18.28L38.45 22.28C40.46 23.42 40.46 25.29 38.45 26.44L31.41 30.44L31.27 30.8Z" fill="#FFCE00" />
+                <path d="M31.41 30.44L25.33 24.36L7.35 42.34C8.01 43.04 9.11 43.13 10.35 42.43L31.41 30.44Z" fill="#F14336" />
+                <path d="M31.41 18.28L10.35 6.29C9.11 5.59 8.01 5.68 7.35 6.38L25.33 24.36L31.41 18.28Z" fill="#00F076" />
+              </svg>
+              <div className="text-left pr-1">
+                <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-slate-300 leading-none mb-1">
+                  GET IT ON
+                </span>
+                <span className="block text-lg sm:text-xl font-black text-white tracking-tight leading-none">
+                  Google Play
+                </span>
+              </div>
+              <span className="ml-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/20 to-emerald-500/20 border border-amber-400/40 text-amber-300 text-[11px] font-black uppercase tracking-wider shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                Coming Soon
+              </span>
+            </div>
+          </div>
 
           <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6">
             <Input

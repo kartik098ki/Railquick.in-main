@@ -32,7 +32,7 @@ const phases = [
     status: 'completed',
     description: 'We conducted our Test Phase 2 on 5th and 6th March 2026 on the running Shalimar Malani Express (Train No. 14662 & 14661).',
     achievements: [
-      'Delivered 100+ orders successfully in a running train',
+      'Validated through a 2-day real-world delivery test phase in a running train',
       'Talked to 300+ train travelers directly',
       'Tested real-time logistics and delivery handoffs',
     ],
@@ -247,8 +247,8 @@ export default function TestPhasePage() {
           <div className="grid md:grid-cols-3 gap-8 md:gap-10 mb-20 md:mb-32">
             <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10 text-center hover:bg-white/15 md:hover:-translate-y-2 md:hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] transition-all duration-500">
               <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-blue-500/20 text-blue-400 rounded-2xl md:rounded-[1.5rem] flex items-center justify-center mb-6 md:mb-8"><Rocket className="w-8 h-8 md:w-10 md:h-10" /></div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">100+ Successful Orders</h3>
-              <p className="text-slate-400 md:text-lg">We successfully delivered on-seat directly through our app in a running train.</p>
+              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Test Phase 2 — Real-World Delivery Validation</h3>
+              <p className="text-slate-400 md:text-lg">Validated through a 2-day real-world delivery test phase inside a running train.</p>
             </div>
             <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10 text-center hover:bg-white/15 md:hover:-translate-y-2 md:hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] transition-all duration-500">
               <div className="mx-auto w-16 h-16 md:w-20 md:h-20 bg-blue-500/20 text-blue-400 rounded-2xl md:rounded-[1.5rem] flex items-center justify-center mb-6 md:mb-8"><Handshake className="w-8 h-8 md:w-10 md:h-10" /></div>

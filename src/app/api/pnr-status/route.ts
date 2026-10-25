@@ -1022,7 +1022,7 @@ function formatRailKitTrainData(trainNo: string, infoData: any, liveData: any, f
   }
 
   // Calculate segment progress
-  const percentProgress = liveData?.progress?.percent ?? (isNotStarted ? 0 : isFinished ? 100 : 50);
+  const percentProgress = liveData?.progress?.percent ?? (isTomorrow ? 0 : isFinished ? 100 : 50);
 
   const fallbackCoach = STATIC_TRAINS[trainNo]?.coachPosition || [
     { type: "ENG", number: "WAP-7" },
@@ -1071,7 +1071,7 @@ function formatRailKitTrainData(trainNo: string, infoData: any, liveData: any, f
       code: nextStop.code,
       name: nextStop.name,
       platform: nextStop.platform || "1",
-      eta: isNotStarted ? `Departs at ${nextStop.dep}` : "In 15 mins",
+      eta: isTomorrow ? `Departs at ${nextStop.dep}` : "In 15 mins",
       halt: nextStop.halt,
       deliveryEligible: true,
     },

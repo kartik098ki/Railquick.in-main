@@ -16,6 +16,11 @@ import {
   AlertCircle,
   Zap,
 } from "lucide-react";
+import {
+  isValidTrainSearchQuery,
+  searchTrainsOptimized,
+  getCachedTrainSuggestions,
+} from "@/lib/trainSearchCache";
 
 interface CheckPnrModalProps {
   isOpen: boolean;
@@ -60,6 +65,21 @@ export default function CheckPnrModal({
 
   const pnrInputRef = useRef<HTMLInputElement>(null);
   const trainInputRef = useRef<HTMLInputElement>(null);
+  const datePickerRef = useRef<HTMLInputElement>(null);
+
+  const now = new Date();
+  const yestDate = new Date(now.getTime() - 86400000);
+  const tomDate = new Date(now.getTime() + 86400000);
+  const fmtDayMonth = (d: Date) =>
+    d.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+  const fmtWeekday = (d: Date) =>
+    d.toLocaleDateString("en-IN", { weekday: "short" });
+  const customDateFormatted = customDate
+    ? new Date(`${customDate}T00:00:00`).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+      })
+    : "";
 
   // Synchronize when opened
   useEffect(() => {
@@ -79,33 +99,51 @@ export default function CheckPnrModal({
     }
   }, [isOpen, defaultPnr, initialTab]);
 
-  // Autocomplete train suggestions with debounce
+  // Only call search API once the user has finished writing the full 5-digit train number
+  // or paused after finishing a train name (900ms settle time)
   useEffect(() => {
     const trimmed = trainInput.trim();
-    if (activeTab === "train" && trimmed.length >= 2) {
+
+    if (activeTab !== "train" || !isValidTrainSearchQuery(trimmed)) {
+      setTrainSuggestions([]);
+      setIsSearchingSuggestions(false);
+      return;
+    }
+
+    const cached = getCachedTrainSuggestions(trimmed);
+    if (cached !== null) {
+      setTrainSuggestions(cached);
+      setIsSearchingSuggestions(false);
+      return;
+    }
+
+    const isCompleteTrainNo = /^\d{5}$/.test(trimmed);
+    const settleDelayMs = isCompleteTrainNo ? 350 : 900;
+    const controller = new AbortController();
+
+    const timer = setTimeout(async () => {
       setIsSearchingSuggestions(true);
-      const timer = setTimeout(async () => {
-        try {
-          const res = await fetch(
-            `/api/railkit/search?query=${encodeURIComponent(trimmed)}`
-          );
-          const json = await res.json();
-          if (json.success && Array.isArray(json.trains)) {
-            setTrainSuggestions(json.trains);
-          } else {
-            setTrainSuggestions([]);
-          }
-        } catch {
+      try {
+        const results = await searchTrainsOptimized(trimmed, controller.signal);
+        if (!controller.signal.aborted) {
+          setTrainSuggestions(results);
+        }
+      } catch {
+        if (!controller.signal.aborted) {
           setTrainSuggestions([]);
-        } finally {
+        }
+      } finally {
+        if (!controller.signal.aborted) {
           setIsSearchingSuggestions(false);
         }
-      }, 200);
+      }
+    }, settleDelayMs);
 
-      return () => clearTimeout(timer);
-    } else {
-      setTrainSuggestions([]);
-    }
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+      setIsSearchingSuggestions(false);
+    };
   }, [trainInput, activeTab]);
 
   // PNR input handler (digits only, max 10)
@@ -146,6 +184,7 @@ export default function CheckPnrModal({
     // Direct numeric train number (4-5 digits)
     if (/^\d{4,5}$/.test(clean)) {
       setTrainError(null);
+      setTrainSuggestions([]);
       onClose();
       router.push(
         `/check-train?train=${clean}&date=${encodeURIComponent(trainDate)}`
@@ -157,6 +196,7 @@ export default function CheckPnrModal({
     if (trainSuggestions.length > 0) {
       const top = trainSuggestions[0];
       setTrainError(null);
+      setTrainSuggestions([]);
       onClose();
       router.push(
         `/check-train?train=${top.trainNo}&date=${encodeURIComponent(trainDate)}`
@@ -164,22 +204,25 @@ export default function CheckPnrModal({
       return;
     }
 
-    // Lookup on server
+    // Lookup via optimized search API on submit
     try {
-      const res = await fetch(
-        `/api/railkit/search?query=${encodeURIComponent(clean)}`
-      );
-      const json = await res.json();
-      if (json.success && json.trains && json.trains.length > 0) {
-        const top = json.trains[0];
+      setIsSearchingSuggestions(true);
+      const trains = await searchTrainsOptimized(clean, undefined, true);
+      if (trains.length > 0) {
+        const top = trains[0];
         setTrainError(null);
+        setTrainSuggestions([]);
         onClose();
         router.push(
           `/check-train?train=${top.trainNo}&date=${encodeURIComponent(trainDate)}`
         );
         return;
       }
-    } catch {}
+    } catch {
+      // Fall through to error message
+    } finally {
+      setIsSearchingSuggestions(false);
+    }
 
     setTrainError(`Could not find train "${clean}". Please enter a 5-digit train number (e.g. 12004).`);
   };
@@ -430,52 +473,128 @@ export default function CheckPnrModal({
                       )}
                     </div>
 
-                    {/* Journey Date Selector */}
+                    {/* User-Friendly Journey Date Cards */}
                     <div>
-                      <label className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-slate-400 block mb-1">
-                        Journey Day / Date
-                      </label>
-                      <div className="grid grid-cols-3 gap-1 mb-2">
-                        {[
-                          { id: "yesterday", label: "Yesterday" },
-                          { id: "today", label: "Today" },
-                          { id: "tomorrow", label: "Tomorrow" },
-                        ].map((d) => (
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-slate-500 flex items-center gap-1">
+                          <Calendar className="w-3 h-3 text-emerald-600" />
+                          <span>When did your train start?</span>
+                        </label>
+                        {customDate && (
                           <button
-                            key={d.id}
                             type="button"
                             onClick={() => {
-                              setTrainDate(d.id);
                               setCustomDate("");
+                              setTrainDate("today");
                             }}
-                            className={`py-1 px-1.5 rounded-lg text-[11px] font-bold transition-all border ${
-                              trainDate === d.id && !customDate
-                                ? "bg-emerald-50 text-emerald-900 border-emerald-300 font-black shadow-2xs"
-                                : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
-                            }`}
+                            className="text-[10px] font-bold text-emerald-700 hover:underline"
                           >
-                            {d.label}
+                            Reset to Today
                           </button>
-                        ))}
+                        )}
                       </div>
 
-                      {/* Custom Date Input for Multi-Day journeys */}
-                      <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200/90 rounded-xl px-2.5 py-1">
-                        <Calendar className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                        <span className="text-[11px] text-slate-500 font-medium shrink-0">Select Date:</span>
-                        <input
-                          type="date"
-                          value={customDate}
-                          onChange={(e) => {
-                            const val = e.target.value;
-                            setCustomDate(val);
-                            if (val) {
-                              const [y, m, d] = val.split("-");
-                              setTrainDate(`${d}-${m}-${y}`);
+                      <div className="grid grid-cols-4 gap-1.5">
+                        {[
+                          {
+                            id: "yesterday",
+                            label: "Yesterday",
+                            sub: `${fmtDayMonth(yestDate)} • ${fmtWeekday(yestDate)}`,
+                          },
+                          {
+                            id: "today",
+                            label: "Today",
+                            sub: `${fmtDayMonth(now)} • ${fmtWeekday(now)}`,
+                            liveDot: true,
+                          },
+                          {
+                            id: "tomorrow",
+                            label: "Tomorrow",
+                            sub: `${fmtDayMonth(tomDate)} • ${fmtWeekday(tomDate)}`,
+                          },
+                        ].map((d) => {
+                          const isSelected = trainDate === d.id && !customDate;
+                          return (
+                            <button
+                              key={d.id}
+                              type="button"
+                              onClick={() => {
+                                setTrainDate(d.id);
+                                setCustomDate("");
+                              }}
+                              className={`py-2 px-1.5 rounded-xl transition-all border flex flex-col items-center justify-center text-center cursor-pointer ${
+                                isSelected
+                                  ? "bg-emerald-600 text-white border-emerald-600 shadow-sm shadow-emerald-600/20"
+                                  : "bg-slate-50/90 text-slate-700 border-slate-200/90 hover:bg-slate-100 hover:border-slate-300"
+                              }`}
+                            >
+                              <span className="text-[11px] font-extrabold tracking-tight flex items-center gap-1 leading-tight">
+                                {d.liveDot && (
+                                  <span
+                                    className={`w-1.5 h-1.5 rounded-full ${
+                                      isSelected ? "bg-white animate-pulse" : "bg-emerald-500"
+                                    }`}
+                                  />
+                                )}
+                                {d.label}
+                              </span>
+                              <span
+                                className={`text-[9.5px] font-semibold mt-0.5 leading-none ${
+                                  isSelected ? "text-emerald-100" : "text-slate-400"
+                                }`}
+                              >
+                                {d.sub}
+                              </span>
+                            </button>
+                          );
+                        })}
+
+                        {/* 4th Card: Interactive Calendar Date Picker Card */}
+                        <div
+                          onClick={() => {
+                            try {
+                              datePickerRef.current?.showPicker?.();
+                            } catch {
+                              datePickerRef.current?.focus();
                             }
                           }}
-                          className="bg-transparent text-[11px] font-bold text-slate-900 outline-none w-full cursor-pointer"
-                        />
+                          className={`relative py-2 px-1.5 rounded-xl transition-all border flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden ${
+                            customDate
+                              ? "bg-emerald-600 text-white border-emerald-600 shadow-sm shadow-emerald-600/20"
+                              : "bg-slate-50/90 text-slate-700 border-slate-200/90 hover:bg-slate-100 hover:border-slate-300"
+                          }`}
+                        >
+                          <span className="text-[11px] font-extrabold tracking-tight flex items-center gap-1 leading-tight">
+                            <Calendar
+                              className={`w-3 h-3 ${
+                                customDate ? "text-white" : "text-emerald-600"
+                              }`}
+                            />
+                            <span>{customDate ? customDateFormatted : "Calendar"}</span>
+                          </span>
+                          <span
+                            className={`text-[9.5px] font-semibold mt-0.5 leading-none ${
+                              customDate ? "text-emerald-100" : "text-slate-400"
+                            }`}
+                          >
+                            {customDate ? "Selected" : "Pick Date"}
+                          </span>
+                          <input
+                            ref={datePickerRef}
+                            type="date"
+                            value={customDate}
+                            aria-label="Pick journey date"
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              setCustomDate(val);
+                              if (val) {
+                                const [y, m, d] = val.split("-");
+                                setTrainDate(`${d}-${m}-${y}`);
+                              }
+                            }}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          />
+                        </div>
                       </div>
                     </div>
 

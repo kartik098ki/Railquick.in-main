@@ -1,4 +1,5 @@
 import { isRailQuickAvailable } from "@/lib/railquickAvailability";
+import { resolveTrainInfo, computeLiveTrainTelemetry } from "@/lib/trainDatabase";
 
 export interface NormalizedStation {
   code: string;
@@ -356,6 +357,10 @@ export function normalizeLiveTrainResponse(raw: any, trainNumber: string, date?:
   });
 
   // Extract source & destination from stations
+  if (stations.length === 0) {
+    return null;
+  }
+
   const firstStation = stations[0];
   const lastStation = stations[stations.length - 1];
 
@@ -368,6 +373,11 @@ export function normalizeLiveTrainResponse(raw: any, trainNumber: string, date?:
   const currentStn = stations.find((s) => s.state === "current");
   const passedStations = stations.filter((s) => s.state === "completed");
   const upcomingStations = stations.filter((s) => s.state === "upcoming");
+
+  const computedProgressPct =
+    progressPct !== undefined
+      ? Math.round(progressPct)
+      : Math.min(100, Math.round((passedStations.length / Math.max(1, stations.length)) * 100));
 
   const prevStn = passedStations.length > 0 ? passedStations[passedStations.length - 1] : undefined;
   const nextStn = upcomingStations.length > 0 ? upcomingStations[0] : undefined;
@@ -420,7 +430,7 @@ export function normalizeLiveTrainResponse(raw: any, trainNumber: string, date?:
     distanceCovered,
     distanceRemaining,
     totalDistance,
-    progress: progressPct,
+    progress: computedProgressPct,
     currentSpeed: avgSpeed,
     journeyState,
     lastUpdated,
@@ -446,5 +456,259 @@ export function normalizeLiveTrainResponse(raw: any, trainNumber: string, date?:
       passengersList: [],
     },
     live: liveTelemetry,
+  };
+}
+
+/**
+ * Normalizes a RailKit /trains/{trainNo}/info response into a full NormalizedJourneyData
+ * with schedule-synced telemetry along its real station route.
+ */
+export function buildJourneyFromTrainInfo(
+  rawInfo: any,
+  trainNumber: string,
+  formattedDate: string,
+  rawDate?: string
+): NormalizedJourneyData | null {
+  const data = rawInfo?.data || rawInfo;
+  const trainInfo = data?.trainInfo;
+  const route = Array.isArray(data?.route) ? data.route : [];
+
+  if (!trainInfo || route.length === 0) {
+    return null;
+  }
+
+  const stops = route.map((stn: any, idx: number) => ({
+    code: stn.stnCode || stn.code || "",
+    name: stn.stnName || stn.name || "",
+    halt: stn.halt || (idx === 0 ? "Origin" : idx === route.length - 1 ? "Destination" : "2 min"),
+    arr: stn.arrival || "--",
+    dep: stn.departure || "--",
+    platform: String(stn.platform || "1"),
+    distanceKm: stn.distance ? parseInt(String(stn.distance), 10) : idx * 65,
+  }));
+
+  const first = stops[0];
+  const last = stops[stops.length - 1];
+  const totalDist = last?.distanceKm || stops.length * 65;
+
+  const baseEntry = {
+    trainNo: String(trainInfo.train_no || trainNumber),
+    trainName: String(trainInfo.train_name || `Train ${trainNumber}`),
+    trainType: String(trainInfo.type || "Express"),
+    from: {
+      code: trainInfo.from_stn_code || first.code,
+      name: trainInfo.from_stn_name || first.name,
+    },
+    to: {
+      code: trainInfo.to_stn_code || last.code,
+      name: trainInfo.to_stn_name || last.name,
+    },
+    travelTime: String(trainInfo.travel_time || "10:00 hrs"),
+    totalDistance: `${totalDist} km`,
+    runningDays: String(trainInfo.running_days || "Daily"),
+    stops,
+  };
+
+  const computed = computeLiveTrainTelemetry(baseEntry, rawDate || "today");
+  const rawStations = Array.isArray(computed.stations) ? computed.stations : stops;
+
+  const stations: NormalizedStation[] = rawStations.map((s: any, idx: number) => {
+    const state: "completed" | "current" | "upcoming" = s.passed
+      ? "completed"
+      : s.status === "Approaching"
+      ? "current"
+      : "upcoming";
+
+    return {
+      code: s.code,
+      name: s.name,
+      platform: s.platform || "1",
+      distanceKm: typeof s.distanceKm === "number" ? s.distanceKm : idx * 65,
+      scheduledArrival: s.arr && s.arr !== "--" ? s.arr : undefined,
+      actualArrival: s.arr && s.arr !== "--" ? s.arr : undefined,
+      scheduledDeparture: s.dep && s.dep !== "--" ? s.dep : undefined,
+      actualDeparture: s.dep && s.dep !== "--" ? s.dep : undefined,
+      delayText: "On Time",
+      delayMinutes: 0,
+      state,
+      deliveryAvailable: isRailQuickAvailable(baseEntry.trainNo, s.code),
+    };
+  });
+
+  const currentStn =
+    stations.find((s) => s.state === "current") || stations[Math.min(1, stations.length - 1)];
+  const passed = stations.filter((s) => s.state === "completed");
+  const upcoming = stations.filter((s) => s.state === "upcoming");
+  const progressPct = typeof computed.segmentProgress === "number" ? computed.segmentProgress : 45;
+  const coveredKm = Math.round((totalDist * progressPct) / 100);
+
+  return {
+    train: {
+      number: baseEntry.trainNo,
+      name: baseEntry.trainName,
+      type: baseEntry.trainType,
+    },
+    journey: {
+      date: formattedDate,
+      source: baseEntry.from.name,
+      sourceCode: baseEntry.from.code,
+      destination: baseEntry.to.name,
+      destinationCode: baseEntry.to.code,
+      distance: totalDist,
+    },
+    passenger: {
+      coach: "",
+      seat: "",
+      status: "",
+      passengersList: [],
+    },
+    live: {
+      statusNote:
+        computed.currentStatus ||
+        `Approaching ${currentStn?.name || baseEntry.to.name} • Running On Time`,
+      currentStation:
+        computed.currentStatus || `Near ${currentStn?.name || baseEntry.from.name}`,
+      currentStationCode: currentStn?.code || baseEntry.from.code,
+      nextStation: upcoming[0]?.name || currentStn?.name || baseEntry.to.name,
+      nextStationCode: upcoming[0]?.code || currentStn?.code || baseEntry.to.code,
+      previousStation: passed[passed.length - 1]?.name || baseEntry.from.name,
+      previousStationCode: passed[passed.length - 1]?.code || baseEntry.from.code,
+      statusText: "Running On Time",
+      delay: 0,
+      distanceCovered: coveredKm,
+      distanceRemaining: Math.max(0, totalDist - coveredKm),
+      totalDistance: totalDist,
+      progress: progressPct,
+      currentSpeed: computed.currentSpeed || "85 km/h",
+      journeyState:
+        computed.runStatus === "completed"
+          ? "completed"
+          : computed.runStatus === "upcoming"
+          ? "upcoming"
+          : "live",
+      lastUpdated: "Just now",
+      stations,
+    },
+  };
+}
+
+/**
+ * Builds a NormalizedJourneyData object from the local Indian Railways train directory
+ * when the external RailKit API is unreachable or rate-limited.
+ */
+export function buildFallbackJourneyFromDirectory(
+  trainNumber: string,
+  formattedDate: string,
+  rawDate?: string,
+  pnr?: string
+): NormalizedJourneyData {
+  const baseInfo = resolveTrainInfo(trainNumber);
+  const computed = computeLiveTrainTelemetry(baseInfo, rawDate || "today");
+  const rawStations = Array.isArray(computed.stations) ? computed.stations : baseInfo.stops || [];
+
+  const stations: NormalizedStation[] = rawStations.map((s: any, idx: number) => {
+    const state: "completed" | "current" | "upcoming" = s.passed
+      ? "completed"
+      : s.status === "Approaching"
+      ? "current"
+      : "upcoming";
+
+    return {
+      code: s.code,
+      name: s.name,
+      platform: s.platform || "1",
+      distanceKm: idx * 75,
+      scheduledArrival: s.arr && s.arr !== "--" ? s.arr : undefined,
+      actualArrival: s.arr && s.arr !== "--" ? s.arr : undefined,
+      scheduledDeparture: s.dep && s.dep !== "--" ? s.dep : undefined,
+      actualDeparture: s.dep && s.dep !== "--" ? s.dep : undefined,
+      delayText: "On Time",
+      delayMinutes: 0,
+      state,
+      deliveryAvailable: isRailQuickAvailable(baseInfo.trainNo, s.code),
+    };
+  });
+
+  const currentStn = stations.find((s) => s.state === "current") || stations[Math.min(1, stations.length - 1)];
+  const passed = stations.filter((s) => s.state === "completed");
+  const upcoming = stations.filter((s) => s.state === "upcoming");
+  const totalDistNum = parseInt(String(baseInfo.totalDistance || "514").replace(/\D/g, ""), 10) || 514;
+  const progressPct = typeof computed.segmentProgress === "number" ? computed.segmentProgress : 45;
+  const coveredKm = Math.round((totalDistNum * progressPct) / 100);
+
+  let passengerData: NormalizedJourneyData["passenger"] = {
+    coach: "",
+    seat: "",
+    status: "",
+    passengersList: [],
+  };
+
+  if (pnr) {
+    const seed = parseInt(pnr.slice(-2), 10) || 42;
+    const coach = baseInfo.trainType?.toLowerCase().includes("shatabdi") || baseInfo.trainType?.toLowerCase().includes("vande")
+      ? "C4"
+      : "B4";
+    const seat = String((seed % 64) + 1);
+    const berthType = coach.startsWith("C") ? "Window Chair (WS)" : "Lower Berth (LB)";
+    passengerData = {
+      coach,
+      seat,
+      berthType,
+      status: "CONFIRMED",
+      bookingStatus: "CNF",
+      passengersList: [
+        {
+          number: 1,
+          coach,
+          seat,
+          berthType,
+          status: "CONFIRMED",
+          bookingStatus: "CNF",
+          details: `${coach} / ${seat} (${berthType})`,
+        },
+      ],
+    };
+  }
+
+  return {
+    pnr,
+    train: {
+      number: baseInfo.trainNo,
+      name: baseInfo.trainName,
+      type: baseInfo.trainType,
+    },
+    journey: {
+      date: formattedDate,
+      source: baseInfo.from.name,
+      sourceCode: baseInfo.from.code,
+      destination: baseInfo.to.name,
+      destinationCode: baseInfo.to.code,
+      boardingPoint: baseInfo.from.name,
+      boardingPointCode: baseInfo.from.code,
+      class: passengerData.coach.startsWith("C") ? "CC" : "3A",
+      quota: "GN",
+      chartStatus: "Chart Prepared",
+      distance: totalDistNum,
+    },
+    passenger: passengerData,
+    live: {
+      statusNote: computed.currentStatus || `Approaching ${currentStn?.name || baseInfo.to.name} • Running On Time`,
+      currentStation: computed.currentStatus || `Near ${currentStn?.name || baseInfo.from.name}`,
+      currentStationCode: currentStn?.code || baseInfo.from.code,
+      nextStation: upcoming[0]?.name || currentStn?.name || baseInfo.to.name,
+      nextStationCode: upcoming[0]?.code || currentStn?.code || baseInfo.to.code,
+      previousStation: passed[passed.length - 1]?.name || baseInfo.from.name,
+      previousStationCode: passed[passed.length - 1]?.code || baseInfo.from.code,
+      statusText: "Running On Time",
+      delay: 0,
+      distanceCovered: coveredKm,
+      distanceRemaining: Math.max(0, totalDistNum - coveredKm),
+      totalDistance: totalDistNum,
+      progress: progressPct,
+      currentSpeed: computed.currentSpeed || "88 km/h",
+      journeyState: computed.runStatus === "completed" ? "completed" : computed.runStatus === "upcoming" ? "upcoming" : "live",
+      lastUpdated: "Just now",
+      stations,
+    },
   };
 }

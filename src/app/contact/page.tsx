@@ -349,6 +349,18 @@ export default function ContactPage() {
 
             </div>
           </div>
+
+          {/* Warm Red Heart Note Below Contact */}
+          <div className="mt-14 pt-8 border-t border-slate-200/70 text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-50/80 border border-red-200/70 shadow-2xs">
+              <span className="text-red-500 text-base animate-pulse drop-shadow-[0_0_6px_rgba(239,68,68,0.4)]">
+                ❤️
+              </span>
+              <span className="text-xs sm:text-sm font-bold text-slate-700">
+                Crafted with love in India — Making every train journey safer, warmer &amp; more comfortable.
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -128,17 +128,13 @@ export default function ArticleClientWrapper({
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100/80 hover:bg-amber-200/80 text-amber-950 border border-amber-300 transition-all shadow-2xs group"
               >
                 <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform text-amber-800" />
-                <span>RailQuick Journal</span>
+                <span>All Guides</span>
               </Link>
               <span className="text-slate-300 font-normal">/</span>
               <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-800 font-black text-[11px] tracking-wide border border-slate-200/80">
                 {article.category}
               </span>
             </nav>
-            <div className="flex items-center gap-2 text-slate-500 text-[11px] font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>{article.edition || "Editorial Dispatch"}</span>
-            </div>
           </div>
 
           {/* Article Header */}
@@ -149,7 +145,7 @@ export default function ArticleClientWrapper({
                 {article.category}
               </span>
               <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-xs font-bold">
-                {article.edition || "Verified Guide"}
+                Verified Guide
               </span>
             </div>
 
@@ -178,7 +174,7 @@ export default function ArticleClientWrapper({
                     </span>
                   </div>
                   <p className="text-slate-500 text-xs">
-                    {article.authorRole || "Indian Railways Travel Desk"} &bull; <span className="font-semibold text-slate-700">{article.date}</span>
+                    {article.authorRole || "Indian Railways Travel Desk"}
                   </p>
                 </div>
               </div>
@@ -344,9 +340,6 @@ export default function ArticleClientWrapper({
                 <blockquote className="font-serif italic text-xl sm:text-2xl text-slate-900 max-w-xl mx-auto leading-relaxed">
                   &ldquo;A forgotten essential on a moving train isn&apos;t an emergency, but it steals the joy of travel. Convenience is about removing friction.&rdquo;
                 </blockquote>
-                <p className="text-xs uppercase font-bold tracking-wider text-slate-400">
-                  RailQuick Travel Journal
-                </p>
               </div>
 
               {/* FAQs Section */}

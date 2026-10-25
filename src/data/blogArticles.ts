@@ -521,8 +521,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Stay hydrated with adequate drinking water and pack dry snacks in case of pantry delays.",
       "Download offline entertainment and reading material prior to boarding for areas with spotty cellular coverage."
     ],
-    "edition": "Coming 13 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Vikram Mehra",
     "authorRole": "Senior Railway Desk Editor",
     "authorAvatar": "VM"
@@ -627,8 +627,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Journey convenience platforms offer a safer backup option by delivering verified essentials to your berth.",
       "Maintain a digital pre-travel checklist on your phone to prevent repetitive last-minute packing omissions."
     ],
-    "edition": "Coming 13 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Ananya Sen",
     "authorRole": "Travel & Passenger Experience Lead",
     "authorAvatar": "AS"
@@ -733,8 +733,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Solving railway commerce requires deep station-level logistics, train tracking, and trained delivery partners.",
       "Bridging this gap significantly transforms long-distance passenger travel from endurance to comfort."
     ],
-    "edition": "Coming 13 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Kartik Guleria",
     "authorRole": "RailQuick Co-Founder & Transit Researcher",
     "authorAvatar": "KG"
@@ -858,8 +858,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Dress in breathable layers and comfortable footwear suited for fluctuating train AC temperatures.",
       "Review your checklist right before heading to the platform to catch any missing essentials early."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Vikram Mehra",
     "authorRole": "Senior Railway Desk Editor",
     "authorAvatar": "VM"
@@ -956,8 +956,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Special attention is given to families, senior citizens, and solo travelers who find platform shopping difficult.",
       "Convenience at seat level transforms long train journeys into relaxed travel experiences."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Ananya Sen",
     "authorRole": "Travel & Passenger Experience Lead",
     "authorAvatar": "AS"
@@ -1057,8 +1057,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Stay aware of your train\u2019s live running status and upcoming major junctions for scheduled halt durations.",
       "Embrace the journey pace while keeping backups for connectivity, hygiene, and emergency essentials."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Kartik Guleria",
     "authorRole": "RailQuick Co-Founder & Transit Researcher",
     "authorAvatar": "KG"
@@ -1157,8 +1157,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Delays in train running times can strain water, snack, and hygiene supplies unexpectedly.",
       "Emerging travel technologies and on-seat delivery platforms are engineered specifically to remove these pain points."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Vikram Mehra",
     "authorRole": "Senior Railway Desk Editor",
     "authorAvatar": "VM"
@@ -1258,8 +1258,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Mobile-first ordering enables passengers to receive products at upcoming stations without stepping off their train.",
       "Indian Railways is rapidly evolving into a connected, tech-enabled ecosystem prioritizing passenger ease."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Ananya Sen",
     "authorRole": "Travel & Passenger Experience Lead",
     "authorAvatar": "AS"
@@ -1357,8 +1357,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Seat delivery connects verified local sellers near stations with moving train passengers seamlessly.",
       "The future of rail transit is a connected journey where comfort and convenience travel alongside you."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Kartik Guleria",
     "authorRole": "RailQuick Co-Founder & Transit Researcher",
     "authorAvatar": "KG"
@@ -1451,8 +1451,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Station rushes with small children are risky; avoid leaving your coach during brief halts.",
       "On-seat delivery provides immense peace of mind to parents when baby essentials run unexpectedly low."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Vikram Mehra",
     "authorRole": "Senior Railway Desk Editor",
     "authorAvatar": "VM"
@@ -1562,8 +1562,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Keep regular prescribed night medicines, drinking water, and slippers accessible near your berth.",
       "Preparation ensures you wake up refreshed and ready at your arrival destination."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Ananya Sen",
     "authorRole": "Travel & Passenger Experience Lead",
     "authorAvatar": "AS"
@@ -1662,8 +1662,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "Extensive test phases and pilot runs have validated passenger demand and real-world delivery workflows.",
       "Our mission: Make railway journeys across India noticeably more convenient, one essential at a time."
     ],
-    "edition": "Coming 15 Oct",
-    "isPublishedNow": false,
+    "edition": "Travel Guide",
+    "isPublishedNow": true,
     "authorName": "Kartik Guleria",
     "authorRole": "RailQuick Co-Founder & Transit Researcher",
     "authorAvatar": "KG"
