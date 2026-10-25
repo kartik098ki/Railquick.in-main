@@ -66,38 +66,8 @@ const STANDARD_CARDS = [
 
 export default function RailQuickGuarantees() {
   return (
-    <section className="py-10 sm:py-20 bg-white relative overflow-hidden border-t border-slate-100">
+    <section className="py-6 sm:py-12 bg-white relative overflow-hidden border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header — Compact on mobile, balanced & authoritative on desktop */}
-        <div className="text-center max-w-3xl mx-auto mb-7 sm:mb-14">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#182238] border border-slate-700/80 shadow-xs mb-3 sm:mb-4">
-            <svg
-              className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#f5c469]"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 2L14.6 9.4L22 12L14.6 14.6L12 22L9.4 14.6L2 12L9.4 9.4L12 2Z" />
-            </svg>
-            <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.14em] text-[#f6d58e]">
-              THE RAILQUICK STANDARD
-            </span>
-          </div>
-
-          <h2 className="text-[22px] sm:text-4xl lg:text-[46px] font-black tracking-tight text-[#111827] leading-[1.16] sm:leading-[1.12] mb-2 sm:mb-3.5">
-            Built for{" "}
-            <span className="bg-gradient-to-r from-[#2c3e5a] via-[#3f5375] to-[#52688f] bg-clip-text text-transparent">
-              Your Journey.
-            </span>
-            <br />
-            Delivered to Your Seat.
-          </h2>
-
-          <p className="text-slate-600 text-xs sm:text-base lg:text-lg leading-relaxed max-w-xl sm:max-w-2xl mx-auto font-medium px-2">
-            Essential medicines, fresh snacks &amp; travel accessories delivered
-            straight to your coach during scheduled station halts.
-          </p>
-        </div>
-
         {/* 4 Cards: Balanced 2x2 Grid with Comfortable Gap & Size on Mobile, 4-Column on Desktop */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6 w-full max-w-md sm:max-w-6xl mx-auto">
           {STANDARD_CARDS.map((card, index) => (

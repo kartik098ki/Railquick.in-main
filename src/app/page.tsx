@@ -18,6 +18,7 @@ import WhatWeDeliverSection from "@/components/WhatWeDeliverSection";
 import WatchOurStorySection from "@/components/WatchOurStorySection";
 import RailQuickGuarantees from "@/components/RailQuickGuarantees";
 import DelhiStationComingSoon from "@/components/DelhiStationComingSoon";
+import { useInteractiveMarquee } from "@/hooks/use-interactive-marquee";
 import {
   Pill,
   Package,
@@ -308,7 +309,11 @@ export default function HomePage() {
   const [modalEmail, setModalEmail] = useState('');
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [activeFeatureTab, setActiveFeatureTab] = useState(0);
-  const [isReviewsPaused, setIsReviewsPaused] = useState(false);
+  const {
+    containerRef: testimonialsRef,
+    isDragging: isTestimonialsDragging,
+    handlers: testimonialsHandlers,
+  } = useInteractiveMarquee({ speed: 38, copies: 3 });
 
   const [showTestModal, setShowTestModal] = useState(false);
   const [testEmail, setTestEmail] = useState('');
@@ -1190,23 +1195,15 @@ export default function HomePage() {
         </div>
 
         <div
-          className="relative group marquee-container w-full overflow-hidden cursor-pointer"
-          onMouseEnter={() => setIsReviewsPaused(true)}
-          onMouseLeave={() => setIsReviewsPaused(false)}
-          onTouchStart={() => setIsReviewsPaused(true)}
-          onTouchEnd={() => setIsReviewsPaused(false)}
-          onClick={() => setIsReviewsPaused((p) => !p)}
-          title="Tap or hover to pause"
+          ref={testimonialsRef}
+          {...testimonialsHandlers}
+          className={`relative w-full overflow-x-auto no-scrollbar py-3 select-none ${
+            isTestimonialsDragging ? "cursor-grabbing" : "cursor-grab"
+          }`}
+          title="Swipe or drag left & right to explore"
         >
-          <div
-            className="flex gap-3 sm:gap-4.5 animate-marquee py-3"
-            style={{
-              width: "max-content",
-              animationDuration: "80s",
-              animationPlayState: isReviewsPaused ? "paused" : "running",
-            }}
-          >
-            {[...testimonials, ...testimonials].map((t, i) => (
+          <div className="flex gap-3 sm:gap-4.5 py-3 w-max">
+            {[...testimonials, ...testimonials, ...testimonials].map((t, i) => (
               <div
                 key={i}
                 className="flex-shrink-0 w-[260px] sm:w-[330px] bg-slate-50/70 border border-slate-200/90 hover:border-blue-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-2xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"

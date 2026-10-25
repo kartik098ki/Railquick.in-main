@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useInteractiveMarquee } from "@/hooks/use-interactive-marquee";
 import {
   PhoneCall,
   Mail,
@@ -367,9 +368,10 @@ const getCategoryBadgeClass = (category: string) => {
 };
 
 export default function CustomerDemandTicker() {
-  const [isPaused, setIsPaused] = useState(false);
-
-  const togglePause = () => setIsPaused((prev) => !prev);
+  const { containerRef, isDragging, handlers } = useInteractiveMarquee({
+    speed: 36,
+    copies: 3,
+  });
 
   return (
     <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-slate-50/70 to-white text-slate-900 relative overflow-hidden border-t border-b border-slate-200/80">
@@ -444,26 +446,18 @@ export default function CustomerDemandTicker() {
       </div>
 
       {/* HORIZONTAL INFINITE TICKER (RIGHT -> LEFT) */}
-      {/* Pauses completely on hover or touch, smoothly gliding at gentle reading pace */}
+      {/* Runs automatically, pauses on touch/hover and lets users scroll or drag freely left & right */}
       <div
-        className="relative group marquee-container w-full overflow-hidden py-3 cursor-pointer"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onTouchStart={() => setIsPaused(true)}
-        onTouchEnd={() => setIsPaused(false)}
-        onClick={togglePause}
-        title="Tap or hover to pause"
+        ref={containerRef}
+        {...handlers}
+        className={`relative w-full overflow-x-auto no-scrollbar py-3 select-none ${
+          isDragging ? "cursor-grabbing" : "cursor-grab"
+        }`}
+        title="Swipe or drag left & right to explore"
       >
-        <div
-          className="flex gap-3.5 sm:gap-5 animate-marquee py-3"
-          style={{
-            width: "max-content",
-            animationDuration: "160s",
-            animationPlayState: isPaused ? "paused" : "running",
-          }}
-        >
-          {/* Double list for smooth, seamless, infinite 0% to -50% loop */}
-          {[...customerRequests, ...customerRequests].map((item, idx) => {
+        <div className="flex gap-3.5 sm:gap-5 py-3 w-max">
+          {/* Triple list for smooth, seamless, infinite 2-way loop */}
+          {[...customerRequests, ...customerRequests, ...customerRequests].map((item, idx) => {
             const badgeClass = getCategoryBadgeClass(item.category);
             return (
               <div
@@ -533,9 +527,6 @@ export default function CustomerDemandTicker() {
                     <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full inline-block">
                       Pilot Logged
                     </span>
-                    <div className="text-[10px] font-mono text-slate-400 mt-0.5">
-                      {item.timeAgo}
-                    </div>
                   </div>
                 </div>
               </div>
