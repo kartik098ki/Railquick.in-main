@@ -797,10 +797,10 @@ export default function HomePage() {
           </div>
 
           {/* Left Content Block — vw-aligned so it sits right below the first marigold swag & between the hanging strings */}
-          <div className="relative w-full pl-[8%] pr-6 pt-[12.2vw] z-20">
+          <div className="relative w-full pl-[8%] pr-6 pt-[12.8vw] lg:pt-[13.4vw] z-20">
             <div className="max-w-[540px] text-left">
               {/* Stacked Festive Gold Oval Pill + White On-Seat Delivery Oval Pill */}
-              <div className="flex flex-col items-start gap-3 mb-5">
+              <div className="flex flex-col items-start gap-3 mb-5 lg:mb-6">
                 {/* Gold Metallic Oval Pill: Celebrating the Festival of Lights */}
                 <div className="p-[2px] rounded-full bg-gradient-to-r from-[#fae4a3] via-[#b88228] to-[#fae4a3] shadow-[0_6px_18px_rgba(184,130,40,0.32)]">
                   <div className="inline-flex items-center gap-2.5 px-5 py-1.5 rounded-full bg-gradient-to-r from-[#c48b2a] via-[#ecc76d] to-[#c48b2a]">
@@ -827,7 +827,7 @@ export default function HomePage() {
               </div>
 
               {/* Headline: Order + Typewriter Animation */}
-              <h1 className="text-5xl lg:text-[62px] xl:text-[68px] font-black tracking-tight text-[#111827] leading-[1.04] mb-1.5 flex items-center flex-nowrap gap-3.5 whitespace-nowrap">
+              <h1 className="text-5xl lg:text-[62px] xl:text-[68px] font-black tracking-tight text-[#111827] leading-[1.06] mb-3 lg:mb-4 flex items-center flex-nowrap gap-3.5 whitespace-nowrap">
                 <span className="shrink-0 text-[#111827]">Order</span>
                 <span className="inline-flex items-center font-black">
                   <span
@@ -842,12 +842,12 @@ export default function HomePage() {
                 </span>
               </h1>
 
-              <p className="text-2xl lg:text-[33px] xl:text-[36px] text-[#111827] font-black mb-7 tracking-tight">
+              <p className="text-2xl lg:text-[33px] xl:text-[36px] text-[#111827] font-black mb-9 lg:mb-11 xl:mb-12 tracking-tight">
                 Delivered to Your Seat
               </p>
 
-              {/* Festive Metallic Gold-Bordered CTA Buttons matching Image 2 */}
-              <div className="flex items-center gap-4">
+              {/* Festive Metallic Gold-Bordered CTA Buttons matching Image 2 — shifted below for comfortable luxury spacing */}
+              <div className="flex items-center gap-4 mt-1 lg:mt-2">
                 {/* Open App Button with 2px Metallic Gold Rim & Dark Navy Fill */}
                 <div className="p-[2px] rounded-[20px] bg-gradient-to-br from-[#fae49f] via-[#b88a38] to-[#f7df96] shadow-[0_12px_28px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:scale-[1.02]">
                   <button
