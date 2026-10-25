@@ -660,7 +660,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative bg-white">
         {/* Mobile Hero — Clean Top White Fog, Shifted-Up Festive Scene, Laptop-Style Compact Badges & Typography */}
-        <div className="md:hidden relative bg-[#070b14] overflow-hidden rounded-b-[42px] min-h-[730px] flex flex-col justify-between pt-[104px] sm:pt-[116px] pb-7 px-5 shadow-[0_12px_30px_rgba(15,23,42,0.18)]">
+        <div className="md:hidden relative bg-[#070b14] overflow-hidden rounded-b-[42px] min-h-[720px] flex flex-col pt-[130px] sm:pt-[138px] pb-10 px-5 shadow-[0_12px_30px_rgba(15,23,42,0.18)]">
 
           {/* Full-bleed HD portrait festive train platform delivery scene: shifted so train, delivery runner & coach door are fully visible */}
           <div className="absolute inset-0 z-0">
@@ -673,25 +673,25 @@ export default function HomePage() {
                 height={1820}
                 fetchPriority="high"
                 decoding="async"
-                className="w-full h-full object-cover object-[85%_top]"
+                className="w-full h-full object-cover object-[86%_top]"
               />
             </picture>
             {/* Clean Soft White Fog/Glow gradient at the very top (for RailQuick, Check PNR & Top Marigold Arch readability) */}
             <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white via-white/80 via-40% to-transparent z-10 pointer-events-none" />
             {/* Bottom dark smoky vignette for crisp headline & CTA button readability */}
             <div
-              className="absolute inset-x-0 bottom-0 h-[52%] z-10 pointer-events-none"
+              className="absolute inset-x-0 bottom-0 h-[58%] z-10 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(0deg, rgba(24,29,39,0.98) 0%, rgba(10,14,24,0.95) 44%, rgba(15,23,42,0.52) 78%, rgba(15,23,42,0) 100%)",
+                  "linear-gradient(0deg, rgba(24,29,39,0.98) 0%, rgba(10,14,24,0.96) 55%, rgba(15,23,42,0.52) 80%, rgba(15,23,42,0) 100%)",
               }}
             />
           </div>
 
           {/* Mobile Hero Content Layout */}
-          <div className="relative z-20 flex flex-col justify-between flex-1 h-full w-full">
+          <div className="relative z-20 flex flex-col w-full">
 
-            {/* Top Badges Stack — Compact w-fit pills matching Laptop style (100+ Live Deliveries removed) */}
+            {/* Top Badges Stack — Comfortable gap below fixed mobile navbar */}
             <div className="flex flex-col items-start gap-2 pt-0.5">
               {/* Pill 1: Compact Metallic Gold Oval Pill */}
               <div className="w-fit p-[1.5px] rounded-full bg-gradient-to-r from-[#fae29c] via-[#c8912e] to-[#fae29c] shadow-[0_4px_14px_rgba(0,0,0,0.35)]">
@@ -719,10 +719,10 @@ export default function HomePage() {
             </div>
 
             {/* Center visible window — keeps the festive coach door handoff, family & rangoli completely unobstructed */}
-            <div className="flex-1 min-h-[75px] sm:min-h-[95px]" />
+            <div className="h-[210px] sm:h-[235px] shrink-0" />
 
-            {/* Bottom Content: Left-Aligned Headline + Centered Premium Buttons — Positioned Just Beneath the Rangoli */}
-            <div className="pt-0.5 pb-4 sm:pb-6">
+            {/* Headline + Centered Premium Buttons — Positioned Directly Beneath the Rangoli (Above, Not at the Bottom) */}
+            <div className="pt-1">
               <div className="flex flex-col items-start gap-1 mb-3.5 text-left">
                 <div
                   className="flex items-center flex-nowrap gap-2.5 whitespace-nowrap font-black text-white tracking-tight leading-none"
