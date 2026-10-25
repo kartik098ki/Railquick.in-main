@@ -680,10 +680,10 @@ export default function HomePage() {
             <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white via-white/80 via-40% to-transparent z-10 pointer-events-none" />
             {/* Bottom dark smoky vignette for crisp headline & CTA button readability */}
             <div
-              className="absolute inset-x-0 bottom-0 h-[44%] z-10 pointer-events-none"
+              className="absolute inset-x-0 bottom-0 h-[50%] z-10 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(0deg, rgba(24,29,39,0.96) 0%, rgba(10,14,24,0.93) 42%, rgba(15,23,42,0.50) 75%, rgba(15,23,42,0) 100%)",
+                  "linear-gradient(0deg, rgba(24,29,39,0.96) 0%, rgba(10,14,24,0.93) 48%, rgba(15,23,42,0.50) 80%, rgba(15,23,42,0) 100%)",
               }}
             />
           </div>
@@ -719,10 +719,10 @@ export default function HomePage() {
             </div>
 
             {/* Center visible window — keeps the festive coach door handoff, family & rangoli completely unobstructed */}
-            <div className="flex-1 min-h-[255px] sm:min-h-[285px]" />
+            <div className="flex-1 min-h-[190px] sm:min-h-[220px]" />
 
-            {/* Bottom Content: Left-Aligned Headline + Centered Premium Buttons */}
-            <div className="mt-auto pt-4 pb-1">
+            {/* Bottom Content: Left-Aligned Headline + Centered Premium Buttons — Shifted Above for Perfect Ergonomics */}
+            <div className="mt-auto pt-2 pb-6 sm:pb-8">
               <div className="flex flex-col items-start gap-1 mb-4 text-left">
                 <div
                   className="flex items-center flex-nowrap gap-2.5 whitespace-nowrap font-black text-white tracking-tight leading-none"
