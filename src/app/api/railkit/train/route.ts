@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import {
+  getTrainInfo as railkitGetTrainInfo,
+  trackTrain as railkitTrackTrain,
+} from "railkit";
+import {
   normalizeLiveTrainResponse,
   buildJourneyFromTrainInfo,
   buildFallbackJourneyFromDirectory,
@@ -88,7 +92,15 @@ export async function GET(request: Request) {
     }
 
     // 2. Try signed /api/v1/trains/{trainNo}/info for 100% real train name, origin/dest & station route
-    const infoJson = await railkitSignedGet(`/api/v1/trains/${trainNumber}/info`, 6000);
+    let infoJson = await railkitSignedGet(`/api/v1/trains/${trainNumber}/info`, 6000);
+    if (!infoJson?.success || !infoJson?.data) {
+      try {
+        const sdkInfo = await railkitGetTrainInfo(trainNumber);
+        if (sdkInfo?.success && sdkInfo?.data) {
+          infoJson = sdkInfo;
+        }
+      } catch {}
+    }
     if (infoJson?.success && infoJson?.data) {
       const fromInfo = buildJourneyFromTrainInfo(infoJson, trainNumber, formattedDate, rawDate);
       if (fromInfo) {

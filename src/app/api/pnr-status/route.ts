@@ -25,7 +25,7 @@ async function fetchDirectRailKit(path: string) {
         "x-api-key": API_KEY,
         "accept": "application/json",
       },
-      signal: AbortSignal.timeout(1000), // Max 1.0s timeout to never block request
+      signal: AbortSignal.timeout(10000), // 10s timeout to allow IRCTC upstream response
       next: { revalidate: 30 },
     });
     if (res.ok) {

@@ -1,19 +1,31 @@
 import { createHash, createHmac, randomBytes } from "node:crypto";
+import { configure as configureRailkitSDK } from "railkit";
 
 const BASE_URL = "https://api.railkit.in";
 const SDK_VERSION = "1";
 const DEFAULT_SDK_SIGNING_SECRET =
   "97c56e08b27b161124f88acd4f24d1bd50f48075f11dc23b9ea6c0bc9b2f8794";
 
+export const PRIMARY_RAILKIT_KEY =
+  process.env.RAILKIT_API_KEY ||
+  "irctc_d8167cf94d92d3a5a83a5a2139f9873823e215257d8dc722";
+
 export const RAILKIT_API_KEYS = Array.from(
   new Set(
     [
       process.env.RAILKIT_API_KEY,
+      "irctc_d8167cf94d92d3a5a83a5a2139f9873823e215257d8dc722",
       "irctc_20451835ee7fa9026d90f263d327df7aa7e866c0cd585aee",
       "irctc_d2736176c9ea10f80fb61dc03c41522e7553930a39941cdb",
     ].filter(Boolean) as string[]
   )
 );
+
+try {
+  configureRailkitSDK(PRIMARY_RAILKIT_KEY);
+} catch (e) {
+  console.warn("Railkit SDK configure warning:", e);
+}
 
 // Automatically tracks offset between local machine clock and real upstream server clock
 let serverClockOffsetMs = 0;

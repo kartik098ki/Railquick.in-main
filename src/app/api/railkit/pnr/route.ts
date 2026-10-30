@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { checkPNRStatus as railkitCheckPNR } from "railkit";
 import {
   normalizePNRResponse,
   normalizeLiveTrainResponse,
@@ -26,7 +27,16 @@ export async function GET(request: Request) {
 
   try {
     // 2. Call signed RailKit PNR API (/api/v1/pnr/{pnr})
-    const pnrJson = await railkitSignedGet(`/api/v1/pnr/${cleanPnr}`, 7000);
+    let pnrJson = await railkitSignedGet(`/api/v1/pnr/${cleanPnr}`, 15000);
+
+    if (!pnrJson || !pnrJson.data) {
+      try {
+        const sdkRes = await railkitCheckPNR(cleanPnr);
+        if (sdkRes && sdkRes.data) {
+          pnrJson = sdkRes;
+        }
+      } catch {}
+    }
 
     if (!pnrJson || !pnrJson.data) {
       const pnrSeed = parseInt(cleanPnr.slice(0, 3), 10) || 120;
