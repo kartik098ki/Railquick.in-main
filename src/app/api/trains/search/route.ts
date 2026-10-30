@@ -3,7 +3,7 @@ import { configure, getTrainInfo } from "railkit";
 import { TRAIN_DIRECTORY, resolveTrainInfo } from "@/lib/trainDatabase";
 
 const API_KEY =
-  process.env.RAILKIT_API_KEY || "irctc_d2736176c9ea10f80fb61dc03c41522e7553930a39941cdb";
+  process.env.RAILKIT_API_KEY || "irctc_7b60d07b1695e0cd4181b1f22b226172900a9d296e00bfc6";
 
 try {
   configure(API_KEY);
