@@ -8,7 +8,7 @@ import {
 import { resolveTrainInfo, TRAIN_DIRECTORY } from "@/lib/trainDatabase";
 
 const API_KEY =
-  process.env.RAILKIT_API_KEY || "irctc_7b60d07b1695e0cd4181b1f22b226172900a9d296e00bfc6";
+  process.env.RAILKIT_API_KEY || "irctc_d8167cf94d92d3a5a83a5a2139f9873823e215257d8dc722";
 
 try {
   configure(API_KEY);
